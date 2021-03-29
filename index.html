@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Fast-R: Making R work hard so that you don’t have to</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/sandstone.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 61px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 66px;
+  margin-top: -66px;
+}
+.section h2 {
+  padding-top: 66px;
+  margin-top: -66px;
+}
+.section h3 {
+  padding-top: 66px;
+  margin-top: -66px;
+}
+.section h4 {
+  padding-top: 66px;
+  margin-top: -66px;
+}
+.section h5 {
+  padding-top: 66px;
+  margin-top: -66px;
+}
+.section h6 {
+  padding-top: 66px;
+  margin-top: -66px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">FastR2021</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">info</a>
+</li>
+<li>
+  <a href="Functions/Functions.html">Functions</a>
+</li>
+<li>
+  <a href="Vectorization/Vectorization.html">Vectorization</a>
+</li>
+<li>
+  <a href="forloops/forloops.html">forloops</a>
+</li>
+<li>
+  <a href="Parallelization/Parallelization.html">Parallelization</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Fast-R: Making R work hard so that you don’t have to</h1>
+<h4 class="date">Mar 29 2021</h4>
+
+</div>
+
+
+<table>
+<thead>
+<tr class="header">
+<th>University of Toronto</th>
+<th>Center for Urban Environments</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>TBD</td>
+<td><strong>Instructors</strong>: <a href="http://www.filazzola.info">Alessandro Filazzola</a> &amp; <a href="https://sophiebreitbart.wordpress.com/">Sophie Breitbart</a></td>
+</tr>
+<tr class="even">
+<td>3h</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<div id="general-information" class="section level2">
+<h2>General Information</h2>
+<p>Research in ecology and evolution presents a challenge with diverse and complicated datasets. With the wide-spread adoption of R for data management and analysis, there is huge potential for improving the efficiency of processing data. However, there is a significant learning curve with R that inhibits our ability to learn faster methods. Repetitive tasks in spreadsheets or even in R itself can often be revised to be faster, use less code, and have a simpler output. Copy-paste strategies can lead to errors and can be computation intensive for R relative to other methods. This workshop will explore writing functions, vectorization via the apply family (e.g. apply, lapply, vapply), “for” loops, and parallel computing. We will also touch upon some of the tools in the tidyverse package for large-scale data manipulation. These tools, while on the surface may appear intimidating, can be learned quickly with an exceptional payoff in time-saving efficiency. Using a combination of lecture and hands-on activities, this workshop will familiarize yourself with the tools necessary for improving your relationship with R and saving you time. A basic understanding of R is recommended because it will make the content more relevant and understandable. There is no prior knowledge necessarily for parallel computing or programming. Participants should bring a laptop with R already install using Mac, Linux, or Windows operating system (not a tablet, Chromebook, etc.).</p>
+<p><strong>Who</strong>: The course is aimed at R beginners or experienced analysts.</p>
+<p><strong>Where</strong>: TBD</p>
+<p><strong>Requirements</strong>: Participants should use a laptop with a Mac, Linux, or Windows operating system (not a tablet, Chromebook, etc.) with administrative privileges. Ideally, two screens would be beneficial to see the video and your workstation at the same time. However, Participation is not necessary and you can simply follow along as I demonstrate.</p>
+<p><strong>Contact</strong>: Please contact <a href="mailto:alex.filazzola@outlook.com" class="email">alex.filazzola@outlook.com</a> for more information.</p>
+<p>[Live Notepad]</p>
+</div>
+<div id="schedule" class="section level2">
+<h2>Schedule</h2>
+<table>
+<thead>
+<tr class="header">
+<th>Time</th>
+<th>Goal</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>12:00 pm</td>
+<td>Introduction and set-up</td>
+</tr>
+<tr class="even">
+<td>12:15 pm</td>
+<td><a href="Functions/Functions.html">Functions</a></td>
+</tr>
+<tr class="odd">
+<td>12:45 pm</td>
+<td><a href="Vectorization/Vectorization.html">Vectorization</a></td>
+</tr>
+<tr class="even">
+<td>1:30 pm</td>
+<td>Break</td>
+</tr>
+<tr class="odd">
+<td>1:45 pm</td>
+<td><a href="forloops/forloops.html">forloops</a></td>
+</tr>
+<tr class="even">
+<td>2:30 pm</td>
+<td><a href="Parallelization/Parallelization.html">Parallelization</a></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="software" class="section level2">
+<h2>Software</h2>
+<p><a href="http://www.r-project.org/">R</a> is a programming language that is especially powerful for data exploration, visualization, and statistical analysis. To interact with R, we use <a href="http://www.rstudio.com/">RStudio</a>.</p>
+<table>
+<colgroup>
+<col width="33%" />
+<col width="33%" />
+<col width="33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Windows</th>
+<th>Mac OS X</th>
+<th>Linux</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Install R by downloading and running <a href="http://cran.r-project.org/bin/windows/base/release.htm">this .exe</a> file from <a href="http://cran.r-project.org/index.html">CRAN</a>. Please also install the <a href="http://www.rstudio.com/ide/download/desktop">RStudio IDE</a>.</td>
+<td>Install R by downloading and running <a href="http://cran.r-project.org/bin/macosx/R-latest.pkg">this .pkg</a> file from <a href="http://cran.r-project.org/index.html">CRAN</a>. Please also install the <a href="http://www.rstudio.com/ide/download/desktop">RStudio IDE</a>.</td>
+<td>You can download the binary files for your distribution from <a href="http://cran.r-project.org/index.html">CRAN</a>. Please also install the <a href="http://www.rstudio.com/ide/download/desktop">RStudio IDE</a></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="other-workshops" class="section level2">
+<h2>Other workshops</h2>
+<p>If you enjoyed this workshop and were interested in learning more, I have also run workshops on <a href="https://github.com/afilazzola/CUELogisticRegression">Logistic Regression</a>, an <a href="https://afilazzola.github.io/UoA.CommunityAnalyses.2018/">Introduction to Ecological Analyses</a>, and an <a href="https://afilazzola.github.io/Intro2Functions/">Introduction to Functions</a></p>
+<p>You can find similar style workshops, usually that are longer and go into more detail, with <a href="https://software-carpentry.org/">Software Carpentry</a>. They have teachers available globally and cover all forms of programming beyond R.</p>
+<p><br></p>
+</div>
+<div id="thank-you" class="section level2">
+<h2>Thank You!</h2>
+<p><br></p>
+<table>
+<thead>
+<tr class="header">
+<th align="center">Center for Urban Environments</th>
+<th align="center">University of Toronto</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"><img src="images/CUElogo.png" /></td>
+<td align="center"><img src="images/UoT.png" /></td>
+</tr>
+</tbody>
+</table>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
