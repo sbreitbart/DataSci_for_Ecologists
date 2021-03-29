@@ -5,11 +5,10 @@ output: html_document
 ---
 
 
-University of Toronto | Center for Urban Environments
-----------------|-----------------------------------
-TBD  | **Instructors**: [Alessandro Filazzola](http://www.filazzola.info) & [Sophie Breitbart](https://sophiebreitbart.wordpress.com/)
-3h  | 
+## Instructors
 
+- [Alessandro Filazzola](http://www.filazzola.info) 
+- [Sophie Breitbart](https://sophiebreitbart.wordpress.com/)
 
 ## General Information
 
