@@ -5,3 +5,39 @@ output: html_document
 ---
 
 
+Goals:
+- use as few packages as possible
+- 30 minutes
+
+Outline:
+- function basics // 5 min
+  - what is a function?
+  -   we use them all the time when they're made by other people
+  - when should we make our own?
+    - Hadley's golden rule: whenever you otherwise copy/paste something >3x (but there are exceptions of course)
+- examples of homemade functions // 15-20 min
+  - basic: exporting table, e.g.
+    - write a function that makes a table
+    * they make one
+  - intermediate: nesting functions within functions
+    - write a function that makes a custom flextable from table **is there a base function that can do this so they don't have to load another library??**
+    * they make one
+  - advanced: scale up: making multiple plots & saving to individual files
+    - write a function that makes multiple custom flextables from table and exports each to its own file
+    * they do this too
+- Experimentation time // 5-10 min
+  - include additional challenge for those who've finished other exercises
+  - ** make breakout rooms based on skill level so they can chat with like-skilled participants? **
+  
+# Install packages and load libraries
+```{r}
+# Install packages
+
+
+# Load libraries
+
+
+```
+
+# Functions: The Basics
+
