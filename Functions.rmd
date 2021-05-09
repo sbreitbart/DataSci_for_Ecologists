@@ -29,6 +29,8 @@ Outline:
   - include additional challenge for those who've finished other exercises
   - ** make breakout rooms based on skill level so they can chat with like-skilled participants? **
   
+  
+  
 # Install packages and load libraries
 ```{r}
 # Install packages
@@ -107,5 +109,81 @@ Export_beaver_list <- function(df_list, path, filetype) {
 Export_beaver_list(Beavers, 
                    here::here("./exports/ "),
                    ".csv")
+```
+
+## Goal 3: Make, export plots for multiple dataframes
+```{r}
+# Regular plot 1
+plot(beaver_1$temp ~ beaver_1$time,
+     xlim = c(0, 2400),
+     ylim = c(36, 38),
+     xlab = "Time of Day",
+     ylab = "Beaver Temperature (C)",
+     col = "dark green",
+     pch = 2,
+     cex = .5)
+
+
+# Making plot more easily reproducible by naming relative axis limits (vs absolute, for instance)
+plot(temp ~ time,
+     data = beaver_1,
+     xlim = c(min(time),
+              max(time)),
+     ylim = c(min(temp) - 0.5,
+              max(temp) + 0.5),
+     xlab = "Time of Day",
+     ylab = "Beaver Temperature (C)",
+     col = "dark green",
+     pch = 2, # point shape
+     cex = .5) # point size
+
+
+# Make function that uses a df as input and makes, then exports plot
+Beaver_to_plot <- function(dataframe, path, filename, filetype) {
+  
+  png(file = gsub(" ", "",
+                 paste0(path, filename, filetype)))
+  
+  print(plot(temp ~ time,
+       data = dataframe,
+       xlim = c(min(time),
+                max(time)),
+       ylim = c(min(temp) - 0.5,
+                max(temp) + 0.5),
+       xlab = "Time of Day",
+       ylab = "Beaver Temperature (C)",
+       col = "dark green",
+       pch = 2, # point shape
+       cex = .5)) # point size
+  
+  dev.off() # tells R to stop plotting
+  
+}
+
+Beaver_to_plot(beaver_1,
+               here::here("./exports/ "),
+               "Beaver1.1",
+               ".png")
+
+
+# Scale up: Do this for list of dataframes
+Beaver_to_plot_many <- function(df_list, path, filetype) {
+  for (i in 1:length(df_list)){
+    Beaver_to_plot(df_list[i],
+                   path,
+                   paste0("Beaver", i, "_plot2"),
+                   filetype)
+  }
+}
+
+
+############################################################
+########## THIS ISN'T WORKING... FIX? OR REPLACE? ##########
+############################################################
+
+Beaver_to_plot_many(Beavers,
+                    here::here("./exports/ "),
+                    ".png")
+
 ```
 
