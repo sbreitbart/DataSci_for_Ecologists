@@ -21,10 +21,9 @@ Outline:
     - write a function that makes a table
     * they make one
   - intermediate: nesting functions within functions
-    - write a function that makes a custom flextable from table **is there a base function that can do this so they don't have to load another library??**
+    - write a function that exports tables for each list item
     * they make one
-  - advanced: scale up: making multiple plots & saving to individual files
-    - write a function that makes multiple custom flextables from table and exports each to its own file
+  - advanced: scale up: ???????
     * they do this too
 - Experimentation time // 5-10 min
   - include additional challenge for those who've finished other exercises
@@ -95,6 +94,18 @@ Beaver_to_csv1.2(beaver_1,
 
 ## Goal 2: Make a function that exports a list of dataframes to separate csvs
 ```{r}
+# Make list of beaver dataframes
+Beavers <- list(beaver_1, beaver_2)
 
+# Export list of beaver dfs
+Export_beaver_list <- function(df_list, path, filetype) {
+  for (i in 1:length(df_list)){
+    Beaver_to_csv1.2(df_list[i], path, paste0("Beaver", i), filetype)
+  }
+}
+
+Export_beaver_list(Beavers, 
+                   here::here("./exports/ "),
+                   ".csv")
 ```
 
