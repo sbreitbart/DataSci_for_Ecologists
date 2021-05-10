@@ -1,0 +1,55 @@
+---
+title: "Apply Family"
+author: "Sophie Breitbart"
+output: html_document
+---
+
+
+Goals:
+- use as few packages as possible
+- 30 minutes
+
+Outline:
+- *HAVE THEM SET UP A PROJECT AND SET WD? OTHERWISE IDK IF HERE:HERE WILL WORK*
+- apply basics // 5 min
+  - what is the apply family?
+
+-lapply
+-sapply
+-vapply
+- Experimentation time // 5-10 min
+  - include additional challenge for those who've finished other exercises
+  - ** make breakout rooms based on skill level so they can chat with like-skilled participants? **
+  
+  
+  
+# Install packages and load libraries
+```{r}
+# Install packages
+install.packages("here")
+
+# Load libraries
+## explain genuis behind "here" package
+library(here)
+
+# Make dataset from built-in dataset: "Body Temperature Series of Two Beavers""
+beaver_1 <- beaver1
+beaver_2 <- beaver2
+```
+
+# Apply Family
+## lapply
+```{r}
+
+```
+
+## sapply
+```{r}
+
+```
+
+## vapply
+```{r}
+
+```
+
