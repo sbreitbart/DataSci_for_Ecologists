@@ -1,0 +1,134 @@
+---
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+# Vectorization
+
+
+
+### To vectorize or not to vectorize
+
+```{r warning=F, message=F}
+### Needed libraries
+library(dplyr)
+library(microbenchmark)
+
+```
+
+I've often seen the argument that you should always vectorize in R whenever you possible can. There certainly is some merit to using vectorization and in almost all cases, vectorized code will perform equally or better than unvectorized code. However, there is a learning curve and a bit of extra thought that is necessary to transform code into the necessary vectorized format. Depending on how much time is invested, that can result in net-zero or negative effect on your productivity. To help you make the decision whether to invest time in optimizing your code through vectorization, I think it makes sense to explain what vectorization means, the pros, and the cons. 
+
+As far as I'm aware, there is only one con so let's just get it out of the way. Vectorization is not intuitive. It requires a bit of abstract thinking to implement. Maybe if you did it all time, vectorization will come naturally to you, but new and complex tasks requires some time where you are blankly staring at your script thinking what to do. Time that could be spent throwing a `for` loop infront of your code and having it already runing. What complicates this further is that easier instances where vectorization would be particularly applicable, base R and new packages have already written wrappers that take away the advantage. 
+
+Let's look at an example - You need the sum for a dataset of 100 columns and 10 rows. Three ways you can execute this operation are 1. using a for loop, 2. using the apply family, 3. using the `colSums` function in base R. 
+
+### The speed of vectorization
+```{r eval=F}
+### create dataset
+dataset <- rnorm(1000, 10, 2) %>% matrix(. , nrow=10, ncol=100) %>% data.frame()
+
+### Loop
+microbenchmark({
+  
+sums <- c()
+for(i in 1:100){
+  t <- sum(dataset[,i])
+  sums <- c(sums,t)
+}
+
+}, unit="ms")
+
+### Apply
+microbenchmark({
+
+apply(dataset, 2, sum)
+  
+}, unit="ms")
+
+
+### ColSums
+microbenchmark({
+
+colSums(dataset)
+  
+}, unit="ms")
+```
+
+In this example, we can find that the vectorized apply family executes the function on average 5.5 times faster. The colsums wrapper is tied with the apply family, mostly because it uses the same underlying algorithms. Thus, you could probably last a long time in R just using wrapper functions and for loops. But, this is a workhop on making this go faster and getting a 5.5x boost sounds pretty appealing when your functions take hours to run. Let's take a look at why vectorization works
+
+### What is vectorization? 
+
+Vectorization means executing a function across a vector of elements. What this means in the context of R and your functions is that you giving more flexibility to your computer to run the operation. To understand what that means, we need to first understand how R works as a programming lanuage. Big thanks to Dr. Noam Ross for an [excellent explanation](https://www.noamross.net/archives/2014-04-16-vectorization-in-r-why/)
+
+R is a high-level interpreted language, which is one of the reasons its so appealing for scientists without a computer science degree. The extra leg work of assinging floating numbers, strings, pointers in the memory, etc, all are handled behind the scenes. A simple task of renaming an object from 25.2 to "foo" can occur within two lines of code. 
+
+```{r eval=F}
+x <- 25.2
+x <- "foo"
+```
+
+This same operation in a different language like C would require something closer to 10 lines of code. Additionally, C is a compiled language where the entire program is organized and optimized to be run in binary machine code, rather than the line-by-line execution of R. As a result, C has the potential for greater efficiencies that are unavailable to R. All is not lost though because many R functions are written in C, C++, or Fortran. For example, `lme4` a popular package for mixed-effect models is written mostly in C++. The `apply` family is one of those examples and by using it, the bulk of the operations are being executed in C. By trusting your computer to execute the operations in the most efficient way possible, operations tend to run faster. 
+
+### Other benefits of vectorization besides speed?
+
+There are two other reasons one might perfer to vectorize besides the speed gains. The first is that the code is often shorter. In the previous example, the for loop required five lines of code that included specifying an empty vector to fill, the `for` loop specification, the operation to be conducted iteratively, and finally appending the output. By contrast, the apply family executes everything within a single line which looks more elegant. 
+
+```{r eval=F}
+## For loop
+sums <- c() ## specify empty vector
+for(i in 1:100){
+  t <- sum(dataset[,i]) ## conduct iterated operation
+  sums <- c(sums,t) ## append
+}
+
+
+### Apply
+apply(dataset, 2, sum) ## dataframe, by columns, function
+
+```
+
+The second benefit is that `for` loops keep outputs and objects in the environment. This can be bad practice by filling up your memory or potentially causing a conflict down the road. For example, after the above `for` loop is executed `i = 100`. That means a future operation where `i` is called, there is the risk its value will be 100 (such as another loop). 
+
+
+### How does the apply family work
+
+There are multiple versions of apply (e.g. apply, sapply, vapply) including parallel versions (e.g. parLapply). Today we will look at `apply` and `lapply`. We will also look at executing these operations in `tidyverse`. 
+
+Apply works across dataframes to execute a function. It will either run across rows (MARGIN=1 default) or columns (MARGIN=2). The function can be inherent in R, from a package or user specified. Let's look at some examples.
+
+```{r eval=F}
+## Sum across rows
+apply(dataset, 1, sum)
+
+## Sum across columns
+apply(dataset, 2, sum)
+
+## Mean across columns
+apply(dataset, 2, mean)
+
+## User specifed functions
+se <- function(x) {sd(x)/sqrt(length(x))} ## standard error
+apply(dataset, 2, se) 
+
+zScore <- function(x) { (x - mean(x) / sd(x))}
+apply(dataset, 2, zScore) 
+
+```
+
+The lapply family works very similar to the `for` loop but outputs data as a list. These can usually simplified using a `do.call` function. While this operation is very inefficient, even compared to `for` loops, there are instances where this is considerably faster, such as reading in 100 CSVs and combining into a single dataframe. 
+
+```{r eval=F}
+
+## using lapply for sum across columns
+sumOut <- lapply(1:100, function(i){
+    sum(dataset[,i]) ## conduct iterated operation
+})
+do.call(c, sumOut)
+
+
+
+```
+
+### Vectorization and tidyverse
+
+Where I think vectorization gets the most power is through combination with `tidyverse`. This allows for rapid computations of subsets of the data that would considerably more lines of code and slower using `for` loops.
