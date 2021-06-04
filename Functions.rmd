@@ -2,6 +2,8 @@
 title: "Functions"
 author: "Sophie Breitbart"
 output: html_document
+editor_options: 
+  chunk_output_type: console
 ---
 
 
@@ -31,11 +33,18 @@ Outline:
   
   
   
-# Install packages and load libraries
-```{r}
+# Install packages 
+```{r eval=FALSE}
 # Install packages
+<<<<<<< HEAD
 # install.packages("here")
 
+=======
+install.packages("here")
+```
+# Load libraries
+```{r}
+>>>>>>> cfdb7cf88037426bc614f00b43fb29e521e29471
 # Load libraries
 ## explain genuis behind "here" package
 library(here)
