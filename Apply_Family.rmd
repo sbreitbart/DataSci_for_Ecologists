@@ -26,18 +26,18 @@ Outline:
 # Install packages and load libraries
 ```{r}
 # Install packages
-install.packages("here")
 
 # Load libraries
-## explain genuis behind "here" package
-library(here)
+
 
 # Make dataset from built-in dataset: "Body Temperature Series of Two Beavers""
 beaver_1 <- beaver1
 beaver_2 <- beaver2
+Beavers <- list(beaver_1, beaver_2)
 ```
 
 # Apply Family
+What's the point of the apply family?
 ## lapply
 ```{r}
 
