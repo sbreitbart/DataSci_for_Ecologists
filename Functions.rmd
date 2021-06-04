@@ -173,7 +173,7 @@ Beaver_to_plot(beaver_1,
 # Scale up: Do this for list of dataframes
 Beaver_to_plot_many <- function(df_list, path, filetype) {
   for (i in 1:length(df_list)){
-    Beaver_to_plot(df_list[i],
+    Beaver_to_plot(df_list[[i]],
                    path,
                    paste0("Beaver", i, "_plot2"),
                    filetype)

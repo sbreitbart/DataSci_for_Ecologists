@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="Sophie Breitbart" />
+
+
+<title>Functions</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/sandstone.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 61px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 66px;
+  margin-top: -66px;
+}
+.section h2 {
+  padding-top: 66px;
+  margin-top: -66px;
+}
+.section h3 {
+  padding-top: 66px;
+  margin-top: -66px;
+}
+.section h4 {
+  padding-top: 66px;
+  margin-top: -66px;
+}
+.section h5 {
+  padding-top: 66px;
+  margin-top: -66px;
+}
+.section h6 {
+  padding-top: 66px;
+  margin-top: -66px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">FastR2021</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">info</a>
+</li>
+<li>
+  <a href="Functions/Functions.html">Functions</a>
+</li>
+<li>
+  <a href="Vectorization/Vectorization.html">Vectorization</a>
+</li>
+<li>
+  <a href="forloops/forloops.html">forloops</a>
+</li>
+<li>
+  <a href="Parallelization/Parallelization.html">Parallelization</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Functions</h1>
+<h4 class="author">Sophie Breitbart</h4>
+
+</div>
+
+
+<p>Goals: - use as few packages as possible - 30 minutes</p>
+<p>Outline: - <em>HAVE THEM SET UP A PROJECT AND SET WD? OTHERWISE IDK IF HERE:HERE WILL WORK</em> - function basics // 5 min - what is a function? - we use them all the time when they’re made by other people - when should we make our own? - Hadley’s golden rule: whenever you otherwise copy/paste something &gt;3x (but there are exceptions of course) - examples of homemade functions // 15-20 min - basic: exporting table, e.g. - write a function that makes a table * they make one - intermediate: nesting functions within functions - write a function that exports tables for each list item * they make one - advanced: scale up: ??????? * they do this too - Experimentation time // 5-10 min - include additional challenge for those who’ve finished other exercises - ** make breakout rooms based on skill level so they can chat with like-skilled participants? **</p>
+<div id="install-packages" class="section level1">
+<h1>Install packages</h1>
+<pre class="r"><code># Install packages
+install.packages(&quot;here&quot;)</code></pre>
+</div>
+<div id="load-libraries" class="section level1">
+<h1>Load libraries</h1>
+<pre class="r"><code># Load libraries
+## explain genuis behind &quot;here&quot; package
+library(here)</code></pre>
+<pre><code>## Warning: package &#39;here&#39; was built under R version 3.6.3</code></pre>
+<pre><code>## here() starts at D:/RStudio/FastR</code></pre>
+<pre class="r"><code># Make dataset from built-in dataset: &quot;Body Temperature Series of Two Beavers&quot;&quot;
+beaver_1 &lt;- beaver1
+beaver_2 &lt;- beaver2</code></pre>
+</div>
+<div id="functions-the-basics" class="section level1">
+<h1>Functions: The Basics</h1>
+<div id="goal-1-make-a-function-that-exports-a-dataframe-to-csv" class="section level2">
+<h2>Goal 1: Make a function that exports a dataframe to csv</h2>
+<pre class="r"><code>## go over basic setup of function (assign it to a name, input variables, indenting, returns)
+Beaver_to_csv1.1 &lt;- function(dataframe, filename) {
+  write.csv(dataframe, file = filename)
+}
+
+## Example 1: Export beaver csv with only filename in path
+### make filename
+filename1.1 &lt;- &quot;Beaver1.csv&quot;
+
+### Export df to csv
+#### Talk through function,
+Beaver_to_csv1.1(beaver_1, filename1.1)
+
+## Example 2: Export beaver csv with only filename in path
+### Make folder expecially for beaver files (make &quot;exports&quot; folder)
+### Make new path 
+path1.2 &lt;- here::here(&quot;./exports/ &quot;) ##### Can&#39;t figure out how to export without a space in the filepath so I&#39;m adding on here and later getting rid of it with gsub
+### Make new filename and type: separate name from type
+filename1.2 &lt;- &quot;Beaver1&quot;
+filetype1.2 &lt;- &quot;.csv&quot;
+
+### Make function that exports df to csv in csvs folder
+#### adding extra piece: filetype. We&#39;ll use .csv but could use .txt if wanted, etc.
+##### Talk through function, esp. new gsub step
+Beaver_to_csv1.2 &lt;- function(dataframe, path, filename, filetype) {
+  write.csv(dataframe,
+            gsub(&quot; &quot;, &quot;&quot;,
+                 paste0(path, filename, filetype)))
+}
+  
+### Export df to csv in csvs folder
+Beaver_to_csv1.2(beaver_1, path1.2, filename1.2, filetype1.2)
+#### Just for fun, add .txt as an option
+Beaver_to_csv1.2(beaver_1, path1.2, filename1.2, &quot;.txt&quot;)
+#### Futhermore, we could skip the step of saving the function components to individual variables and could input it all on the fly here
+Beaver_to_csv1.2(dataframe = beaver_1,
+                 path = here::here(&quot;./exports/ &quot;),
+                 filename = &quot;Beaver1&quot;,
+                 filetype = &quot;.txt&quot;)
+#### You don&#39;t need the &quot;x =&quot; portion either... just helps clarify things
+Beaver_to_csv1.2(beaver_1,
+                 here::here(&quot;./exports/ &quot;),
+                 &quot;Beaver1&quot;,
+                 &quot;.csv&quot;)</code></pre>
+</div>
+<div id="goal-2-make-a-function-that-exports-a-list-of-dataframes-to-separate-csvs" class="section level2">
+<h2>Goal 2: Make a function that exports a list of dataframes to separate csvs</h2>
+<pre class="r"><code># Make list of beaver dataframes
+Beavers &lt;- list(beaver_1, beaver_2)
+
+# Export list of beaver dfs
+Export_beaver_list &lt;- function(df_list, path, filetype) {
+  for (i in 1:length(df_list)){
+    Beaver_to_csv1.2(df_list[i], path, paste0(&quot;Beaver&quot;, i), filetype)
+  }
+}
+
+Export_beaver_list(Beavers, 
+                   here::here(&quot;./exports/ &quot;),
+                   &quot;.csv&quot;)</code></pre>
+</div>
+<div id="goal-3-make-export-plots-for-multiple-dataframes" class="section level2">
+<h2>Goal 3: Make, export plots for multiple dataframes</h2>
+<pre class="r"><code># Regular plot 1
+plot(beaver_1$temp ~ beaver_1$time,
+     xlim = c(0, 2400),
+     ylim = c(36, 38),
+     xlab = &quot;Time of Day&quot;,
+     ylab = &quot;Beaver Temperature (C)&quot;,
+     col = &quot;dark green&quot;,
+     pch = 2,
+     cex = .5)</code></pre>
+<p><img src="Functions_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<pre class="r"><code># Making plot more easily reproducible by naming relative axis limits (vs absolute, for instance)
+plot(temp ~ time,
+     data = beaver_1,
+     xlim = c(min(time),
+              max(time)),
+     ylim = c(min(temp) - 0.5,
+              max(temp) + 0.5),
+     xlab = &quot;Time of Day&quot;,
+     ylab = &quot;Beaver Temperature (C)&quot;,
+     col = &quot;dark green&quot;,
+     pch = 2, # point shape
+     cex = .5) # point size</code></pre>
+<p><img src="Functions_files/figure-html/unnamed-chunk-5-2.png" width="672" /></p>
+<pre class="r"><code># Make function that uses a df as input and makes, then exports plot
+Beaver_to_plot &lt;- function(dataframe, path, filename, filetype) {
+  
+  png(file = gsub(&quot; &quot;, &quot;&quot;,
+                 paste0(path, filename, filetype)))
+  
+  plot(temp ~ time,
+       data = dataframe,
+       xlim = c(min(time),
+                max(time)),
+       ylim = c(min(temp) - 0.5,
+                max(temp) + 0.5),
+       xlab = &quot;Time of Day&quot;,
+       ylab = &quot;Beaver Temperature (C)&quot;,
+       col = &quot;dark green&quot;,
+       pch = 2, # point shape
+       cex = .5) # point size
+  
+  dev.off() # tells R to stop plotting
+  
+}
+
+Beaver_to_plot(beaver_1,
+               here::here(&quot;./exports/ &quot;),
+               &quot;Beaver1.1&quot;,
+               &quot;.png&quot;)</code></pre>
+<pre><code>## png 
+##   2</code></pre>
+<pre class="r"><code># Scale up: Do this for list of dataframes
+Beaver_to_plot_many &lt;- function(df_list, path, filetype) {
+  for (i in 1:length(df_list)){
+    Beaver_to_plot(df_list[[i]],
+                   path,
+                   paste0(&quot;Beaver&quot;, i, &quot;_plot2&quot;),
+                   filetype)
+  }
+}
+
+
+############################################################
+########## THIS ISN&#39;T WORKING... FIX? OR REPLACE? ##########
+############################################################
+
+Beaver_to_plot_many(Beavers,
+                    here::here(&quot;./exports/ &quot;),
+                    &quot;.png&quot;)</code></pre>
+</div>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
