@@ -6,18 +6,7 @@ editor_options:
   chunk_output_type: console
 ---
 
-
-Goals:
-- use as few packages as possible
-- 30 minutes
-
 Outline:
-- *HAVE THEM SET UP A PROJECT AND SET WD? OTHERWISE IDK IF HERE:HERE WILL WORK*
-- function basics // 5 min
-  - what is a function?
-  -   we use them all the time when they're made by other people
-  - when should we make our own?
-    - Hadley's golden rule: whenever you otherwise copy/paste something >3x (but there are exceptions of course)
 - examples of homemade functions // 15-20 min
   - basic: exporting table, e.g.
     - write a function that makes a table
@@ -33,47 +22,70 @@ Outline:
   
   
   
-# Install packages 
+# Set up R markdown file
+## Install packages 
 ```{r eval=FALSE}
 # Install packages
-<<<<<<< HEAD
-# install.packages("here")
-
-=======
 install.packages("here")
 ```
+
+## Load libraries & data
+Quick aside on the genius of the <code>here()</code> package:
+
+
+```{r message=FALSE}
 # Load libraries
-```{r}
->>>>>>> cfdb7cf88037426bc614f00b43fb29e521e29471
-# Load libraries
-## explain genuis behind "here" package
 library(here)
 
-# Make dataset from built-in dataset: "Body Temperature Series of Two Beavers""
+# Make dataset from built-in dataset: "Body Temperature Series of Two Beavers"
 beaver_1 <- beaver1
 beaver_2 <- beaver2
 ```
 
 # Functions: The Basics
+## What is a function?
+
+A function is a command that executes one to several tasks all at once. You've probably used functions before. In R, for example, we frequently use functions that have been made by other people: <code>read.csv()</code> and <code>print()</code> are functions, to name a few.
+
+
+## When should we make our own functions?
+
+In a 2016 [interview with Naturally Speaking](https://naturallyspeaking.blog/2016/06/22/episode-41-conversations-with-an-r-jedi/), Hadley Wickham explains,
+
+> "A really good rule of thumb is, as soon as you've copied and pasted something more than twice, it's time to start thinking, 'how can I get rid of that duplication?'"
+
+So if you think it wise to take the advice of RStudio's widely regarded Chief Scientist (which I certainly do!), then you should consider making your own functions when you find yourself copying and pasting something **3 or more times.**
+
+There will always be times to break this rule, but here's Hadley again on why it's important to learn how to write your own functions:
+
+> "Any time you've got duplication in your code, there's just a chance for... bugs to come in because... you change one, and you forget to change another one, you get inconsistencies. It's really frustrating."
+
+# Exercises
 ## Goal 1: Make a function that exports a dataframe to csv
+### How to set up a function
+(assign it to a name, input variables, indenting, returns)
 ```{r}
-## go over basic setup of function (assign it to a name, input variables, indenting, returns)
 Beaver_to_csv1.1 <- function(dataframe, filename) {
   write.csv(dataframe, file = filename)
 }
+```
 
-## Example 1: Export beaver csv with only filename in path
+### Example 1: Export beaver csv with only filename in path
+```{r}
 ### make filename
 filename1.1 <- "Beaver1.csv"
 
 ### Export df to csv
-#### Talk through function,
 Beaver_to_csv1.1(beaver_1, filename1.1)
+```
 
-## Example 2: Export beaver csv with only filename in path
+### Example 2: Export beaver csv with only filename in path
+```{r}
 ### Make folder expecially for beaver files (make "exports" folder)
+
 ### Make new path 
 path1.2 <- here::here("./exports/ ") ##### Can't figure out how to export without a space in the filepath so I'm adding on here and later getting rid of it with gsub
+
 ### Make new filename and type: separate name from type
 filename1.2 <- "Beaver1"
 filetype1.2 <- ".csv"
@@ -89,19 +101,23 @@ Beaver_to_csv1.2 <- function(dataframe, path, filename, filetype) {
   
 ### Export df to csv in csvs folder
 Beaver_to_csv1.2(beaver_1, path1.2, filename1.2, filetype1.2)
+
 #### Just for fun, add .txt as an option
 Beaver_to_csv1.2(beaver_1, path1.2, filename1.2, ".txt")
+
 #### Futhermore, we could skip the step of saving the function components to individual variables and could input it all on the fly here
 Beaver_to_csv1.2(dataframe = beaver_1,
                  path = here::here("./exports/ "),
                  filename = "Beaver1",
                  filetype = ".txt")
+
 #### You don't need the "x =" portion either... just helps clarify things
 Beaver_to_csv1.2(beaver_1,
                  here::here("./exports/ "),
                  "Beaver1",
                  ".csv")
 ```
+
 
 ## Goal 2: Make a function that exports a list of dataframes to separate csvs
 ```{r}

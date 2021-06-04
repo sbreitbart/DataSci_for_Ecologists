@@ -20,16 +20,29 @@
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
 
-<style type="text/css">code{white-space: pre;}</style>
 <style type="text/css">
-  pre:not([class]) {
-    background-color: white;
-  }
-</style>
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
 <script type="text/javascript">
 if (window.hljs) {
   hljs.configure({languages: []});
@@ -42,32 +55,7 @@ if (window.hljs) {
 
 
 
-<style type="text/css">
-h1 {
-  font-size: 34px;
-}
-h1.title {
-  font-size: 38px;
-}
-h2 {
-  font-size: 30px;
-}
-h3 {
-  font-size: 24px;
-}
-h4 {
-  font-size: 18px;
-}
-h5 {
-  font-size: 16px;
-}
-h6 {
-  font-size: 12px;
-}
-.table th:not([align]) {
-  text-align: left;
-}
-</style>
+
 
 
 
@@ -77,10 +65,6 @@ h6 {
   max-width: 940px;
   margin-left: auto;
   margin-right: auto;
-}
-code {
-  color: inherit;
-  background-color: rgba(0, 0, 0, 0.04);
 }
 img {
   max-width:100%;
@@ -97,40 +81,13 @@ button.code-folding-btn:focus {
 summary {
   display: list-item;
 }
+pre code {
+  padding: 0;
+}
 </style>
 
 
 <style type="text/css">
-/* padding for bootstrap navbar */
-body {
-  padding-top: 61px;
-  padding-bottom: 40px;
-}
-/* offset scroll position for anchor links (for fixed navbar)  */
-.section h1 {
-  padding-top: 66px;
-  margin-top: -66px;
-}
-.section h2 {
-  padding-top: 66px;
-  margin-top: -66px;
-}
-.section h3 {
-  padding-top: 66px;
-  margin-top: -66px;
-}
-.section h4 {
-  padding-top: 66px;
-  margin-top: -66px;
-}
-.section h5 {
-  padding-top: 66px;
-  margin-top: -66px;
-}
-.section h6 {
-  padding-top: 66px;
-  margin-top: -66px;
-}
 .dropdown-submenu {
   position: relative;
 }
@@ -158,7 +115,7 @@ body {
   margin-right: -10px;
 }
 .dropdown-submenu:hover>a:after {
-  border-left-color: #ffffff;
+  border-left-color: #adb5bd;
 }
 .dropdown-submenu.pull-left {
   float: none;
@@ -170,7 +127,7 @@ body {
 }
 </style>
 
-<script>
+<script type="text/javascript">
 // manage active state of menu based on current page
 $(document).ready(function () {
   // active menu anchor
@@ -181,10 +138,23 @@ $(document).ready(function () {
   var menuAnchor = $('a[href="' + href + '"]');
 
   // mark it active
-  menuAnchor.parent().addClass('active');
+  menuAnchor.tab('show');
 
   // if it's got a parent navbar menu mark it active as well
   menuAnchor.closest('li.dropdown').addClass('active');
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
 });
 </script>
 
@@ -196,7 +166,6 @@ $(document).ready(function () {
   max-height: 500px;
   min-height: 44px;
   overflow-y: auto;
-  background: white;
   border: 1px solid #ddd;
   border-radius: 4px;
 }
@@ -295,7 +264,7 @@ $(document).ready(function () {
   </div><!--/.container -->
 </div><!--/.navbar -->
 
-<div class="fluid-row" id="header">
+<div id="header">
 
 
 
@@ -305,26 +274,43 @@ $(document).ready(function () {
 </div>
 
 
-<p>Goals: - use as few packages as possible - 30 minutes</p>
-<p>Outline: - <em>HAVE THEM SET UP A PROJECT AND SET WD? OTHERWISE IDK IF HERE:HERE WILL WORK</em> - function basics // 5 min - what is a function? - we use them all the time when they’re made by other people - when should we make our own? - Hadley’s golden rule: whenever you otherwise copy/paste something &gt;3x (but there are exceptions of course) - examples of homemade functions // 15-20 min - basic: exporting table, e.g. - write a function that makes a table * they make one - intermediate: nesting functions within functions - write a function that exports tables for each list item * they make one - advanced: scale up: ??????? * they do this too - Experimentation time // 5-10 min - include additional challenge for those who’ve finished other exercises - ** make breakout rooms based on skill level so they can chat with like-skilled participants? **</p>
-<div id="install-packages" class="section level1">
-<h1>Install packages</h1>
+<p>Outline: - examples of homemade functions // 15-20 min - basic: exporting table, e.g. - write a function that makes a table * they make one - intermediate: nesting functions within functions - write a function that exports tables for each list item * they make one - advanced: scale up: ??????? * they do this too - Experimentation time // 5-10 min - include additional challenge for those who've finished other exercises - ** make breakout rooms based on skill level so they can chat with like-skilled participants? **</p>
+<div id="set-up-r-markdown-file" class="section level1">
+<h1>Set up R markdown file</h1>
+<div id="install-packages" class="section level2">
+<h2>Install packages</h2>
 <pre class="r"><code># Install packages
 install.packages(&quot;here&quot;)</code></pre>
 </div>
-<div id="load-libraries" class="section level1">
-<h1>Load libraries</h1>
+<div id="load-libraries-data" class="section level2">
+<h2>Load libraries &amp; data</h2>
+<p>Quick aside on the genius of the <code>here()</code> package:</p>
 <pre class="r"><code># Load libraries
-## explain genuis behind &quot;here&quot; package
-library(here)</code></pre>
-<pre><code>## Warning: package &#39;here&#39; was built under R version 3.6.3</code></pre>
-<pre><code>## here() starts at D:/RStudio/FastR</code></pre>
-<pre class="r"><code># Make dataset from built-in dataset: &quot;Body Temperature Series of Two Beavers&quot;&quot;
+library(here)
+
+# Make dataset from built-in dataset: &quot;Body Temperature Series of Two Beavers&quot;
 beaver_1 &lt;- beaver1
 beaver_2 &lt;- beaver2</code></pre>
 </div>
+</div>
 <div id="functions-the-basics" class="section level1">
 <h1>Functions: The Basics</h1>
+<div id="what-is-a-function" class="section level2">
+<h2>What is a function?</h2>
+<p>A function is a command that executes one to several tasks all at once. You've probably used functions before. In R, for example, we frequently use functions that have been made by other people: <code>read.csv()</code> and <code>print()</code> are functions, to name a few.</p>
+</div>
+<div id="when-should-we-make-our-own-functions" class="section level2">
+<h2>When should we make our own functions?</h2>
+<p>In a 2016 <a href="https://naturallyspeaking.blog/2016/06/22/episode-41-conversations-with-an-r-jedi/">interview with Naturally Speaking</a>, Hadley Wickham explains,</p>
+<blockquote>
+<p>&quot;A really good rule of thumb is, as soon as you've copied and pasted something more than twice, it's time to start thinking, 'how can I get rid of that duplication?'&quot;</p>
+</blockquote>
+<p>So if you think it wise to take the advice of RStudio's widely regarded Chief Scientist (which I certainly do!), then you should consider making your own functions when you find yourself copying and pasting something <strong>3 or more times.</strong></p>
+<p>There will always be times to break this rule, but here's Hadley again on why it's important to learn how to write your own functions:</p>
+<blockquote>
+<p>&quot;Any time you've got duplication in your code, there's just a chance for... bugs to come in because... you change one, and you forget to change another one, you get inconsistencies. It's really frustrating.&quot;</p>
+</blockquote>
+</div>
 <div id="goal-1-make-a-function-that-exports-a-dataframe-to-csv" class="section level2">
 <h2>Goal 1: Make a function that exports a dataframe to csv</h2>
 <pre class="r"><code>## go over basic setup of function (assign it to a name, input variables, indenting, returns)
@@ -452,10 +438,6 @@ Beaver_to_plot_many &lt;- function(df_list, path, filetype) {
 }
 
 
-############################################################
-########## THIS ISN&#39;T WORKING... FIX? OR REPLACE? ##########
-############################################################
-
 Beaver_to_plot_many(Beavers,
                     here::here(&quot;./exports/ &quot;),
                     &quot;.png&quot;)</code></pre>
@@ -471,7 +453,7 @@ Beaver_to_plot_many(Beavers,
 
 // add bootstrap table styles to pandoc tables
 function bootstrapStylePandocTables() {
-  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
 }
 $(document).ready(function () {
   bootstrapStylePandocTables();
@@ -489,7 +471,7 @@ $(document).ready(function () {
 
 $(document).ready(function () {
   $('.tabset-dropdown > .nav-tabs > li').click(function () {
-    $(this).parent().toggleClass('nav-tabs-open')
+    $(this).parent().toggleClass('nav-tabs-open');
   });
 });
 </script>
