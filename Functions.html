@@ -9,7 +9,6 @@
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
-<meta name="author" content="Sophie Breitbart" />
 
 
 <title>Functions</title>
@@ -269,32 +268,30 @@ $(document).ready(function () {
 
 
 <h1 class="title toc-ignore">Functions</h1>
-<h4 class="author">Sophie Breitbart</h4>
 
 </div>
 
 
-<p>Outline: - examples of homemade functions // 15-20 min - basic: exporting table, e.g. - write a function that makes a table * they make one - intermediate: nesting functions within functions - write a function that exports tables for each list item * they make one - advanced: scale up: ??????? * they do this too - Experimentation time // 5-10 min - include additional challenge for those who've finished other exercises - ** make breakout rooms based on skill level so they can chat with like-skilled participants? **</p>
-<div id="set-up-r-markdown-file" class="section level1">
-<h1>Set up R markdown file</h1>
 <div id="install-packages" class="section level2">
 <h2>Install packages</h2>
-<pre class="r"><code># Install packages
-install.packages(&quot;here&quot;)</code></pre>
+<pre class="r"><code>install.packages(&quot;here&quot;)</code></pre>
 </div>
 <div id="load-libraries-data" class="section level2">
 <h2>Load libraries &amp; data</h2>
-<p>Quick aside on the genius of the <code>here()</code> package:</p>
-<pre class="r"><code># Load libraries
-library(here)
-
-# Make dataset from built-in dataset: &quot;Body Temperature Series of Two Beavers&quot;
-beaver_1 &lt;- beaver1
+<div id="quick-aside-on-the-genius-of-the-here-package" class="section level5">
+<h5>Quick aside on the genius of the <code>here</code> package:</h5>
+<p>Whether they're collaborating with colleagues, uploading to data repositories after submitting a paper, or uploading scripts to Github for anyone to use, people who write code constantly share their code. <strong>A great time-saving strategy for streamlining code-sharing is to use <code>here</code></strong>, a package intended to facilitate file referencing by getting rid of absolute filepaths (which makes your code fragile and difficult to integrate into other people's systems) and instead using relative filepaths (which makes your code easier to transfer to other people's systems). <a href="https://github.com/jennybc/here_here">See Jenny Bryan's overview of the package</a> for more information and convincing arguments for adopting <code>here</code>.</p>
+<p>Load libraries</p>
+<pre class="r"><code>library(here) # Look where your folder begins.</code></pre>
+<p>Make two dataframes from built-in dataset, &quot;Body Temperature Series of Two Beavers&quot;</p>
+<pre class="r"><code>beaver_1 &lt;- beaver1
 beaver_2 &lt;- beaver2</code></pre>
+<hr />
 </div>
 </div>
 <div id="functions-the-basics" class="section level1">
 <h1>Functions: The Basics</h1>
+<hr />
 <div id="what-is-a-function" class="section level2">
 <h2>What is a function?</h2>
 <p>A function is a command that executes one to several tasks all at once. You've probably used functions before. In R, for example, we frequently use functions that have been made by other people: <code>read.csv()</code> and <code>print()</code> are functions, to name a few.</p>
@@ -310,74 +307,127 @@ beaver_2 &lt;- beaver2</code></pre>
 <blockquote>
 <p>&quot;Any time you've got duplication in your code, there's just a chance for... bugs to come in because... you change one, and you forget to change another one, you get inconsistencies. It's really frustrating.&quot;</p>
 </blockquote>
+<hr />
 </div>
+</div>
+<div id="exercises" class="section level1">
+<h1>Exercises</h1>
+<hr />
 <div id="goal-1-make-a-function-that-exports-a-dataframe-to-csv" class="section level2">
 <h2>Goal 1: Make a function that exports a dataframe to csv</h2>
-<pre class="r"><code>## go over basic setup of function (assign it to a name, input variables, indenting, returns)
-Beaver_to_csv1.1 &lt;- function(dataframe, filename) {
-  write.csv(dataframe, file = filename)
-}
-
-## Example 1: Export beaver csv with only filename in path
-### make filename
-filename1.1 &lt;- &quot;Beaver1.csv&quot;
-
-### Export df to csv
-#### Talk through function,
-Beaver_to_csv1.1(beaver_1, filename1.1)
-
-## Example 2: Export beaver csv with only filename in path
-### Make folder expecially for beaver files (make &quot;exports&quot; folder)
-### Make new path 
-path1.2 &lt;- here::here(&quot;./exports/ &quot;) ##### Can&#39;t figure out how to export without a space in the filepath so I&#39;m adding on here and later getting rid of it with gsub
-### Make new filename and type: separate name from type
-filename1.2 &lt;- &quot;Beaver1&quot;
-filetype1.2 &lt;- &quot;.csv&quot;
-
-### Make function that exports df to csv in csvs folder
-#### adding extra piece: filetype. We&#39;ll use .csv but could use .txt if wanted, etc.
-##### Talk through function, esp. new gsub step
-Beaver_to_csv1.2 &lt;- function(dataframe, path, filename, filetype) {
+<div id="how-to-set-up-a-function" class="section level3">
+<h3>How to set up a function</h3>
+<p>When you set up a function, the first two things you want to think about are 1) what you will name your function and 2) the variables the function will need in order to produce an output.</p>
+<p>In the function below, the name is <code>add_numbers</code> and the input variables are called <code>number_1</code>, <code>number_2</code>, and <code>number_3</code>. Big surprise: it adds three numbers together!</p>
+<p>After adding your function name and variables as in the format below (you can have lots of input variables, more than the three we're using), add a set of curly brackets. Inside the curly brackets ({}), write the chunk of code that you want your function to execute (the body). The body should reference your input variables. It should also be indented, which R will automatically do once you press &quot;Enter&quot; after typing the curly brackets.</p>
+<pre class="r"><code>add_numbers &lt;- function(number_1, number_2, number_3) {
+  number_1 + number_2 + number_3
+}</code></pre>
+<pre class="r"><code>add_numbers(1,10,100)</code></pre>
+<pre><code>## [1] 111</code></pre>
+<p>Take a look at how we've applied the same structuring logic to set up this function as well. This function is performing the <code>write.csv()</code> function on an object referenced as &quot;dataframe&quot;. It will export the object to a file referenced as &quot;filename&quot;.</p>
+<p>I've explicitly told R that the write.csv function should use its &quot;x&quot; argument on what I've called &quot;dataframe&quot;, and &quot;file&quot; on &quot;filename&quot;.</p>
+<pre class="r"><code>Beaver_to_csv1.1 &lt;- function(dataframe, filename) {
+  write.csv(x = dataframe,
+            file = filename)
+}</code></pre>
+</div>
+<div id="example-1-export-beaver-csv-with-only-filename-in-path" class="section level3">
+<h3>Example 1: Export beaver csv with only filename in path</h3>
+<div id="create-object-that-well-use-as-our-filename" class="section level4">
+<h4>Create object that we'll use as our filename</h4>
+<p>Notice we've added the file type (extension) to the filename: .csv</p>
+<pre class="r"><code>filename1.1 &lt;- &quot;Beaver1.csv&quot; </code></pre>
+</div>
+<div id="use-function-to-export-dataframe-object-to-csv" class="section level4">
+<h4>Use function to export dataframe object to csv</h4>
+<pre class="r"><code>Beaver_to_csv1.1(beaver_1,
+                 filename1.1)</code></pre>
+</div>
+</div>
+<div id="example-2-export-beaver-csv-with-only-filename-in-path" class="section level3">
+<h3>Example 2: Export beaver csv with only filename in path</h3>
+<div id="make-a-folder-especially-for-beaver-file-exports" class="section level4">
+<h4>Make a folder especially for beaver file exports</h4>
+<p>Find where your project folder begins (its root):</p>
+<pre class="r"><code>here::here()</code></pre>
+<p>Then manually create a new folder in that directory called &quot;exports&quot;.</p>
+</div>
+<div id="create-new-input-variables-for-new-function" class="section level4">
+<h4>Create new input variables for new function</h4>
+<p>Make new path:</p>
+<pre class="r"><code>path1.2 &lt;- here::here(&quot;./exports/ &quot;) </code></pre>
+<p><em>I'm not sure how to export without a space in the filepath, so I'm adding a space to the right side of the last /. We'll get rid of it later.</em></p>
+<p>Make new file name and file type. This time we'll separate the file name from the file type so that we can change up the file type by indicating it as an input variable.</p>
+<pre class="r"><code>filename1.2 &lt;- &quot;Beaver1&quot;
+filetype1.2 &lt;- &quot;.csv&quot;</code></pre>
+</div>
+<div id="make-function-that-exports-dataframe-object-to-csv-in-csvs-folder" class="section level4">
+<h4>Make function that exports dataframe object to csv in csvs folder</h4>
+<p>To accommodate the file path and file type objects, we'll add a two more input variables to our new function's set of input variables.</p>
+<pre class="r"><code>Beaver_to_csv1.2 &lt;- function(dataframe, path, filename, filetype) {
   write.csv(dataframe,
             gsub(&quot; &quot;, &quot;&quot;,
-                 paste0(path, filename, filetype)))
-}
-  
-### Export df to csv in csvs folder
-Beaver_to_csv1.2(beaver_1, path1.2, filename1.2, filetype1.2)
-#### Just for fun, add .txt as an option
-Beaver_to_csv1.2(beaver_1, path1.2, filename1.2, &quot;.txt&quot;)
-#### Futhermore, we could skip the step of saving the function components to individual variables and could input it all on the fly here
-Beaver_to_csv1.2(dataframe = beaver_1,
+                 paste0(path,
+                        filename,
+                        filetype)))
+}</code></pre>
+<p>Here's what the function is doing:</p>
+<ol style="list-style-type: decimal">
+<li>First, look to the most indented portion of the code, which starts with <code>paste0</code>. The <code>paste0()</code> function is taking three input variables and pasting them together: path, filename, and filetype.</li>
+<li>Next, look to the function encompassing that code: the <code>gsub()</code> function. This function is finding any spaces and <em>substituting</em> them with nothing (essentially removing any spaces it finds, particularly the space we had to put in the path).</li>
+<li>Finally, the outermost shell is the <code>write.csv()</code> function, which is taking our dataframe as the object to be exported, and will name and export this object where the conglomerate path + filename + filetype tells it to.</li>
+</ol>
+</div>
+<div id="try-out-the-function-with-a-few-examples" class="section level4">
+<h4>Try out the function with a few examples</h4>
+<p>Export dataframe to csv in csvs folder:</p>
+<pre class="r"><code>Beaver_to_csv1.2(beaver_1, path1.2, filename1.2, filetype1.2)</code></pre>
+<p>Just for fun, add .txt as a file type option:</p>
+<pre class="r"><code>Beaver_to_csv1.2(beaver_1, path1.2, filename1.2, &quot;.txt&quot;)</code></pre>
+<p>We could skip the step of saving the function's input variables to individual objects and just input it all on the fly, as shown here:</p>
+<pre class="r"><code>Beaver_to_csv1.2(dataframe = beaver_1,
                  path = here::here(&quot;./exports/ &quot;),
                  filename = &quot;Beaver1&quot;,
-                 filetype = &quot;.txt&quot;)
-#### You don&#39;t need the &quot;x =&quot; portion either... just helps clarify things
-Beaver_to_csv1.2(beaver_1,
+                 filetype = &quot;.txt&quot;)</code></pre>
+<p>You don't need the &quot;x =&quot; portion either but feel free to keep it if it helps you clarify your code.</p>
+<pre class="r"><code>Beaver_to_csv1.2(beaver_1,
                  here::here(&quot;./exports/ &quot;),
                  &quot;Beaver1&quot;,
                  &quot;.csv&quot;)</code></pre>
+<hr />
+</div>
+</div>
 </div>
 <div id="goal-2-make-a-function-that-exports-a-list-of-dataframes-to-separate-csvs" class="section level2">
 <h2>Goal 2: Make a function that exports a list of dataframes to separate csvs</h2>
-<pre class="r"><code># Make list of beaver dataframes
-Beavers &lt;- list(beaver_1, beaver_2)
-
-# Export list of beaver dfs
-Export_beaver_list &lt;- function(df_list, path, filetype) {
+<div id="make-list-of-beaver-dataframes" class="section level3">
+<h3>Make list of beaver dataframes</h3>
+<pre class="r"><code>Beavers &lt;- list(beaver_1, beaver_2)</code></pre>
+</div>
+<div id="create-function" class="section level3">
+<h3>Create function</h3>
+<pre class="r"><code>Export_beaver_list &lt;- function(df_list, path, filetype) {
   for (i in 1:length(df_list)){
     Beaver_to_csv1.2(df_list[i], path, paste0(&quot;Beaver&quot;, i), filetype)
   }
-}
-
-Export_beaver_list(Beavers, 
+}</code></pre>
+</div>
+<div id="run-function" class="section level3">
+<h3>Run function</h3>
+<pre class="r"><code>Export_beaver_list(Beavers, 
                    here::here(&quot;./exports/ &quot;),
                    &quot;.csv&quot;)</code></pre>
+<hr />
+</div>
 </div>
 <div id="goal-3-make-export-plots-for-multiple-dataframes" class="section level2">
 <h2>Goal 3: Make, export plots for multiple dataframes</h2>
-<pre class="r"><code># Regular plot 1
-plot(beaver_1$temp ~ beaver_1$time,
+<div id="create-a-function-that-uses-a-dataframe-as-input-then-exports-a-plot" class="section level3">
+<h3>Create a function that uses a dataframe as input, then exports a plot</h3>
+<div id="create-a-regular-plot" class="section level4">
+<h4>Create a regular plot</h4>
+<pre class="r"><code>plot(beaver_1$temp ~ beaver_1$time,
      xlim = c(0, 2400),
      ylim = c(36, 38),
      xlab = &quot;Time of Day&quot;,
@@ -385,9 +435,12 @@ plot(beaver_1$temp ~ beaver_1$time,
      col = &quot;dark green&quot;,
      pch = 2,
      cex = .5)</code></pre>
-<p><img src="Functions_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
-<pre class="r"><code># Making plot more easily reproducible by naming relative axis limits (vs absolute, for instance)
-plot(temp ~ time,
+<p><img src="Functions_files/figure-html/unnamed-chunk-20-1.png" width="672" /></p>
+</div>
+<div id="make-the-plot-more-easily-reproducible" class="section level4">
+<h4>Make the plot more easily reproducible</h4>
+<p>One way to do so is to name relative (vs. absolute) axis limits. This plot will begin its x axis, which is plotting time, 0.5 units before the datapoint with the lowest time value. It will extend the x axis 0.5 units after the datapoint with the highest time unit. The same is true for the y axis' limits for temperature.</p>
+<pre class="r"><code>plot(temp ~ time,
      data = beaver_1,
      xlim = c(min(time),
               max(time)),
@@ -398,9 +451,11 @@ plot(temp ~ time,
      col = &quot;dark green&quot;,
      pch = 2, # point shape
      cex = .5) # point size</code></pre>
-<p><img src="Functions_files/figure-html/unnamed-chunk-5-2.png" width="672" /></p>
-<pre class="r"><code># Make function that uses a df as input and makes, then exports plot
-Beaver_to_plot &lt;- function(dataframe, path, filename, filetype) {
+<p><img src="Functions_files/figure-html/unnamed-chunk-21-1.png" width="672" /></p>
+</div>
+<div id="create-function-1" class="section level4">
+<h4>Create function</h4>
+<pre class="r"><code>Beaver_to_plot &lt;- function(dataframe, path, filename, filetype) {
   
   png(file = gsub(&quot; &quot;, &quot;&quot;,
                  paste0(path, filename, filetype)))
@@ -419,28 +474,80 @@ Beaver_to_plot &lt;- function(dataframe, path, filename, filetype) {
   
   dev.off() # tells R to stop plotting
   
-}
-
-Beaver_to_plot(beaver_1,
+}</code></pre>
+</div>
+<div id="run-function-1" class="section level4">
+<h4>Run function</h4>
+<pre class="r"><code>Beaver_to_plot(beaver_1,
                here::here(&quot;./exports/ &quot;),
                &quot;Beaver1.1&quot;,
                &quot;.png&quot;)</code></pre>
 <pre><code>## png 
 ##   2</code></pre>
-<pre class="r"><code># Scale up: Do this for list of dataframes
-Beaver_to_plot_many &lt;- function(df_list, path, filetype) {
+</div>
+</div>
+<div id="scale-up-create-a-function-that-uses-a-list-of-dataframes-as-input-then-exports-multiple-plots" class="section level3">
+<h3>Scale up: Create a function that uses a list of dataframes as input, then exports multiple plots</h3>
+<div id="create-function-2" class="section level4">
+<h4>Create function</h4>
+<pre class="r"><code>Beaver_to_plot_many &lt;- function(df_list, path, filetype) {
   for (i in 1:length(df_list)){
     Beaver_to_plot(df_list[[i]],
                    path,
                    paste0(&quot;Beaver&quot;, i, &quot;_plot2&quot;),
                    filetype)
   }
-}
-
-
-Beaver_to_plot_many(Beavers,
+}</code></pre>
+</div>
+<div id="run-function-2" class="section level4">
+<h4>Run function</h4>
+<pre class="r"><code>Beaver_to_plot_many(Beavers,
                     here::here(&quot;./exports/ &quot;),
                     &quot;.png&quot;)</code></pre>
+<hr />
+</div>
+</div>
+</div>
+</div>
+<div id="extra-credit" class="section level1">
+<h1>Extra credit</h1>
+<div id="ellipsis" class="section level2">
+<h2>Ellipsis</h2>
+<p>You don't always need to specify all of the input variables for a function. Sometimes you can make use of a tool called an <strong>ellipsis</strong>. An ellipsis is, you guessed it, three dots in a row: &quot;...&quot;.</p>
+<p>The most straightforward usage of an ellipsis is for when you want to make your function flexible enough to handle an unspecified number of input variables. For instance, think about the <code>paste()</code> function.</p>
+<p>The <code>paste()</code> function can print any number of input variables:</p>
+<pre class="r"><code>paste(&quot;This&quot;, &quot;phrase&quot;, &quot;has&quot;, &quot;five&quot;, &quot;variables&quot;)</code></pre>
+<pre><code>## [1] &quot;This phrase has five variables&quot;</code></pre>
+<pre class="r"><code>paste(&quot;How&quot;, &quot;about&quot;, &quot;three?&quot;)</code></pre>
+<pre><code>## [1] &quot;How about three?&quot;</code></pre>
+<pre class="r"><code>paste(&quot;I&quot;, &quot;could&quot;, &quot;go&quot;, &quot;on&quot;, &quot;and&quot;, &quot;on&quot;, &quot;and&quot;, &quot;on&quot;, &quot;and&quot;, &quot;on&quot;, &quot;and&quot;, &quot;on...&quot;)</code></pre>
+<pre><code>## [1] &quot;I could go on and on and on and on and on...&quot;</code></pre>
+<div id="example-function-with-an-ellipsis" class="section level3">
+<h3>Example function with an ellipsis</h3>
+<div id="create-function-3" class="section level4">
+<h4>Create function</h4>
+<pre class="r"><code>ellipsis_example &lt;- function(x_var, y_var, ...){
+  plot(y_var ~ x_var,
+       ...)
+}</code></pre>
+</div>
+<div id="run-function-3" class="section level4">
+<h4>Run function</h4>
+<pre class="r"><code>ellipsis_example(x_var = beaver_1$time,
+                 y_var = beaver_1$temp,
+                 pch = beaver_1$activ,
+                 col = &quot;magenta&quot;,
+                 main = &quot;One Beaver&#39;s Daily Temperature&quot;,
+                 sub = &quot;circles = beaver engaged in high-intensity activity&quot;,
+                 xlab = &quot;Time of Day&quot;,
+                 ylab = &quot;Temperature (C)&quot;)</code></pre>
+<p><img src="Functions_files/figure-html/unnamed-chunk-28-1.png" width="672" /></p>
+</div>
+</div>
+</div>
+<div id="extra-exercises" class="section level2">
+<h2>Extra exercises</h2>
+<p>For those interested, <a href="https://discdown.org/rprogramming/functions.html">here are some additional exercises</a> crafted by Reto Stauffer, Joanna Chimiak-Opoka, Luis Miguel Rodríguez-R, Thorsten Simon, and Achim Zeileis from their resource, <em>&quot;Introduction to Programming with R&quot;</em>.</p>
 </div>
 </div>
 
