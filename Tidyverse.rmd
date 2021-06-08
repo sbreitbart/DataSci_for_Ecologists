@@ -1,0 +1,142 @@
+---
+title: "Tidyverse"
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+- group_by & mutate: calculate relative growth rate (etc.)
+- summarise: calculate mean, std. error (etc)
+- linear models
+- broom
+
+### Install packages 
+```{r eval=FALSE}
+install.packages("here")
+install.packages("tidyverse")
+install.packages("magrittr")
+install.packages("dplyr")
+```
+
+### Load libraries & data
+Load libraries
+```{r load-packages,  message=FALSE, warning=FALSE}
+library(here) # Look where your folder begins.
+library(dplyr)
+library(magrittr)
+library(tidyverse)
+```
+
+### Save this built-in dataset as a dataframe
+The "The Effect of Vitamin C on Tooth Growth in Guinea Pigs" dataset contains data from an experiment wherein 60 guinea pigs were given vitamin C either as pure vitamin C (VC) or orange juice (OJ) (column "supp") in doses of 0.5, 1, or 2 mg/day (column "dose"). The researchers recorded the growth of their teeth (column "len").
+```{r}
+teeth <- ToothGrowth
+```
+<br/>
+
+# The tidyverse
+## What is it?
+[The tidyverse "is an opinionated collection of R packages designed for data science. All packages share an underlying design philosophy, grammar, and data structures."](https://www.tidyverse.org/) The tidyverse contains some extremely useful packages such as
+
+- <code>[ggplot2](https://ggplot2.tidyverse.org/)</code>, which lets you make fantastic graphics;
+- <code>[tidyr](https://tidyr.tidyverse.org/)</code>, which helps you "tidy" (clean) up your data; and
+- <code>[dplyr](https://dplyr.tidyverse.org/)</code>, which lets you manipulate your data, like you would with pliers (hence d-*plyr*).
+<br/>
+
+***
+# Exercises
+
+#### Today we will work through examples of these tidyverse functions:
+
+- **<code>mutate()</code>**
+- **<code>group_by()</code>**
+- **<code>summarize()</code>**
+
+
+#### Then we'll introduce some functions that are especially useful for working with linear models such as 
+
+- **<code>broom()</code>**
+
+<br/>
+  
+#### Prequel: <code>magrittr</code>'s pipes
+A fantastic tool that is worth getting to know is the <code>magrittr</code> package's collection of operators called *pipes*. As stated on their [webpage](https://magrittr.tidyverse.org/),
+
+> "The magrittr package offers a set of operators which make your code more readable by:
+
+> - structuring sequences of data operations left-to-right (as opposed to from the inside and out),
+> - avoiding nested function calls,
+> - minimizing the need for local variables and function definitions, and
+> - making it easy to add steps anywhere in the sequence of operations."  
+  
+##### We'll frequently set up our code like this:
+
+<code>new_object <- old_object %>% function()</code>
+
+
+##### If you'd rather overwrite your original object, you can use either of these setups:
+
+<code>old_object <- old_object %>% function()</code>
+
+<code>old_object %<>% function()</code> *(notice that the pipe has two arrows inside it now)* <br/><br/>
+
+***
+
+## **<code>mutate()</code>**
+The <code>mutate()</code> function lets us create new columns based on existing columns. In this example, we'll create a new column that takes the "len" data- guinea pig tooth length measured in mm- and divide it by 100 to create a similar column with cm as the unit of length.
+
+```{r}
+teeth <- teeth %>%
+  dplyr::mutate(.,
+                len_cm = len / 100)
+
+head(teeth)
+```
+
+We can also mutate multiple columns at once. Let's add a new column that calculates the mean tooth length for all guinea pigs:
+```{r}
+teeth <- teeth %>%
+  dplyr::mutate(.,
+                len_cm = len / 100,
+                mean_len = mean(len))
+
+head(teeth)
+```
+
+<br/>
+
+## **<code>group_by()</code>**
+So now we know the mean tooth length for all guinea pigs, but that's not very helpful. It'd be more informative to know the mean tooth length for specific groups of guinea pigs- based on the doses of vitamin C adminstered and the method of administration.
+First, let's group the subjects by the method of administration (supp) to find the mean tooth length per group (VC or OJ):
+```{r}
+teeth_2 <- teeth %>%
+  dplyr::group_by(supp) %>%
+  mutate(.,
+         mean_len = mean(len))
+
+head(as.data.frame(teeth_2), 60)
+```
+
+
+Now let's incorporate dosage (dose) as another grouping so that the subjects are grouped by both supp *and* dose:
+```{r}
+teeth_2 <- teeth %>%
+  dplyr::group_by(supp, dose) %>%
+  mutate(.,
+         mean_len = mean(len))
+
+head(as.data.frame(teeth_2), 60)
+```
+
+That's more like it!
+
+However, there's a better way to organize this data...
+
+<br/>
+
+## **<code>summarize()</code>**
+<code>summarize()</code>
+```{r}
+
+```
+

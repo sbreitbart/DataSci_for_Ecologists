@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Tidyverse</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/sandstone.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.tab('show');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">FastR2021</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">info</a>
+</li>
+<li>
+  <a href="Functions/Functions.html">Functions</a>
+</li>
+<li>
+  <a href="Vectorization/Vectorization.html">Vectorization</a>
+</li>
+<li>
+  <a href="forloops/forloops.html">forloops</a>
+</li>
+<li>
+  <a href="Parallelization/Parallelization.html">Parallelization</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Tidyverse</h1>
+
+</div>
+
+
+<ul>
+<li>group_by &amp; mutate: calculate relative growth rate (etc.)</li>
+<li>summarise: calculate mean, std. error (etc)</li>
+<li>linear models</li>
+<li>broom</li>
+</ul>
+<div id="install-packages" class="section level3">
+<h3>Install packages</h3>
+<pre class="r"><code>install.packages(&quot;here&quot;)
+install.packages(&quot;tidyverse&quot;)
+install.packages(&quot;magrittr&quot;)
+install.packages(&quot;dplyr&quot;)</code></pre>
+</div>
+<div id="load-libraries-data" class="section level3">
+<h3>Load libraries &amp; data</h3>
+<p>Load libraries</p>
+<pre class="r"><code>library(here) # Look where your folder begins.
+library(dplyr)
+library(magrittr)
+library(tidyverse)</code></pre>
+</div>
+<div id="save-this-built-in-dataset-as-a-dataframe" class="section level3">
+<h3>Save this built-in dataset as a dataframe</h3>
+<p>The &quot;The Effect of Vitamin C on Tooth Growth in Guinea Pigs&quot; dataset contains data from an experiment wherein 60 guinea pigs were given vitamin C either as pure vitamin C (VC) or orange juice (OJ) (column &quot;supp&quot;) in doses of 0.5, 1, or 2 mg/day (column &quot;dose&quot;). The researchers recorded the growth of their teeth (column &quot;len&quot;).</p>
+<pre class="r"><code>teeth &lt;- ToothGrowth</code></pre>
+<p><br/></p>
+</div>
+<div id="the-tidyverse" class="section level1">
+<h1>The tidyverse</h1>
+<div id="what-is-it" class="section level2">
+<h2>What is it?</h2>
+<p><a href="https://www.tidyverse.org/">The tidyverse &quot;is an opinionated collection of R packages designed for data science. All packages share an underlying design philosophy, grammar, and data structures.&quot;</a> The tidyverse contains some extremely useful packages such as</p>
+<ul>
+<li><code><a href="https://ggplot2.tidyverse.org/">ggplot2</a></code>, which lets you make fantastic graphics;</li>
+<li><code><a href="https://tidyr.tidyverse.org/">tidyr</a></code>, which helps you &quot;tidy&quot; (clean) up your data; and</li>
+<li><code><a href="https://dplyr.tidyverse.org/">dplyr</a></code>, which lets you manipulate your data, like you would with pliers (hence d-<em>plyr</em>). <br/></li>
+</ul>
+<hr />
+</div>
+</div>
+<div id="exercises" class="section level1">
+<h1>Exercises</h1>
+<div id="today-we-will-work-through-examples-of-these-tidyverse-functions" class="section level4">
+<h4>Today we will work through examples of these tidyverse functions:</h4>
+<ul>
+<li><strong><code>mutate()</code></strong></li>
+<li><strong><code>group_by()</code></strong></li>
+<li><strong><code>summarise()</code></strong></li>
+</ul>
+</div>
+<div id="then-well-introduce-some-functions-that-are-especially-useful-for-working-with-linear-models-such-as" class="section level4">
+<h4>Then we'll introduce some functions that are especially useful for working with linear models such as</h4>
+<ul>
+<li><strong><code>broom()</code></strong></li>
+</ul>
+<p><br/></p>
+</div>
+<div id="prequel-magrittrs-pipes" class="section level4">
+<h4>Prequel: <code>magrittr</code>'s pipes</h4>
+<p>A fantastic tool that is worth getting to know is the <code>magrittr</code> package's collection of operators called <em>pipes</em>. As stated on their <a href="https://magrittr.tidyverse.org/">webpage</a>,</p>
+<blockquote>
+<p>&quot;The magrittr package offers a set of operators which make your code more readable by:</p>
+</blockquote>
+<blockquote>
+<ul>
+<li>structuring sequences of data operations left-to-right (as opposed to from the inside and out),</li>
+<li>avoiding nested function calls,</li>
+<li>minimizing the need for local variables and function definitions, and</li>
+<li>making it easy to add steps anywhere in the sequence of operations.&quot;</li>
+</ul>
+</blockquote>
+<div id="well-frequently-set-up-our-code-like-this" class="section level5">
+<h5>We'll frequently set up our code like this:</h5>
+<p><code>new_object &lt;- old_object %&gt;% function()</code></p>
+</div>
+<div id="if-youd-rather-overwrite-your-original-object-you-can-use-either-of-these-setups" class="section level5">
+<h5>If you'd rather overwrite your original object, you can use either of these setups:</h5>
+<p><code>old_object &lt;- old_object %&gt;% function()</code></p>
+<p><code>old_object %&lt;&gt;% function()</code> <em>(notice that the pipe has two arrows inside it now)</em> <br/><br/></p>
+<hr />
+</div>
+</div>
+<div id="mutate" class="section level2">
+<h2><strong><code>mutate()</code></strong></h2>
+<p>The <code>mutate()</code> function lets us create new columns based on existing columns. In this example, we'll create a new column that takes the &quot;len&quot; data- guinea pig tooth length measured in mm- and divide it by 100 to create a similar column with cm as the unit of length.</p>
+<pre class="r"><code>teeth &lt;- teeth %&gt;%
+  dplyr::mutate(.,
+                len_cm = len / 100)
+
+head(teeth)</code></pre>
+<pre><code>##    len supp dose len_cm
+## 1  4.2   VC  0.5  0.042
+## 2 11.5   VC  0.5  0.115
+## 3  7.3   VC  0.5  0.073
+## 4  5.8   VC  0.5  0.058
+## 5  6.4   VC  0.5  0.064
+## 6 10.0   VC  0.5  0.100</code></pre>
+<p>We can also mutate multiple columns at once. Let's add a new column that calculates the mean tooth length for all guinea pigs:</p>
+<pre class="r"><code>teeth &lt;- teeth %&gt;%
+  dplyr::mutate(.,
+                len_cm = len / 100,
+                mean_len = mean(len))
+
+head(teeth)</code></pre>
+<pre><code>##    len supp dose len_cm mean_len
+## 1  4.2   VC  0.5  0.042 18.81333
+## 2 11.5   VC  0.5  0.115 18.81333
+## 3  7.3   VC  0.5  0.073 18.81333
+## 4  5.8   VC  0.5  0.058 18.81333
+## 5  6.4   VC  0.5  0.064 18.81333
+## 6 10.0   VC  0.5  0.100 18.81333</code></pre>
+<p><br/></p>
+</div>
+<div id="group_by" class="section level2">
+<h2><strong><code>group_by()</code></strong></h2>
+<p>So now we know the mean tooth length for all guinea pigs, but that's not very helpful. It'd be more informative to know the mean tooth length for specific groups of guinea pigs- based on the doses of vitamin C adminstered and the method of administration. First, let's group the subjects by the method of administration (supp) to find the mean tooth length per group (VC or OJ):</p>
+<pre class="r"><code>teeth_2 &lt;- teeth %&gt;%
+  dplyr::group_by(supp) %&gt;%
+  mutate(.,
+         mean_len = mean(len))
+
+head(as.data.frame(teeth_2), 60)</code></pre>
+<pre><code>##     len supp dose len_cm mean_len
+## 1   4.2   VC  0.5  0.042 16.96333
+## 2  11.5   VC  0.5  0.115 16.96333
+## 3   7.3   VC  0.5  0.073 16.96333
+## 4   5.8   VC  0.5  0.058 16.96333
+## 5   6.4   VC  0.5  0.064 16.96333
+## 6  10.0   VC  0.5  0.100 16.96333
+## 7  11.2   VC  0.5  0.112 16.96333
+## 8  11.2   VC  0.5  0.112 16.96333
+## 9   5.2   VC  0.5  0.052 16.96333
+## 10  7.0   VC  0.5  0.070 16.96333
+## 11 16.5   VC  1.0  0.165 16.96333
+## 12 16.5   VC  1.0  0.165 16.96333
+## 13 15.2   VC  1.0  0.152 16.96333
+## 14 17.3   VC  1.0  0.173 16.96333
+## 15 22.5   VC  1.0  0.225 16.96333
+## 16 17.3   VC  1.0  0.173 16.96333
+## 17 13.6   VC  1.0  0.136 16.96333
+## 18 14.5   VC  1.0  0.145 16.96333
+## 19 18.8   VC  1.0  0.188 16.96333
+## 20 15.5   VC  1.0  0.155 16.96333
+## 21 23.6   VC  2.0  0.236 16.96333
+## 22 18.5   VC  2.0  0.185 16.96333
+## 23 33.9   VC  2.0  0.339 16.96333
+## 24 25.5   VC  2.0  0.255 16.96333
+## 25 26.4   VC  2.0  0.264 16.96333
+## 26 32.5   VC  2.0  0.325 16.96333
+## 27 26.7   VC  2.0  0.267 16.96333
+## 28 21.5   VC  2.0  0.215 16.96333
+## 29 23.3   VC  2.0  0.233 16.96333
+## 30 29.5   VC  2.0  0.295 16.96333
+## 31 15.2   OJ  0.5  0.152 20.66333
+## 32 21.5   OJ  0.5  0.215 20.66333
+## 33 17.6   OJ  0.5  0.176 20.66333
+## 34  9.7   OJ  0.5  0.097 20.66333
+## 35 14.5   OJ  0.5  0.145 20.66333
+## 36 10.0   OJ  0.5  0.100 20.66333
+## 37  8.2   OJ  0.5  0.082 20.66333
+## 38  9.4   OJ  0.5  0.094 20.66333
+## 39 16.5   OJ  0.5  0.165 20.66333
+## 40  9.7   OJ  0.5  0.097 20.66333
+## 41 19.7   OJ  1.0  0.197 20.66333
+## 42 23.3   OJ  1.0  0.233 20.66333
+## 43 23.6   OJ  1.0  0.236 20.66333
+## 44 26.4   OJ  1.0  0.264 20.66333
+## 45 20.0   OJ  1.0  0.200 20.66333
+## 46 25.2   OJ  1.0  0.252 20.66333
+## 47 25.8   OJ  1.0  0.258 20.66333
+## 48 21.2   OJ  1.0  0.212 20.66333
+## 49 14.5   OJ  1.0  0.145 20.66333
+## 50 27.3   OJ  1.0  0.273 20.66333
+## 51 25.5   OJ  2.0  0.255 20.66333
+## 52 26.4   OJ  2.0  0.264 20.66333
+## 53 22.4   OJ  2.0  0.224 20.66333
+## 54 24.5   OJ  2.0  0.245 20.66333
+## 55 24.8   OJ  2.0  0.248 20.66333
+## 56 30.9   OJ  2.0  0.309 20.66333
+## 57 26.4   OJ  2.0  0.264 20.66333
+## 58 27.3   OJ  2.0  0.273 20.66333
+## 59 29.4   OJ  2.0  0.294 20.66333
+## 60 23.0   OJ  2.0  0.230 20.66333</code></pre>
+<p>Now let's incorporate dosage (dose) as another grouping so that the subjects are grouped by both supp <em>and</em> dose:</p>
+<pre class="r"><code>teeth_2 &lt;- teeth %&gt;%
+  dplyr::group_by(supp, dose) %&gt;%
+  mutate(.,
+         mean_len = mean(len))
+
+head(as.data.frame(teeth_2), 60)</code></pre>
+<pre><code>##     len supp dose len_cm mean_len
+## 1   4.2   VC  0.5  0.042     7.98
+## 2  11.5   VC  0.5  0.115     7.98
+## 3   7.3   VC  0.5  0.073     7.98
+## 4   5.8   VC  0.5  0.058     7.98
+## 5   6.4   VC  0.5  0.064     7.98
+## 6  10.0   VC  0.5  0.100     7.98
+## 7  11.2   VC  0.5  0.112     7.98
+## 8  11.2   VC  0.5  0.112     7.98
+## 9   5.2   VC  0.5  0.052     7.98
+## 10  7.0   VC  0.5  0.070     7.98
+## 11 16.5   VC  1.0  0.165    16.77
+## 12 16.5   VC  1.0  0.165    16.77
+## 13 15.2   VC  1.0  0.152    16.77
+## 14 17.3   VC  1.0  0.173    16.77
+## 15 22.5   VC  1.0  0.225    16.77
+## 16 17.3   VC  1.0  0.173    16.77
+## 17 13.6   VC  1.0  0.136    16.77
+## 18 14.5   VC  1.0  0.145    16.77
+## 19 18.8   VC  1.0  0.188    16.77
+## 20 15.5   VC  1.0  0.155    16.77
+## 21 23.6   VC  2.0  0.236    26.14
+## 22 18.5   VC  2.0  0.185    26.14
+## 23 33.9   VC  2.0  0.339    26.14
+## 24 25.5   VC  2.0  0.255    26.14
+## 25 26.4   VC  2.0  0.264    26.14
+## 26 32.5   VC  2.0  0.325    26.14
+## 27 26.7   VC  2.0  0.267    26.14
+## 28 21.5   VC  2.0  0.215    26.14
+## 29 23.3   VC  2.0  0.233    26.14
+## 30 29.5   VC  2.0  0.295    26.14
+## 31 15.2   OJ  0.5  0.152    13.23
+## 32 21.5   OJ  0.5  0.215    13.23
+## 33 17.6   OJ  0.5  0.176    13.23
+## 34  9.7   OJ  0.5  0.097    13.23
+## 35 14.5   OJ  0.5  0.145    13.23
+## 36 10.0   OJ  0.5  0.100    13.23
+## 37  8.2   OJ  0.5  0.082    13.23
+## 38  9.4   OJ  0.5  0.094    13.23
+## 39 16.5   OJ  0.5  0.165    13.23
+## 40  9.7   OJ  0.5  0.097    13.23
+## 41 19.7   OJ  1.0  0.197    22.70
+## 42 23.3   OJ  1.0  0.233    22.70
+## 43 23.6   OJ  1.0  0.236    22.70
+## 44 26.4   OJ  1.0  0.264    22.70
+## 45 20.0   OJ  1.0  0.200    22.70
+## 46 25.2   OJ  1.0  0.252    22.70
+## 47 25.8   OJ  1.0  0.258    22.70
+## 48 21.2   OJ  1.0  0.212    22.70
+## 49 14.5   OJ  1.0  0.145    22.70
+## 50 27.3   OJ  1.0  0.273    22.70
+## 51 25.5   OJ  2.0  0.255    26.06
+## 52 26.4   OJ  2.0  0.264    26.06
+## 53 22.4   OJ  2.0  0.224    26.06
+## 54 24.5   OJ  2.0  0.245    26.06
+## 55 24.8   OJ  2.0  0.248    26.06
+## 56 30.9   OJ  2.0  0.309    26.06
+## 57 26.4   OJ  2.0  0.264    26.06
+## 58 27.3   OJ  2.0  0.273    26.06
+## 59 29.4   OJ  2.0  0.294    26.06
+## 60 23.0   OJ  2.0  0.230    26.06</code></pre>
+<p>That's more like it!</p>
+<p>Now let's incorporate <code>mutate()</code>:</p>
+</div>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
