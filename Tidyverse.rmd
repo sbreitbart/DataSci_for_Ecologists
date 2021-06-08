@@ -51,7 +51,7 @@ teeth <- ToothGrowth
 - **<code>mutate()</code>**
 - **<code>group_by()</code>**
 - **<code>summarize()</code>**
-
+- **<code>filter()</code>**
 
 #### Then we'll introduce some functions that are especially useful for working with linear models such as 
 
@@ -111,7 +111,7 @@ First, let's group the subjects by the method of administration (supp) to find t
 ```{r}
 teeth_2 <- teeth %>%
   dplyr::group_by(supp) %>%
-  mutate(.,
+  dplyr::mutate(.,
          mean_len = mean(len))
 
 head(as.data.frame(teeth_2), 60)
@@ -122,7 +122,7 @@ Now let's incorporate dosage (dose) as another grouping so that the subjects are
 ```{r}
 teeth_2 <- teeth %>%
   dplyr::group_by(supp, dose) %>%
-  mutate(.,
+  dplyr::mutate(.,
          mean_len = mean(len))
 
 head(as.data.frame(teeth_2), 60)
@@ -135,8 +135,37 @@ However, there's a better way to organize this data...
 <br/>
 
 ## **<code>summarize()</code>**
-<code>summarize()</code>
+If you don't need to keep the individual subjects' tooth length data, then it makes sense to use <code>summarize()</code> to condense our summarized data into fewer rows. Our output file will have one row for each combination of supp x dose.
 ```{r}
+teeth_3 <- teeth %>%
+  dplyr::group_by(supp, dose) %>%
+  dplyr::summarize(mean_len = mean(len))
 
+head(teeth_3)
+```
+
+You can even summarize multiple times, such as if you wanted to first get mean values per supp x dose group and then average *those* values to get mean length per supp group.
+```{r}
+teeth_4 <- teeth %>%
+  dplyr::group_by(supp, dose) %>%
+  dplyr::summarize(mean_len = mean(len)) %>%
+  dplyr::group_by(supp) %>%
+  dplyr::summarize(mean_len = mean(mean_len))
+
+head(teeth_4)
+```
+
+
+Let's imagine that you only want to focus on the guinea pigs given orange juice. How would you get rid of the other rows?
+
+<br/>
+
+## **<code>filter()</code>**
+The <code>filter()</code> function lets you filter out the rows you don't want. Here we've added a line of code to keep only the rows where the guinea pig was given vitamin C as orange juice (OJ), not as pure vitamin C.
+```{r}
+teeth_5 <- teeth %>%
+  dplyr::filter(supp == "OJ")
+
+head(teeth_5)
 ```
 

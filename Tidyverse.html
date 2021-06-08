@@ -319,7 +319,8 @@ library(tidyverse)</code></pre>
 <ul>
 <li><strong><code>mutate()</code></strong></li>
 <li><strong><code>group_by()</code></strong></li>
-<li><strong><code>summarise()</code></strong></li>
+<li><strong><code>summarize()</code></strong></li>
+<li><strong><code>filter()</code></strong></li>
 </ul>
 </div>
 <div id="then-well-introduce-some-functions-that-are-especially-useful-for-working-with-linear-models-such-as" class="section level4">
@@ -390,7 +391,7 @@ head(teeth)</code></pre>
 <p>So now we know the mean tooth length for all guinea pigs, but that's not very helpful. It'd be more informative to know the mean tooth length for specific groups of guinea pigs- based on the doses of vitamin C adminstered and the method of administration. First, let's group the subjects by the method of administration (supp) to find the mean tooth length per group (VC or OJ):</p>
 <pre class="r"><code>teeth_2 &lt;- teeth %&gt;%
   dplyr::group_by(supp) %&gt;%
-  mutate(.,
+  dplyr::mutate(.,
          mean_len = mean(len))
 
 head(as.data.frame(teeth_2), 60)</code></pre>
@@ -458,7 +459,7 @@ head(as.data.frame(teeth_2), 60)</code></pre>
 <p>Now let's incorporate dosage (dose) as another grouping so that the subjects are grouped by both supp <em>and</em> dose:</p>
 <pre class="r"><code>teeth_2 &lt;- teeth %&gt;%
   dplyr::group_by(supp, dose) %&gt;%
-  mutate(.,
+  dplyr::mutate(.,
          mean_len = mean(len))
 
 head(as.data.frame(teeth_2), 60)</code></pre>
@@ -524,7 +525,58 @@ head(as.data.frame(teeth_2), 60)</code></pre>
 ## 59 29.4   OJ  2.0  0.294    26.06
 ## 60 23.0   OJ  2.0  0.230    26.06</code></pre>
 <p>That's more like it!</p>
-<p>Now let's incorporate <code>mutate()</code>:</p>
+<p>However, there's a better way to organize this data...</p>
+<p><br/></p>
+</div>
+<div id="summarize" class="section level2">
+<h2><strong><code>summarize()</code></strong></h2>
+<p>If you don't need to keep the individual subjects' tooth length data, then it makes sense to use <code>summarize()</code> to condense our summarized data into fewer rows. Our output file will have one row for each combination of supp x dose.</p>
+<pre class="r"><code>teeth_3 &lt;- teeth %&gt;%
+  dplyr::group_by(supp, dose) %&gt;%
+  dplyr::summarize(mean_len = mean(len))</code></pre>
+<pre><code>## `summarise()` regrouping output by &#39;supp&#39; (override with `.groups` argument)</code></pre>
+<pre class="r"><code>head(teeth_3)</code></pre>
+<pre><code>## # A tibble: 6 x 3
+## # Groups:   supp [2]
+##   supp   dose mean_len
+##   &lt;fct&gt; &lt;dbl&gt;    &lt;dbl&gt;
+## 1 OJ      0.5    13.2 
+## 2 OJ      1      22.7 
+## 3 OJ      2      26.1 
+## 4 VC      0.5     7.98
+## 5 VC      1      16.8 
+## 6 VC      2      26.1</code></pre>
+<p>You can even summarize multiple times, such as if you wanted to first get mean values per supp x dose group and then average <em>those</em> values to get mean length per supp group.</p>
+<pre class="r"><code>teeth_4 &lt;- teeth %&gt;%
+  dplyr::group_by(supp, dose) %&gt;%
+  dplyr::summarize(mean_len = mean(len)) %&gt;%
+  dplyr::group_by(supp) %&gt;%
+  dplyr::summarize(mean_len = mean(mean_len))</code></pre>
+<pre><code>## `summarise()` regrouping output by &#39;supp&#39; (override with `.groups` argument)</code></pre>
+<pre><code>## `summarise()` ungrouping output (override with `.groups` argument)</code></pre>
+<pre class="r"><code>head(teeth_4)</code></pre>
+<pre><code>## # A tibble: 2 x 2
+##   supp  mean_len
+##   &lt;fct&gt;    &lt;dbl&gt;
+## 1 OJ        20.7
+## 2 VC        17.0</code></pre>
+<p>Let's imagine that you only want to focus on the guinea pigs given orange juice. How would you get rid of the other rows?</p>
+<p><br/></p>
+</div>
+<div id="filter" class="section level2">
+<h2><strong><code>filter()</code></strong></h2>
+<p>The <code>filter()</code> function lets you filter out the rows you don't want. Here we've added a line of code to keep only the rows where the guinea pig was given vitamin C as orange juice (OJ), not as pure vitamin C.</p>
+<pre class="r"><code>teeth_5 &lt;- teeth %&gt;%
+  dplyr::filter(supp == &quot;OJ&quot;)
+
+head(teeth_5)</code></pre>
+<pre><code>##    len supp dose len_cm mean_len
+## 1 15.2   OJ  0.5  0.152 18.81333
+## 2 21.5   OJ  0.5  0.215 18.81333
+## 3 17.6   OJ  0.5  0.176 18.81333
+## 4  9.7   OJ  0.5  0.097 18.81333
+## 5 14.5   OJ  0.5  0.145 18.81333
+## 6 10.0   OJ  0.5  0.100 18.81333</code></pre>
 </div>
 </div>
 
