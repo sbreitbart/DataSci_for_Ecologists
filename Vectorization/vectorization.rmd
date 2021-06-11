@@ -5,7 +5,7 @@ editor_options:
 ---
 # Vectorization
 
-
+![](MustGoFaster.jpg)
 
 ### To vectorize or not to vectorize
 

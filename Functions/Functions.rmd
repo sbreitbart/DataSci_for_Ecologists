@@ -5,6 +5,23 @@ editor_options:
   chunk_output_type: console
 ---
 
+![](functions.jpg)
+
+### Introduction
+
+Writing functions is a fundamental component of programming and therefore scares many people. However! Functions can be easier than you’d think. For example, think of what your perfect bar plot looks like. How much time do you spend making your bar plots look like that? Wouldn’t it be great if the very first time you plotted a barplot it looked exactly the way you wanted it to? With functions you can do that, and all the knowledge you’d need is how to make the barplot look the way you want. This works shop gives a quick overview of how to use functions to make your life easier. Demonstrations will be done in R, but are applicable to most languages.
+
+One of the more powerful aspects of programming languages relative GUI statistical softwares is the ability to create functions. Functions are extremely powerful because they allow for the automation of repetitive tasks and reduce bloated code from the more traditional “copy-paste” format. This becomes extremely powerful when combined with the apply family or loops. However, even for simple tasks, functions can make your life easier.
+
+Why use functions?
+
+save complicated operations or mathematical calculations
+reduce repetitive tasks
+standardize formats (e.g. plots, maps, etc)
+combine with apply family for automation of tasks
+
+
+
 ### Install packages 
 ```{r eval=FALSE}
 install.packages("here")
@@ -24,15 +41,20 @@ Make two dataframes from built-in dataset, "Body Temperature Series of Two Beave
 beaver_1 <- beaver1
 beaver_2 <- beaver2
 ```
+
 ***
-# Functions: The Basics
+### Functions: The Basics
 ***
-## What is a function?
+#### What is a function?
 
 A function is a command that executes one to several tasks all at once. You've probably used functions before. In R, for example, we frequently use functions that have been made by other people: <code>read.csv()</code> and <code>print()</code> are functions, to name a few.
 
+**Function Syntax**
+The format of function is fairly simple:
 
-## When should we make our own functions?
+`functionName <- function(arguments){ arguments + operation }`
+
+#### When should we make our own functions?
 
 In a 2016 [interview with Naturally Speaking](https://naturallyspeaking.blog/2016/06/22/episode-41-conversations-with-an-r-jedi/), Hadley Wickham explains,
 
@@ -45,10 +67,11 @@ There will always be times to break this rule, but here's Hadley again on why it
 > "Any time you've got duplication in your code, there's just a chance for... bugs to come in because... you change one, and you forget to change another one, you get inconsistencies. It's really frustrating."
 
 ***
-# Exercises
+### Exercises
 ***
-## Goal 1: Make a function that exports a dataframe to csv
-### How to set up a function
+#### Goal 1: Make a function that exports a dataframe to csv
+
+**How to set up a function**
 
 When you set up a function, the first two things you want to think about are 1) what you will name your function and 2) the variables the function will need in order to produce an output.
 
@@ -76,14 +99,15 @@ Beaver_to_csv1.1 <- function(dataframe, filename) {
 }
 ```
 
-### Example 1: Export beaver csv with only filename in path
-#### Create object that we'll use as our filename
+#### Example 1: Export beaver csv with only filename in path
+**Create object that we'll use as our filename**
+
 Notice we've added the file type (extension) to the filename: .csv
 ```{r}
 filename1.1 <- "Beaver1.csv" 
 ```
 
-#### Use function to export dataframe object to csv
+**Use function to export dataframe object to csv**
 ```{r}
 Beaver_to_csv1.1(beaver_1,
                  filename1.1)
@@ -92,9 +116,10 @@ Beaver_to_csv1.1(beaver_1,
 
 
 
-### Example 2: Export beaver csv with only filename in path
+#### Example 2: Export beaver csv with only filename in path
 
-#### Make a folder especially for beaver file exports
+**Make a folder especially for beaver file exports**
+
 Find where your project folder begins (its root):
 ```{r eval=FALSE}
 here::here()
@@ -102,7 +127,7 @@ here::here()
 
 Then manually create a new folder in that directory called "exports".
 
-#### Create new input variables for new function
+**Create new input variables for new function**
 Make new path:
 ```{r}
 path1.2 <- here::here("./exports/ ") 
@@ -115,7 +140,7 @@ filename1.2 <- "Beaver1"
 filetype1.2 <- ".csv"
 ```
 
-#### Make function that exports dataframe object to csv in csvs folder
+**Make function that exports dataframe object to csv in csvs folder**
 To accommodate the file path and file type objects, we'll add a two more input variables to our new function's set of input variables.
 ```{r}
 Beaver_to_csv1.2 <- function(dataframe, path, filename, filetype) {

@@ -1,0 +1,39 @@
+---
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+# For Loops
+  
+![](loop.png)
+  
+### To vectorize or not to vectorize
+  
+
+### Basics
+
+The concept of a `for` loop is something pervsaive across many programming languages. Packages and vectorization are generally optimized versions `for` loops that are executed in a more efficient programming language such as C++. However, R still allows utilization of `for` loops. 
+
+When I was first getting started trying to iterate through many tasks, I found `for` loops relatively inutitive compared to some other methods such as vectorization. I believe the greater understandability has to do with the structure. A `for` loop, similar to a function, is a task completed normally but then with one variable that changes, which allows the iterations. Let's take a look at an example of what that might look like getting the correlation between variables among some groups. 
+
+We are going to use the [penguin dataset by Allison Horst](https://allisonhorst.github.io/palmerpenguins/) as an alternate to the [controversial iris dataset](https://www.garrickadenbuie.com/blog/lets-move-on-from-iris/). 
+
+```{r warning=F, message=F}
+library(palmerpenguins)
+penguins <- data.frame(penguins) ## convert from tibble
+str(penguins)
+
+
+### separate linear models for each species
+adelie <- subset(penguins, species=="Adelie")
+corAde <- cor(adelie$bill_length_mm, adelie$bill_depth_mm, use="complete.obs")
+chinstrap <- subset(penguins, species=="Chinstrap")
+corchin <- cor(chinstrap$bill_length_mm, chinstrap$bill_depth_mm, use="complete.obs")
+gentoo <- subset(penguins, species=="Gentoo")
+corGen <- cor(gentoo$bill_length_mm, gentoo$bill_depth_mm, use="complete.obs")
+penguinDF <- data.frame(species=c("Adelie","Chinstrap","Gentoo"), 
+                        corValue =c(corAde,corchin,corGen) )
+
+```
+
+The above approach has a few issues with it. Besides being labour intensive, the copy-paste of multiple lines runs of the risk of an error appearing. The person analyzing this data might miss an argument, such as the `use` arguement, or might misspell one of the target species they are analyzing. Without an error message produced by R, there is no way to determine that an error was made along the way. Most importantly, this strategy does not scale easily. For three species, it is annoying, for 1000 species it is impractical. 
