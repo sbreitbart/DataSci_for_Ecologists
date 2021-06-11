@@ -272,18 +272,13 @@ $(document).ready(function () {
 </div>
 
 
-<ul>
-<li>group_by &amp; mutate: calculate relative growth rate (etc.)</li>
-<li>summarise: calculate mean, std. error (etc)</li>
-<li>linear models</li>
-<li>broom</li>
-</ul>
 <div id="install-packages" class="section level3">
 <h3>Install packages</h3>
 <pre class="r"><code>install.packages(&quot;here&quot;)
 install.packages(&quot;tidyverse&quot;)
 install.packages(&quot;magrittr&quot;)
-install.packages(&quot;dplyr&quot;)</code></pre>
+install.packages(&quot;dplyr&quot;)
+install.packages(&quot;broom&quot;)</code></pre>
 </div>
 <div id="load-libraries-data" class="section level3">
 <h3>Load libraries &amp; data</h3>
@@ -291,7 +286,8 @@ install.packages(&quot;dplyr&quot;)</code></pre>
 <pre class="r"><code>library(here) # Look where your folder begins.
 library(dplyr)
 library(magrittr)
-library(tidyverse)</code></pre>
+library(tidyverse)
+library(broom)</code></pre>
 </div>
 <div id="save-this-built-in-dataset-as-a-dataframe" class="section level3">
 <h3>Save this built-in dataset as a dataframe</h3>
@@ -305,9 +301,9 @@ library(tidyverse)</code></pre>
 <h2>What is it?</h2>
 <p><a href="https://www.tidyverse.org/">The tidyverse &quot;is an opinionated collection of R packages designed for data science. All packages share an underlying design philosophy, grammar, and data structures.&quot;</a> The tidyverse contains some extremely useful packages such as</p>
 <ul>
-<li><code><a href="https://ggplot2.tidyverse.org/">ggplot2</a></code>, which lets you make fantastic graphics;</li>
-<li><code><a href="https://tidyr.tidyverse.org/">tidyr</a></code>, which helps you &quot;tidy&quot; (clean) up your data; and</li>
-<li><code><a href="https://dplyr.tidyverse.org/">dplyr</a></code>, which lets you manipulate your data, like you would with pliers (hence d-<em>plyr</em>). <br/></li>
+<li><code><a href="https://ggplot2.tidyverse.org/"><strong>ggplot2</strong></a></code>, which lets you make fantastic graphics;</li>
+<li><code><a href="https://tidyr.tidyverse.org/"><strong>tidyr</strong></a></code>, which helps you &quot;tidy&quot; (clean) up your data; and</li>
+<li><code><a href="https://dplyr.tidyverse.org/"><strong>dplyr</strong></a></code>, which lets you manipulate your data, like you would with pliers (hence d-<em>plyr</em>). <br/></li>
 </ul>
 <hr />
 </div>
@@ -321,20 +317,23 @@ library(tidyverse)</code></pre>
 <li><strong><code>group_by()</code></strong></li>
 <li><strong><code>summarize()</code></strong></li>
 <li><strong><code>filter()</code></strong></li>
+<li><strong><code>select()</code></strong></li>
 </ul>
 </div>
-<div id="then-well-introduce-some-functions-that-are-especially-useful-for-working-with-linear-models-such-as" class="section level4">
-<h4>Then we'll introduce some functions that are especially useful for working with linear models such as</h4>
+<div id="then-well-introduce-some-functions-from-the-broom-package-that-are-especially-useful-for-working-with-linear-models-such-as" class="section level4">
+<h4>Then we'll introduce some functions from the <strong><code>broom</code></strong> package that are especially useful for working with linear models such as</h4>
 <ul>
-<li><strong><code>broom()</code></strong></li>
+<li><strong><code>tidy()</code></strong></li>
+<li><strong><code>augment()</code></strong></li>
+<li><strong><code>glance()</code></strong></li>
 </ul>
 <p><br/></p>
 </div>
 <div id="prequel-magrittrs-pipes" class="section level4">
-<h4>Prequel: <code>magrittr</code>'s pipes</h4>
-<p>A fantastic tool that is worth getting to know is the <code>magrittr</code> package's collection of operators called <em>pipes</em>. As stated on their <a href="https://magrittr.tidyverse.org/">webpage</a>,</p>
+<h4>Prequel: <strong><code>magrittr</code></strong>'s pipes</h4>
+<p>A fantastic tool that is worth getting to know is the <strong><code>magrittr</code></strong> package's collection of operators called <em>pipes</em>. As stated on their <a href="https://magrittr.tidyverse.org/">webpage</a>,</p>
 <blockquote>
-<p>&quot;The magrittr package offers a set of operators which make your code more readable by:</p>
+<p>&quot;The <strong><code>magrittr</code></strong> package offers a set of operators which make your code more readable by:</p>
 </blockquote>
 <blockquote>
 <ul>
@@ -358,6 +357,7 @@ library(tidyverse)</code></pre>
 <div id="mutate" class="section level2">
 <h2><strong><code>mutate()</code></strong></h2>
 <p>The <code>mutate()</code> function lets us create new columns based on existing columns. In this example, we'll create a new column that takes the &quot;len&quot; data- guinea pig tooth length measured in mm- and divide it by 100 to create a similar column with cm as the unit of length.</p>
+<p>The . after mutate( refers to how we're performing the <code>mutate()</code> function on the object already named after the assignment arrow (the teeth object).</p>
 <pre class="r"><code>teeth &lt;- teeth %&gt;%
   dplyr::mutate(.,
                 len_cm = len / 100)
@@ -560,16 +560,34 @@ head(as.data.frame(teeth_2), 60)</code></pre>
 ##   &lt;fct&gt;    &lt;dbl&gt;
 ## 1 OJ        20.7
 ## 2 VC        17.0</code></pre>
+<p>What if you just want to summarize all the rows of your dataset? Then you can use <code>summarize()</code> in conjunction with the <code>across()</code> &quot;helper&quot; function.</p>
+<p>Let's calculate the mean values for dose and len_cm. To do so, you'd set up your code like this. Be sure you're not selecting any non-numeric columns, like supp.</p>
+<pre class="r"><code>teeth_5 &lt;- teeth %&gt;%
+  dplyr::summarize(across(dose:len_cm, mean))
+
+teeth_5</code></pre>
+<pre><code>##       dose    len_cm
+## 1 1.166667 0.1881333</code></pre>
+<p>You can even summarize multiple variables in multiple ways, like in this example, where we're calculating both mean, maximum, and minimum values for dose and length. In the set of parentheses determining which calculations to perform (mean, max, min), be sure to put the suffix you want to append to the column name first (e.g. mean, maximum, minimum), then the = sign, then the R-recognized calculation name (mean, max, min).</p>
+<pre class="r"><code>teeth_6 &lt;- teeth %&gt;%
+  dplyr::summarize(across(c(len, dose),
+                          c(mean = mean,
+                            maximum = max,
+                            minimum = min))) %T&gt;%
+  print()</code></pre>
+<pre><code>##   len_mean len_maximum len_minimum dose_mean dose_maximum dose_minimum
+## 1 18.81333        33.9         4.2  1.166667            2          0.5</code></pre>
+<p><em>You'll also notice that I added a special pipe- <strong>%T&gt;%</strong>- plus the <code>print()</code> function at the end of the command. This tells R to perform the functions after the special pipe but to not associate those functions with the object being created (teeth_6). This pipe is very useful when creating plots, for instance.</em></p>
 <p>Let's imagine that you only want to focus on the guinea pigs given orange juice. How would you get rid of the other rows?</p>
 <p><br/></p>
 </div>
 <div id="filter" class="section level2">
 <h2><strong><code>filter()</code></strong></h2>
 <p>The <code>filter()</code> function lets you filter out the rows you don't want. Here we've added a line of code to keep only the rows where the guinea pig was given vitamin C as orange juice (OJ), not as pure vitamin C.</p>
-<pre class="r"><code>teeth_5 &lt;- teeth %&gt;%
+<pre class="r"><code>teeth_7 &lt;- teeth %&gt;%
   dplyr::filter(supp == &quot;OJ&quot;)
 
-head(teeth_5)</code></pre>
+head(teeth_7)</code></pre>
 <pre><code>##    len supp dose len_cm mean_len
 ## 1 15.2   OJ  0.5  0.152 18.81333
 ## 2 21.5   OJ  0.5  0.215 18.81333
@@ -577,6 +595,181 @@ head(teeth_5)</code></pre>
 ## 4  9.7   OJ  0.5  0.097 18.81333
 ## 5 14.5   OJ  0.5  0.145 18.81333
 ## 6 10.0   OJ  0.5  0.100 18.81333</code></pre>
+<p><br/></p>
+</div>
+<div id="select" class="section level2">
+<h2><strong><code>select()</code></strong></h2>
+<p>Similarly, the <code>select()</code> function lets you filter out the <em>columns</em> you don't want. Our new dataframe only includes the first three columns: from len to dose. Both of these commands accomplishes the same goal, whether you name the columns by their names or index position.</p>
+<pre class="r"><code>teeth_8 &lt;- teeth %&gt;%
+  dplyr::select(len:dose)
+
+head(teeth_8)</code></pre>
+<pre><code>##    len supp dose
+## 1  4.2   VC  0.5
+## 2 11.5   VC  0.5
+## 3  7.3   VC  0.5
+## 4  5.8   VC  0.5
+## 5  6.4   VC  0.5
+## 6 10.0   VC  0.5</code></pre>
+<pre class="r"><code>teeth_8 &lt;- teeth %&gt;%
+  dplyr::select(1:3)
+
+head(teeth_8)</code></pre>
+<pre><code>##    len supp dose
+## 1  4.2   VC  0.5
+## 2 11.5   VC  0.5
+## 3  7.3   VC  0.5
+## 4  5.8   VC  0.5
+## 5  6.4   VC  0.5
+## 6 10.0   VC  0.5</code></pre>
+<p><br/></p>
+<hr />
+</div>
+<div id="helpful-functions-for-linear-models" class="section level2">
+<h2><strong>Helpful Functions for Linear Models</strong></h2>
+<p>Let's load a new built-in dataset: iris. This dataset offers lengths and widths of sepals and petals of three species of flowers.</p>
+<pre class="r"><code>iris1 &lt;- iris</code></pre>
+<p>We're going to set up some linear models- one for each species of flower- and then use three functions from the <code>broom</code> package to summarize important information about the models which will be generated in a format that makes it simple to compare and plot models.</p>
+<p>As stated in the <a href="https://broom.tidymodels.org/"><strong><code>broom</code></strong> overview page</a>, here is the role of each function:</p>
+<div id="tidy" class="section level4">
+<h4><strong><code>tidy()</code></strong>:</h4>
+<p><em>&quot;Summarizes information about model components&quot;</em></p>
+</div>
+<div id="augment" class="section level4">
+<h4><strong><code>augment()</code></strong></h4>
+<p><em>&quot;Reports information about the entire model&quot;</em></p>
+</div>
+<div id="glance" class="section level4">
+<h4><strong><code>glance()</code></strong></h4>
+<p><em>&quot;Adds informations about observations to a dataset&quot;</em></p>
+<p><br/></p>
+</div>
+<div id="the-long-way" class="section level3">
+<h3>The long way</h3>
+<div id="set-up-individual-models" class="section level4">
+<h4>Set up individual models</h4>
+<pre class="r"><code>mod1 &lt;- lm(Sepal.Length ~ Sepal.Width,
+           iris1 %&gt;% filter(Species == &quot;setosa&quot;))
+
+mod2 &lt;- lm(Sepal.Length ~ Sepal.Width,
+           iris1 %&gt;% filter(Species == &quot;versicolor&quot;))
+
+mod3 &lt;- lm(Sepal.Length ~ Sepal.Width,
+           iris1 %&gt;% filter(Species == &quot;virginica&quot;))</code></pre>
+<p><br/></p>
+</div>
+</div>
+<div id="tidy-1" class="section level3">
+<h3><strong><code>tidy()</code></strong></h3>
+<pre class="r"><code>broom::tidy(mod1)</code></pre>
+<pre><code>## # A tibble: 2 x 5
+##   term        estimate std.error statistic  p.value
+##   &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
+## 1 (Intercept)    2.64     0.310       8.51 3.74e-11
+## 2 Sepal.Width    0.690    0.0899      7.68 6.71e-10</code></pre>
+<pre class="r"><code># broom::tidy(mod2)
+# broom::tidy(mod3)</code></pre>
+<p><br/></p>
+</div>
+<div id="augment-1" class="section level3">
+<h3><strong><code>augment()</code></strong></h3>
+<pre class="r"><code>broom::augment(mod1)</code></pre>
+<pre><code>## # A tibble: 50 x 8
+##    Sepal.Length Sepal.Width .fitted  .resid .std.resid   .hat .sigma   .cooksd
+##           &lt;dbl&gt;       &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;      &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;     &lt;dbl&gt;
+##  1          5.1         3.5    5.06  0.0443     0.188  0.0207  0.241 0.000373 
+##  2          4.9         3      4.71  0.190      0.813  0.0460  0.239 0.0160   
+##  3          4.7         3.2    4.85 -0.149     -0.632  0.0274  0.240 0.00561  
+##  4          4.6         3.1    4.78 -0.180     -0.766  0.0353  0.240 0.0107   
+##  5          5           3.6    5.12 -0.125     -0.529  0.0242  0.240 0.00348  
+##  6          5.4         3.9    5.33  0.0681     0.293  0.0516  0.241 0.00234  
+##  7          4.6         3.4    4.99 -0.387     -1.64   0.0201  0.234 0.0275   
+##  8          5           3.4    4.99  0.0133     0.0565 0.0201  0.241 0.0000327
+##  9          4.4         2.9    4.64 -0.241     -1.04   0.0596  0.238 0.0345   
+## 10          4.9         3.1    4.78  0.120      0.514  0.0353  0.240 0.00484  
+## # ... with 40 more rows</code></pre>
+<pre class="r"><code># broom::augment(mod2)
+# broom::augment(mod3)</code></pre>
+<p><br/></p>
+</div>
+<div id="glance-1" class="section level3">
+<h3><strong><code>glance()</code></strong></h3>
+<pre class="r"><code>broom::glance(mod1)</code></pre>
+<pre><code>## # A tibble: 1 x 12
+##   r.squared adj.r.squared sigma statistic  p.value    df logLik   AIC   BIC
+##       &lt;dbl&gt;         &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+## 1     0.551         0.542 0.239      59.0 6.71e-10     1   1.73  2.53  8.27
+## # ... with 3 more variables: deviance &lt;dbl&gt;, df.residual &lt;int&gt;, nobs &lt;int&gt;</code></pre>
+<pre class="r"><code># broom::glance(mod2)
+# broom::glance(mod3)</code></pre>
+<p><br/></p>
+</div>
+<div id="the-fastr-way-to-do-this" class="section level3">
+<h3>The <em>fastR</em> way to do this:</h3>
+<p>Notice that we are using the <code>group_by</code> function perform the same command on each species but in the same chunk of code.</p>
+<p><br/></p>
+</div>
+<div id="tidy-2" class="section level3">
+<h3><strong><code>tidy()</code></strong></h3>
+<pre class="r"><code># tidy
+mod_all.tidy &lt;- iris1 %&gt;%
+  group_by(Species) %&gt;%
+  do(fit = broom::tidy(lm(Sepal.Length ~ Sepal.Width,
+              data = .))) %&gt;%
+  unnest(fit) %T&gt;%
+  print()</code></pre>
+<pre><code>## # A tibble: 6 x 6
+##   Species    term        estimate std.error statistic  p.value
+##   &lt;fct&gt;      &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
+## 1 setosa     (Intercept)    2.64     0.310       8.51 3.74e-11
+## 2 setosa     Sepal.Width    0.690    0.0899      7.68 6.71e-10
+## 3 versicolor (Intercept)    3.54     0.563       6.29 9.07e- 8
+## 4 versicolor Sepal.Width    0.865    0.202       4.28 8.77e- 5
+## 5 virginica  (Intercept)    3.91     0.757       5.16 4.66e- 6
+## 6 virginica  Sepal.Width    0.902    0.253       3.56 8.43e- 4</code></pre>
+<p><br/></p>
+</div>
+<div id="augment-2" class="section level3">
+<h3><strong><code>augment()</code></strong></h3>
+<pre class="r"><code>mod_all.augment &lt;- iris1 %&gt;%
+  group_by(Species) %&gt;%
+  do(fit = broom::augment(lm(Sepal.Length ~ Sepal.Width,
+              data = .))) %&gt;%
+  unnest(fit) %T&gt;%
+  print()</code></pre>
+<pre><code>## # A tibble: 150 x 9
+##    Species Sepal.Length Sepal.Width .fitted  .resid .std.resid   .hat .sigma
+##    &lt;fct&gt;          &lt;dbl&gt;       &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;      &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
+##  1 setosa           5.1         3.5    5.06  0.0443     0.188  0.0207  0.241
+##  2 setosa           4.9         3      4.71  0.190      0.813  0.0460  0.239
+##  3 setosa           4.7         3.2    4.85 -0.149     -0.632  0.0274  0.240
+##  4 setosa           4.6         3.1    4.78 -0.180     -0.766  0.0353  0.240
+##  5 setosa           5           3.6    5.12 -0.125     -0.529  0.0242  0.240
+##  6 setosa           5.4         3.9    5.33  0.0681     0.293  0.0516  0.241
+##  7 setosa           4.6         3.4    4.99 -0.387     -1.64   0.0201  0.234
+##  8 setosa           5           3.4    4.99  0.0133     0.0565 0.0201  0.241
+##  9 setosa           4.4         2.9    4.64 -0.241     -1.04   0.0596  0.238
+## 10 setosa           4.9         3.1    4.78  0.120      0.514  0.0353  0.240
+## # ... with 140 more rows, and 1 more variable: .cooksd &lt;dbl&gt;</code></pre>
+<p><br/></p>
+</div>
+<div id="glance-2" class="section level3">
+<h3><strong><code>glance()</code></strong></h3>
+<pre class="r"><code>mod_all.glance &lt;- iris1 %&gt;%
+  group_by(Species) %&gt;%
+  do(fit = broom::glance(lm(Sepal.Length ~ Sepal.Width,
+              data = .))) %&gt;%
+  unnest(fit) %T&gt;%
+  print()</code></pre>
+<pre><code>## # A tibble: 3 x 13
+##   Species r.squared adj.r.squared sigma statistic  p.value    df logLik   AIC
+##   &lt;fct&gt;       &lt;dbl&gt;         &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;
+## 1 setosa      0.551         0.542 0.239      59.0 6.71e-10     1   1.73  2.53
+## 2 versic~     0.277         0.262 0.444      18.4 8.77e- 5     1 -29.3  64.6 
+## 3 virgin~     0.209         0.193 0.571      12.7 8.43e- 4     1 -41.9  89.9 
+## # ... with 4 more variables: BIC &lt;dbl&gt;, deviance &lt;dbl&gt;, df.residual &lt;int&gt;,
+## #   nobs &lt;int&gt;</code></pre>
+</div>
 </div>
 </div>
 
