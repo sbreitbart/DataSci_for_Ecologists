@@ -14,7 +14,6 @@ output:
 
 ```{r warning=F, message=F}
 ### Needed libraries
-library(dplyr)
 library(microbenchmark)
 
 ```
@@ -146,17 +145,11 @@ Where I think vectorization gets the most power is through combination with `tid
 
 
 ### Install and load packages 
-```{r eval=FALSE}
-install.packages("here")
-install.packages("tidyverse")
-install.packages("broom")
-install.packages("magrittr")
-```
-
 ```{r load-packages,  message=FALSE, warning=FALSE}
 library(here) # Look where your folder begins.
 library(magrittr)
-library(tidyverse)
+library(dplyr)
+library(tidyr)
 library(broom)
 ```
 

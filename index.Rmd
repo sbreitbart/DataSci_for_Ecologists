@@ -34,7 +34,7 @@ Time   | Goal
 12:15 pm | [Functions](Functions/Functions.html)
 12:45 pm | [Vectorization](Vectorization/vectorization.html)
 1:30 pm | Break
-1:45 pm  | [forloops](forloops/forLoops.html)
+1:45 pm  | [for Loops](forloops/forLoops.html)
 2:30 pm  | [Parallelization](Parallelization/Parallelization.html)
 
 
@@ -46,6 +46,13 @@ Time   | Goal
 Windows        |   Mac OS  X   |      Linux
 ---------------|---------------|---------------
 Install R by downloading and running [this .exe](http://cran.r-project.org/bin/windows/base/release.htm) file from [CRAN](http://cran.r-project.org/index.html). Please also install the [RStudio IDE](http://www.rstudio.com/ide/download/desktop).| Install R by downloading and running [this .pkg](http://cran.r-project.org/bin/macosx/R-latest.pkg) file from [CRAN](http://cran.r-project.org/index.html). Please also install the [RStudio IDE](http://www.rstudio.com/ide/download/desktop).|You can download the binary files for your distribution from [CRAN](http://cran.r-project.org/index.html). Please also install the [RStudio IDE](http://www.rstudio.com/ide/download/desktop)
+
+**Packages we will be using:** We recommend you install these ahead of time and ensure they load correctly to reduce troubleshooting in the workshop. 
+```{r eval= FALSE}
+install.packages(c("here","microbenchmark", "tidyr","dplyr","magrittr","broom","foreach","doParallel"))
+
+```
+
 
 ## Other workshops
 

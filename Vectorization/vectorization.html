@@ -1530,7 +1530,6 @@ div.tocify {
 <div id="to-vectorize-or-not-to-vectorize" class="section level3">
 <h3>To vectorize or not to vectorize</h3>
 <pre class="r"><code>### Needed libraries
-library(dplyr)
 library(microbenchmark)</code></pre>
 <p>I’ve often seen the argument that you should always vectorize in R whenever you possible can. There certainly is some merit to using vectorization and in almost all cases, vectorized code will perform equally or better than unvectorized code. However, there is a learning curve and a bit of extra thought that is necessary to transform code into the necessary vectorized format. Depending on how much time is invested, that can result in net-zero or negative effect on your productivity. To help you make the decision whether to invest time in optimizing your code through vectorization, I think it makes sense to explain what vectorization means, the pros, and the cons.</p>
 <p>As far as I’m aware, there is only one con so let’s just get it out of the way. Vectorization is not intuitive. It requires a bit of abstract thinking to implement. Maybe if you did it all time, vectorization will come naturally to you, but new and complex tasks requires some time where you are blankly staring at your script thinking what to do. Time that could be spent throwing a <code>for</code> loop infront of your code and having it already runing. What complicates this further is that easier instances where vectorization would be particularly applicable, base R and new packages have already written wrappers that take away the advantage.</p>
@@ -1629,13 +1628,10 @@ do.call(c, sumOut)</code></pre>
 </ul>
 <div id="install-and-load-packages" class="section level3">
 <h3>Install and load packages</h3>
-<pre class="r"><code>install.packages(&quot;here&quot;)
-install.packages(&quot;tidyverse&quot;)
-install.packages(&quot;broom&quot;)
-install.packages(&quot;magrittr&quot;)</code></pre>
 <pre class="r"><code>library(here) # Look where your folder begins.
 library(magrittr)
-library(tidyverse)
+library(dplyr)
+library(tidyr)
 library(broom)</code></pre>
 </div>
 <div id="save-this-built-in-dataset-as-a-dataframe" class="section level3">
