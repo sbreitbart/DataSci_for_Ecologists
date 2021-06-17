@@ -461,6 +461,477 @@ do.call(c, sumOut)</code></pre>
 <div id="vectorization-and-tidyverse" class="section level3">
 <h3>Vectorization and tidyverse</h3>
 <p>Where I think vectorization gets the most power is through combination with <code>tidyverse</code>. This allows for rapid computations of subsets of the data that would considerably more lines of code and slower using <code>for</code> loops.</p>
+<p><em>What is tidyverse?</em> <a href="https://www.tidyverse.org/">The tidyverse</a> “is an opinionated collection of R packages designed for data science. All packages share an underlying design philosophy, grammar, and data structures.” The tidyverse contains some extremely useful packages such as</p>
+<ul>
+<li><code><a href="https://ggplot2.tidyverse.org/"><strong>ggplot2</strong></a></code>, which lets you make fantastic graphics;</li>
+<li><code><a href="https://tidyr.tidyverse.org/"><strong>tidyr</strong></a></code>, which helps you “tidy” (clean) up your data; and</li>
+<li><code><a href="https://dplyr.tidyverse.org/"><strong>dplyr</strong></a></code>, which lets you manipulate your data, like you would with pliers (hence d-<em>plyr</em>). <br /></li>
+</ul>
+</div>
+<div id="install-and-load-packages" class="section level3">
+<h3>Install and load packages</h3>
+<pre class="r"><code>install.packages(&quot;here&quot;)
+install.packages(&quot;tidyverse&quot;)
+install.packages(&quot;broom&quot;)
+install.packages(&quot;magrittr&quot;)</code></pre>
+<pre class="r"><code>library(here) # Look where your folder begins.
+library(magrittr)
+library(tidyverse)
+library(broom)</code></pre>
+</div>
+<div id="save-this-built-in-dataset-as-a-dataframe" class="section level3">
+<h3>Save this built-in dataset as a dataframe</h3>
+<p>The “The Effect of Vitamin C on Tooth Growth in Guinea Pigs” dataset contains data from an experiment wherein 60 guinea pigs were given vitamin C either as pure vitamin C (VC) or orange juice (OJ) (column “supp”) in doses of 0.5, 1, or 2 mg/day (column “dose”). The researchers recorded the growth of their teeth (column “len”).</p>
+<pre class="r"><code>teeth &lt;- ToothGrowth</code></pre>
+<div id="today-we-will-work-through-examples-of-these-tidyverse-functions" class="section level4">
+<h4>Today we will work through examples of these tidyverse functions:</h4>
+<ul>
+<li><strong><code>mutate()</code></strong></li>
+<li><strong><code>group_by()</code></strong></li>
+<li><strong><code>summarize()</code></strong></li>
+<li><strong><code>filter()</code></strong></li>
+<li><strong><code>select()</code></strong></li>
+</ul>
+</div>
+<div id="then-well-introduce-some-functions-from-the-broom-package-that-are-especially-useful-for-working-with-linear-models-such-as" class="section level4">
+<h4>Then we’ll introduce some functions from the <strong><code>broom</code></strong> package that are especially useful for working with linear models such as</h4>
+<ul>
+<li><strong><code>tidy()</code></strong></li>
+<li><strong><code>augment()</code></strong></li>
+<li><strong><code>glance()</code></strong></li>
+</ul>
+</div>
+<div id="prequel-magrittrs-pipes" class="section level4">
+<h4>Prequel: <strong><code>magrittr</code></strong>’s pipes</h4>
+<p>A fantastic tool that is worth getting to know is the <strong><code>magrittr</code></strong> package’s collection of operators called <em>pipes</em>. As stated on their <a href="https://magrittr.tidyverse.org/">webpage</a>,</p>
+<blockquote>
+<p>&quot;The <strong><code>magrittr</code></strong> package offers a set of operators which make your code more readable by:</p>
+</blockquote>
+<blockquote>
+<ul>
+<li>structuring sequences of data operations left-to-right (as opposed to from the inside and out),</li>
+<li>avoiding nested function calls,</li>
+<li>minimizing the need for local variables and function definitions, and</li>
+<li>making it easy to add steps anywhere in the sequence of operations.&quot;</li>
+</ul>
+</blockquote>
+<div id="well-frequently-set-up-our-code-like-this" class="section level5">
+<h5>We’ll frequently set up our code like this:</h5>
+<p><code>new_object &lt;- old_object %&gt;% function()</code></p>
+</div>
+<div id="if-youd-rather-overwrite-your-original-object-you-can-use-either-of-these-setups" class="section level5">
+<h5>If you’d rather overwrite your original object, you can use either of these setups:</h5>
+<p><code>old_object &lt;- old_object %&gt;% function()</code></p>
+<p><code>old_object %&lt;&gt;% function()</code> <em>(notice that the pipe has two arrows inside it now)</em> <br /><br /></p>
+<hr />
+</div>
+</div>
+</div>
+<div id="mutate" class="section level3">
+<h3><strong><code>mutate()</code></strong></h3>
+<p>The <code>mutate()</code> function lets us create new columns based on existing columns. In this example, we’ll create a new column that takes the “len” data- guinea pig tooth length measured in mm- and divide it by 100 to create a similar column with cm as the unit of length.</p>
+<p>The <code>.</code> after mutate( refers to how we’re performing the <code>mutate()</code> function on the object already named after the assignment arrow (the teeth object).</p>
+<pre class="r"><code>teeth &lt;- teeth %&gt;%
+  dplyr::mutate(.,
+                len_cm = len / 100)
+
+head(teeth)</code></pre>
+<pre><code>##    len supp dose len_cm
+## 1  4.2   VC  0.5  0.042
+## 2 11.5   VC  0.5  0.115
+## 3  7.3   VC  0.5  0.073
+## 4  5.8   VC  0.5  0.058
+## 5  6.4   VC  0.5  0.064
+## 6 10.0   VC  0.5  0.100</code></pre>
+<p>We can also mutate multiple columns at once. Let’s add a new column that calculates the mean tooth length for all guinea pigs:</p>
+<pre class="r"><code>teeth &lt;- teeth %&gt;%
+  dplyr::mutate(.,
+                len_cm = len / 100,
+                mean_len = mean(len))
+
+head(teeth)</code></pre>
+<pre><code>##    len supp dose len_cm mean_len
+## 1  4.2   VC  0.5  0.042 18.81333
+## 2 11.5   VC  0.5  0.115 18.81333
+## 3  7.3   VC  0.5  0.073 18.81333
+## 4  5.8   VC  0.5  0.058 18.81333
+## 5  6.4   VC  0.5  0.064 18.81333
+## 6 10.0   VC  0.5  0.100 18.81333</code></pre>
+<p><br /></p>
+</div>
+<div id="group_by" class="section level3">
+<h3><strong><code>group_by()</code></strong></h3>
+<p>So now we know the mean tooth length for all guinea pigs, but that’s not very helpful. It’d be more informative to know the mean tooth length for specific groups of guinea pigs- based on the doses of vitamin C adminstered and the method of administration. First, let’s group the subjects by the method of administration (supp) to find the mean tooth length per group (VC or OJ):</p>
+<pre class="r"><code>teeth_2 &lt;- teeth %&gt;%
+  dplyr::group_by(supp) %&gt;%
+  dplyr::mutate(.,
+         mean_len = mean(len))
+
+head(as.data.frame(teeth_2), 60)</code></pre>
+<pre><code>##     len supp dose len_cm mean_len
+## 1   4.2   VC  0.5  0.042 16.96333
+## 2  11.5   VC  0.5  0.115 16.96333
+## 3   7.3   VC  0.5  0.073 16.96333
+## 4   5.8   VC  0.5  0.058 16.96333
+## 5   6.4   VC  0.5  0.064 16.96333
+## 6  10.0   VC  0.5  0.100 16.96333
+## 7  11.2   VC  0.5  0.112 16.96333
+## 8  11.2   VC  0.5  0.112 16.96333
+## 9   5.2   VC  0.5  0.052 16.96333
+## 10  7.0   VC  0.5  0.070 16.96333
+## 11 16.5   VC  1.0  0.165 16.96333
+## 12 16.5   VC  1.0  0.165 16.96333
+## 13 15.2   VC  1.0  0.152 16.96333
+## 14 17.3   VC  1.0  0.173 16.96333
+## 15 22.5   VC  1.0  0.225 16.96333
+## 16 17.3   VC  1.0  0.173 16.96333
+## 17 13.6   VC  1.0  0.136 16.96333
+## 18 14.5   VC  1.0  0.145 16.96333
+## 19 18.8   VC  1.0  0.188 16.96333
+## 20 15.5   VC  1.0  0.155 16.96333
+## 21 23.6   VC  2.0  0.236 16.96333
+## 22 18.5   VC  2.0  0.185 16.96333
+## 23 33.9   VC  2.0  0.339 16.96333
+## 24 25.5   VC  2.0  0.255 16.96333
+## 25 26.4   VC  2.0  0.264 16.96333
+## 26 32.5   VC  2.0  0.325 16.96333
+## 27 26.7   VC  2.0  0.267 16.96333
+## 28 21.5   VC  2.0  0.215 16.96333
+## 29 23.3   VC  2.0  0.233 16.96333
+## 30 29.5   VC  2.0  0.295 16.96333
+## 31 15.2   OJ  0.5  0.152 20.66333
+## 32 21.5   OJ  0.5  0.215 20.66333
+## 33 17.6   OJ  0.5  0.176 20.66333
+## 34  9.7   OJ  0.5  0.097 20.66333
+## 35 14.5   OJ  0.5  0.145 20.66333
+## 36 10.0   OJ  0.5  0.100 20.66333
+## 37  8.2   OJ  0.5  0.082 20.66333
+## 38  9.4   OJ  0.5  0.094 20.66333
+## 39 16.5   OJ  0.5  0.165 20.66333
+## 40  9.7   OJ  0.5  0.097 20.66333
+## 41 19.7   OJ  1.0  0.197 20.66333
+## 42 23.3   OJ  1.0  0.233 20.66333
+## 43 23.6   OJ  1.0  0.236 20.66333
+## 44 26.4   OJ  1.0  0.264 20.66333
+## 45 20.0   OJ  1.0  0.200 20.66333
+## 46 25.2   OJ  1.0  0.252 20.66333
+## 47 25.8   OJ  1.0  0.258 20.66333
+## 48 21.2   OJ  1.0  0.212 20.66333
+## 49 14.5   OJ  1.0  0.145 20.66333
+## 50 27.3   OJ  1.0  0.273 20.66333
+## 51 25.5   OJ  2.0  0.255 20.66333
+## 52 26.4   OJ  2.0  0.264 20.66333
+## 53 22.4   OJ  2.0  0.224 20.66333
+## 54 24.5   OJ  2.0  0.245 20.66333
+## 55 24.8   OJ  2.0  0.248 20.66333
+## 56 30.9   OJ  2.0  0.309 20.66333
+## 57 26.4   OJ  2.0  0.264 20.66333
+## 58 27.3   OJ  2.0  0.273 20.66333
+## 59 29.4   OJ  2.0  0.294 20.66333
+## 60 23.0   OJ  2.0  0.230 20.66333</code></pre>
+<p>Now let’s incorporate dosage (dose) as another grouping so that the subjects are grouped by both supp <em>and</em> dose:</p>
+<pre class="r"><code>teeth_2 &lt;- teeth %&gt;%
+  dplyr::group_by(supp, dose) %&gt;%
+  dplyr::mutate(.,
+         mean_len = mean(len))
+
+head(as.data.frame(teeth_2), 60)</code></pre>
+<pre><code>##     len supp dose len_cm mean_len
+## 1   4.2   VC  0.5  0.042     7.98
+## 2  11.5   VC  0.5  0.115     7.98
+## 3   7.3   VC  0.5  0.073     7.98
+## 4   5.8   VC  0.5  0.058     7.98
+## 5   6.4   VC  0.5  0.064     7.98
+## 6  10.0   VC  0.5  0.100     7.98
+## 7  11.2   VC  0.5  0.112     7.98
+## 8  11.2   VC  0.5  0.112     7.98
+## 9   5.2   VC  0.5  0.052     7.98
+## 10  7.0   VC  0.5  0.070     7.98
+## 11 16.5   VC  1.0  0.165    16.77
+## 12 16.5   VC  1.0  0.165    16.77
+## 13 15.2   VC  1.0  0.152    16.77
+## 14 17.3   VC  1.0  0.173    16.77
+## 15 22.5   VC  1.0  0.225    16.77
+## 16 17.3   VC  1.0  0.173    16.77
+## 17 13.6   VC  1.0  0.136    16.77
+## 18 14.5   VC  1.0  0.145    16.77
+## 19 18.8   VC  1.0  0.188    16.77
+## 20 15.5   VC  1.0  0.155    16.77
+## 21 23.6   VC  2.0  0.236    26.14
+## 22 18.5   VC  2.0  0.185    26.14
+## 23 33.9   VC  2.0  0.339    26.14
+## 24 25.5   VC  2.0  0.255    26.14
+## 25 26.4   VC  2.0  0.264    26.14
+## 26 32.5   VC  2.0  0.325    26.14
+## 27 26.7   VC  2.0  0.267    26.14
+## 28 21.5   VC  2.0  0.215    26.14
+## 29 23.3   VC  2.0  0.233    26.14
+## 30 29.5   VC  2.0  0.295    26.14
+## 31 15.2   OJ  0.5  0.152    13.23
+## 32 21.5   OJ  0.5  0.215    13.23
+## 33 17.6   OJ  0.5  0.176    13.23
+## 34  9.7   OJ  0.5  0.097    13.23
+## 35 14.5   OJ  0.5  0.145    13.23
+## 36 10.0   OJ  0.5  0.100    13.23
+## 37  8.2   OJ  0.5  0.082    13.23
+## 38  9.4   OJ  0.5  0.094    13.23
+## 39 16.5   OJ  0.5  0.165    13.23
+## 40  9.7   OJ  0.5  0.097    13.23
+## 41 19.7   OJ  1.0  0.197    22.70
+## 42 23.3   OJ  1.0  0.233    22.70
+## 43 23.6   OJ  1.0  0.236    22.70
+## 44 26.4   OJ  1.0  0.264    22.70
+## 45 20.0   OJ  1.0  0.200    22.70
+## 46 25.2   OJ  1.0  0.252    22.70
+## 47 25.8   OJ  1.0  0.258    22.70
+## 48 21.2   OJ  1.0  0.212    22.70
+## 49 14.5   OJ  1.0  0.145    22.70
+## 50 27.3   OJ  1.0  0.273    22.70
+## 51 25.5   OJ  2.0  0.255    26.06
+## 52 26.4   OJ  2.0  0.264    26.06
+## 53 22.4   OJ  2.0  0.224    26.06
+## 54 24.5   OJ  2.0  0.245    26.06
+## 55 24.8   OJ  2.0  0.248    26.06
+## 56 30.9   OJ  2.0  0.309    26.06
+## 57 26.4   OJ  2.0  0.264    26.06
+## 58 27.3   OJ  2.0  0.273    26.06
+## 59 29.4   OJ  2.0  0.294    26.06
+## 60 23.0   OJ  2.0  0.230    26.06</code></pre>
+<p>That’s more like it!</p>
+<p>However, there’s a better way to organize this data…</p>
+<p><br /></p>
+</div>
+<div id="summarize" class="section level3">
+<h3><strong><code>summarize()</code></strong></h3>
+<p>If you don’t need to keep the individual subjects’ tooth length data, then it makes sense to use <code>summarize()</code> to condense our summarized data into fewer rows. Our output file will have one row for each combination of supp x dose.</p>
+<pre class="r"><code>teeth_3 &lt;- teeth %&gt;%
+  dplyr::group_by(supp, dose) %&gt;%
+  dplyr::summarize(mean_len = mean(len))</code></pre>
+<pre><code>## `summarise()` has grouped output by &#39;supp&#39;. You can override using the `.groups` argument.</code></pre>
+<pre class="r"><code>head(teeth_3)</code></pre>
+<pre><code>## # A tibble: 6 x 3
+## # Groups:   supp [2]
+##   supp   dose mean_len
+##   &lt;fct&gt; &lt;dbl&gt;    &lt;dbl&gt;
+## 1 OJ      0.5    13.2 
+## 2 OJ      1      22.7 
+## 3 OJ      2      26.1 
+## 4 VC      0.5     7.98
+## 5 VC      1      16.8 
+## 6 VC      2      26.1</code></pre>
+<p>You can even summarize multiple times, such as if you wanted to first get mean values per supp x dose group and then average <em>those</em> values to get mean length per supp group.</p>
+<pre class="r"><code>teeth_4 &lt;- teeth %&gt;%
+  dplyr::group_by(supp, dose) %&gt;%
+  dplyr::summarize(mean_len = mean(len)) %&gt;%
+  dplyr::group_by(supp) %&gt;%
+  dplyr::summarize(mean_len = mean(mean_len))</code></pre>
+<pre><code>## `summarise()` has grouped output by &#39;supp&#39;. You can override using the `.groups` argument.</code></pre>
+<pre class="r"><code>head(teeth_4)</code></pre>
+<pre><code>## # A tibble: 2 x 2
+##   supp  mean_len
+##   &lt;fct&gt;    &lt;dbl&gt;
+## 1 OJ        20.7
+## 2 VC        17.0</code></pre>
+<p>What if you just want to summarize all the rows of your dataset? Then you can use <code>summarize()</code> in conjunction with the <code>across()</code> “helper” function.</p>
+<p>Let’s calculate the mean values for dose and len_cm. To do so, you’d set up your code like this. Be sure you’re not selecting any non-numeric columns, like supp.</p>
+<pre class="r"><code>teeth_5 &lt;- teeth %&gt;%
+  dplyr::summarize(across(dose:len_cm, mean))
+
+teeth_5</code></pre>
+<pre><code>##       dose    len_cm
+## 1 1.166667 0.1881333</code></pre>
+<p>You can even summarize multiple variables in multiple ways, like in this example, where we’re calculating both mean, maximum, and minimum values for dose and length. In the set of parentheses determining which calculations to perform (mean, max, min), be sure to put the suffix you want to append to the column name first (e.g. mean, maximum, minimum), then the = sign, then the R-recognized calculation name (mean, max, min).</p>
+<pre class="r"><code>teeth_6 &lt;- teeth %&gt;%
+  dplyr::summarize(across(c(len, dose),
+                          c(mean = mean,
+                            maximum = max,
+                            minimum = min))) %T&gt;%
+  print()</code></pre>
+<pre><code>##   len_mean len_maximum len_minimum dose_mean dose_maximum dose_minimum
+## 1 18.81333        33.9         4.2  1.166667            2          0.5</code></pre>
+<p><em>You’ll also notice that I added a special pipe- <strong>%T&gt;%</strong>- plus the <code>print()</code> function at the end of the command. This tells R to perform the functions after the special pipe but to not associate those functions with the object being created (teeth_6). This pipe is very useful when creating plots, for instance.</em></p>
+<p>Let’s imagine that you only want to focus on the guinea pigs given orange juice. How would you get rid of the other rows?</p>
+<p><br /></p>
+</div>
+<div id="filter" class="section level3">
+<h3><strong><code>filter()</code></strong></h3>
+<p>The <code>filter()</code> function lets you filter out the rows you don’t want. Here we’ve added a line of code to keep only the rows where the guinea pig was given vitamin C as orange juice (OJ), not as pure vitamin C.</p>
+<pre class="r"><code>teeth_7 &lt;- teeth %&gt;%
+  dplyr::filter(supp == &quot;OJ&quot;)
+
+head(teeth_7)</code></pre>
+<pre><code>##    len supp dose len_cm mean_len
+## 1 15.2   OJ  0.5  0.152 18.81333
+## 2 21.5   OJ  0.5  0.215 18.81333
+## 3 17.6   OJ  0.5  0.176 18.81333
+## 4  9.7   OJ  0.5  0.097 18.81333
+## 5 14.5   OJ  0.5  0.145 18.81333
+## 6 10.0   OJ  0.5  0.100 18.81333</code></pre>
+<p><br /></p>
+</div>
+<div id="select" class="section level3">
+<h3><strong><code>select()</code></strong></h3>
+<p>Similarly, the <code>select()</code> function lets you filter out the <em>columns</em> you don’t want. Our new dataframe only includes the first three columns: from len to dose. Both of these commands accomplishes the same goal, whether you name the columns by their names or index position.</p>
+<pre class="r"><code>teeth_8 &lt;- teeth %&gt;%
+  dplyr::select(len:dose)
+
+head(teeth_8)</code></pre>
+<pre><code>##    len supp dose
+## 1  4.2   VC  0.5
+## 2 11.5   VC  0.5
+## 3  7.3   VC  0.5
+## 4  5.8   VC  0.5
+## 5  6.4   VC  0.5
+## 6 10.0   VC  0.5</code></pre>
+<pre class="r"><code>teeth_8 &lt;- teeth %&gt;%
+  dplyr::select(1:3)
+
+head(teeth_8)</code></pre>
+<pre><code>##    len supp dose
+## 1  4.2   VC  0.5
+## 2 11.5   VC  0.5
+## 3  7.3   VC  0.5
+## 4  5.8   VC  0.5
+## 5  6.4   VC  0.5
+## 6 10.0   VC  0.5</code></pre>
+<p><br /></p>
+<hr />
+</div>
+<div id="helpful-functions-for-linear-models" class="section level3">
+<h3><strong>Helpful Functions for Linear Models</strong></h3>
+<p>Let’s load a new built-in dataset: warpbreaks. This dataset contains data regarding the number of breaks in yarn accumulated while weaving based on the yarn’s wool type and amount of tension.</p>
+<pre class="r"><code>yarn &lt;- warpbreaks</code></pre>
+<p>We’re going to set up some linear models- one for each type of wool- and then use three functions from the <code>broom</code> package to summarize important information about the models which will be generated in a format that makes it simple to compare and plot models.</p>
+<p>As stated in the <a href="https://broom.tidymodels.org/"><strong><code>broom</code></strong> overview page</a>, here is the role of each function:</p>
+<div id="tidy" class="section level4">
+<h4><strong><code>tidy()</code></strong>:</h4>
+<p><em>“Summarizes information about model components”</em></p>
+</div>
+<div id="augment" class="section level4">
+<h4><strong><code>augment()</code></strong></h4>
+<p><em>“Reports information about the entire model”</em></p>
+</div>
+<div id="glance" class="section level4">
+<h4><strong><code>glance()</code></strong></h4>
+<p><em>“Adds informations about observations to a dataset”</em></p>
+<p><br /></p>
+</div>
+<div id="set-up-individual-models-the-long-way" class="section level4">
+<h4>Set up individual models The long way</h4>
+<pre class="r"><code>mod1 &lt;- lm(breaks ~ tension,
+           yarn %&gt;% filter(wool == &quot;A&quot;))
+
+mod2 &lt;- lm(breaks ~ tension,
+           yarn %&gt;% filter(wool == &quot;B&quot;))</code></pre>
+<p><br /></p>
+</div>
+</div>
+<div id="tidy-1" class="section level3">
+<h3><strong><code>tidy()</code></strong></h3>
+<pre class="r"><code>broom::tidy(mod1)</code></pre>
+<pre><code>## # A tibble: 3 x 5
+##   term        estimate std.error statistic  p.value
+##   &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
+## 1 (Intercept)     44.6      4.34     10.3  2.91e-10
+## 2 tensionM       -20.6      6.13     -3.35 2.66e- 3
+## 3 tensionH       -20        6.13     -3.26 3.32e- 3</code></pre>
+<pre class="r"><code># broom::tidy(mod2)</code></pre>
+<p><br /></p>
+</div>
+<div id="augment-1" class="section level3">
+<h3><strong><code>augment()</code></strong></h3>
+<pre class="r"><code>broom::augment(mod1)</code></pre>
+<pre><code>## # A tibble: 27 x 8
+##    breaks tension .fitted .resid  .hat .sigma .cooksd .std.resid
+##     &lt;dbl&gt; &lt;fct&gt;     &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;      &lt;dbl&gt;
+##  1     26 L          44.6 -18.6  0.111   12.6 0.0953      -1.51 
+##  2     30 L          44.6 -14.6  0.111   12.9 0.0586      -1.19 
+##  3     54 L          44.6   9.44 0.111   13.1 0.0247       0.770
+##  4     25 L          44.6 -19.6  0.111   12.6 0.106       -1.59 
+##  5     70 L          44.6  25.4  0.111   12.0 0.179        2.07 
+##  6     52 L          44.6   7.44 0.111   13.2 0.0153       0.607
+##  7     51 L          44.6   6.44 0.111   13.2 0.0115       0.525
+##  8     26 L          44.6 -18.6  0.111   12.6 0.0953      -1.51 
+##  9     67 L          44.6  22.4  0.111   12.3 0.139        1.83 
+## 10     18 M          24    -6    0.111   13.2 0.00996     -0.489
+## # ... with 17 more rows</code></pre>
+<pre class="r"><code># broom::augment(mod2)</code></pre>
+<p><br /></p>
+</div>
+<div id="glance-1" class="section level3">
+<h3><strong><code>glance()</code></strong></h3>
+<pre class="r"><code>broom::glance(mod1)</code></pre>
+<pre><code>## # A tibble: 1 x 12
+##   r.squared adj.r.squared sigma statistic p.value    df logLik   AIC   BIC
+##       &lt;dbl&gt;         &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+## 1     0.378         0.326  13.0      7.29 0.00336     2  -106.  220.  225.
+## # ... with 3 more variables: deviance &lt;dbl&gt;, df.residual &lt;int&gt;, nobs &lt;int&gt;</code></pre>
+<pre class="r"><code># broom::glance(mod2)</code></pre>
+<p><br /></p>
+</div>
+<div id="the-fastr-way-to-do-this" class="section level3">
+<h3>The <em>fastR</em> way to do this:</h3>
+<p>Notice that we are using the <code>group_by</code> function perform the same command on each wool type but in the same chunk of code.</p>
+<p><br /></p>
+</div>
+<div id="tidy-2" class="section level3">
+<h3><strong><code>tidy()</code></strong></h3>
+<pre class="r"><code># tidy
+mod_all.tidy &lt;- yarn %&gt;%
+  group_by(wool) %&gt;%
+  do(fit = broom::tidy(lm(breaks ~ tension,
+              data = .))) %&gt;%
+  unnest(fit) %T&gt;%
+  print()</code></pre>
+<pre><code>## # A tibble: 6 x 6
+##   wool  term        estimate std.error statistic  p.value
+##   &lt;fct&gt; &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
+## 1 A     (Intercept)   44.6        4.34    10.3   2.91e-10
+## 2 A     tensionM     -20.6        6.13    -3.35  2.66e- 3
+## 3 A     tensionH     -20          6.13    -3.26  3.32e- 3
+## 4 B     (Intercept)   28.2        2.79    10.1   3.91e-10
+## 5 B     tensionM       0.556      3.94     0.141 8.89e- 1
+## 6 B     tensionH      -9.44       3.94    -2.39  2.48e- 2</code></pre>
+<p><br /></p>
+</div>
+<div id="augment-2" class="section level3">
+<h3><strong><code>augment()</code></strong></h3>
+<pre class="r"><code>mod_all.augment &lt;- yarn %&gt;%
+  group_by(wool) %&gt;%
+  do(fit = broom::augment(lm(breaks ~ tension,
+              data = .))) %&gt;%
+  unnest(fit) %T&gt;%
+  print()</code></pre>
+<pre><code>## # A tibble: 54 x 9
+##    wool  breaks tension .fitted .resid  .hat .sigma .cooksd .std.resid
+##    &lt;fct&gt;  &lt;dbl&gt; &lt;fct&gt;     &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;      &lt;dbl&gt;
+##  1 A         26 L          44.6 -18.6  0.111   12.6 0.0953      -1.51 
+##  2 A         30 L          44.6 -14.6  0.111   12.9 0.0586      -1.19 
+##  3 A         54 L          44.6   9.44 0.111   13.1 0.0247       0.770
+##  4 A         25 L          44.6 -19.6  0.111   12.6 0.106       -1.59 
+##  5 A         70 L          44.6  25.4  0.111   12.0 0.179        2.07 
+##  6 A         52 L          44.6   7.44 0.111   13.2 0.0153       0.607
+##  7 A         51 L          44.6   6.44 0.111   13.2 0.0115       0.525
+##  8 A         26 L          44.6 -18.6  0.111   12.6 0.0953      -1.51 
+##  9 A         67 L          44.6  22.4  0.111   12.3 0.139        1.83 
+## 10 A         18 M          24    -6    0.111   13.2 0.00996     -0.489
+## # ... with 44 more rows</code></pre>
+<p><br /></p>
+</div>
+<div id="glance-2" class="section level3">
+<h3><strong><code>glance()</code></strong></h3>
+<pre class="r"><code>mod_all.glance &lt;- yarn %&gt;%
+  group_by(wool) %&gt;%
+  do(fit = broom::glance(lm(breaks ~ tension,
+              data = .))) %&gt;%
+  unnest(fit) %T&gt;%
+  print()</code></pre>
+<pre><code>## # A tibble: 2 x 13
+##   wool  r.squared adj.r.squared sigma statistic p.value    df logLik   AIC   BIC
+##   &lt;fct&gt;     &lt;dbl&gt;         &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+## 1 A         0.378         0.326 13.0       7.29 0.00336     2 -106.   220.  225.
+## 2 B         0.253         0.190  8.37      4.06 0.0303      2  -94.1  196.  201.
+## # ... with 3 more variables: deviance &lt;dbl&gt;, df.residual &lt;int&gt;, nobs &lt;int&gt;</code></pre>
 </div>
 </div>
 

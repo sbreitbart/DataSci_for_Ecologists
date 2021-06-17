@@ -142,20 +142,16 @@ Where I think vectorization gets the most power is through combination with `tid
 <br/>
 
 
-### Install packages 
+### Install and load packages 
 ```{r eval=FALSE}
 install.packages("here")
 install.packages("tidyverse")
-install.packages("magrittr")
-install.packages("dplyr")
 install.packages("broom")
+install.packages("magrittr")
 ```
 
-### Load libraries & data
-Load libraries
 ```{r load-packages,  message=FALSE, warning=FALSE}
 library(here) # Look where your folder begins.
-library(dplyr)
 library(magrittr)
 library(tidyverse)
 library(broom)
@@ -166,20 +162,6 @@ The "The Effect of Vitamin C on Tooth Growth in Guinea Pigs" dataset contains da
 ```{r}
 teeth <- ToothGrowth
 ```
-
-<br/>
-
-# The tidyverse
-## What is it?
-[The tidyverse "is an opinionated collection of R packages designed for data science. All packages share an underlying design philosophy, grammar, and data structures."](https://www.tidyverse.org/) The tidyverse contains some extremely useful packages such as
-
-- <code>[**ggplot2**](https://ggplot2.tidyverse.org/)</code>, which lets you make fantastic graphics;
-- <code>[**tidyr**](https://tidyr.tidyverse.org/)</code>, which helps you "tidy" (clean) up your data; and
-- <code>[**dplyr**](https://dplyr.tidyverse.org/)</code>, which lets you manipulate your data, like you would with pliers (hence d-*plyr*).
-<br/>
-
-***
-# Exercises
 
 #### Today we will work through examples of these tidyverse functions:
 
@@ -195,9 +177,6 @@ teeth <- ToothGrowth
 - **<code>augment()</code>**
 - **<code>glance()</code>**
 
-
-<br/>
-  
 #### Prequel: **<code>magrittr</code>**'s pipes
 A fantastic tool that is worth getting to know is the **<code>magrittr</code>** package's collection of operators called *pipes*. As stated on their [webpage](https://magrittr.tidyverse.org/),
 
@@ -221,10 +200,10 @@ A fantastic tool that is worth getting to know is the **<code>magrittr</code>** 
 
 ***
 
-## **<code>mutate()</code>**
-The <code>mutate()</code> function lets us create new columns based on existing columns. In this example, we'll create a new column that takes the "len" data- guinea pig tooth length measured in mm- and divide it by 100 to create a similar column with cm as the unit of length.
+### **<code>mutate()</code>**
+The `mutate()` function lets us create new columns based on existing columns. In this example, we'll create a new column that takes the "len" data- guinea pig tooth length measured in mm- and divide it by 100 to create a similar column with cm as the unit of length.
 
-The . after mutate( refers to how we're performing the <code>mutate()</code> function on the object already named after the assignment arrow (the teeth object).
+The `.` after mutate( refers to how we're performing the <code>mutate()</code> function on the object already named after the assignment arrow (the teeth object).
 ```{r}
 teeth <- teeth %>%
   dplyr::mutate(.,
@@ -245,7 +224,7 @@ head(teeth)
 
 <br/>
 
-## **<code>group_by()</code>**
+### **`group_by()`**
 So now we know the mean tooth length for all guinea pigs, but that's not very helpful. It'd be more informative to know the mean tooth length for specific groups of guinea pigs- based on the doses of vitamin C adminstered and the method of administration.
 First, let's group the subjects by the method of administration (supp) to find the mean tooth length per group (VC or OJ):
 ```{r}
@@ -274,7 +253,7 @@ However, there's a better way to organize this data...
 
 <br/>
 
-## **<code>summarize()</code>**
+### **`summarize()`**
 If you don't need to keep the individual subjects' tooth length data, then it makes sense to use <code>summarize()</code> to condense our summarized data into fewer rows. Our output file will have one row for each combination of supp x dose.
 ```{r}
 teeth_3 <- teeth %>%
@@ -299,7 +278,7 @@ What if you just want to summarize all the rows of your dataset? Then you can us
 
 
 Let's calculate the mean values for dose and len_cm. To do so, you'd set up your code like this. Be sure you're not selecting any non-numeric columns, like supp.
-```{r}
+```{r }
 teeth_5 <- teeth %>%
   dplyr::summarize(across(dose:len_cm, mean))
 
@@ -323,7 +302,7 @@ Let's imagine that you only want to focus on the guinea pigs given orange juice.
 
 <br/>
 
-## **<code>filter()</code>**
+### **<code>filter()</code>**
 The <code>filter()</code> function lets you filter out the rows you don't want. Here we've added a line of code to keep only the rows where the guinea pig was given vitamin C as orange juice (OJ), not as pure vitamin C.
 ```{r}
 teeth_7 <- teeth %>%
@@ -334,7 +313,7 @@ head(teeth_7)
 
 <br/>
 
-## **<code>select()</code>**
+### **<code>select()</code>**
 Similarly, the <code>select()</code> function lets you filter out the *columns* you don't want. Our new dataframe only includes the first three columns: from len to dose. Both of these commands accomplishes the same goal, whether you name the columns by their names or index position.
 ```{r}
 teeth_8 <- teeth %>%
@@ -353,7 +332,7 @@ head(teeth_8)
 
 ***
 
-## **Helpful Functions for Linear Models**
+### **Helpful Functions for Linear Models**
 
 Let's load a new built-in dataset: warpbreaks. This dataset contains data regarding the number of breaks in yarn accumulated while weaving based on the yarn's wool type and amount of tension.
 ```{r}
@@ -376,8 +355,8 @@ As stated in the [**<code>broom</code>** overview page](https://broom.tidymodels
 
 <br/>
 
-### The long way
-#### Set up individual models
+#### Set up individual models The long way
+ 
 ```{r}
 mod1 <- lm(breaks ~ tension,
            yarn %>% filter(wool == "A"))
