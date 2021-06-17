@@ -1,7 +1,5 @@
 ---
 title: "Fast-R: Making R work hard so that you don’t have to"
-date: "Mar 29 2021"
-output: html_document
 ---
 
 
