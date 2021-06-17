@@ -24,17 +24,16 @@ standardize formats (e.g. plots, maps, etc)
 combine with apply family for automation of tasks
 
 
-
-### Install packages 
-```{r eval=FALSE}
-install.packages("here")
-```
-
 ### Load libraries & data
 ##### Quick aside on the genius of the <code>here</code> package:
 Whether they're collaborating with colleagues, uploading to data repositories after submitting a paper, or uploading scripts to Github for anyone to use, people who write code constantly share their code. **A great time-saving strategy for streamlining code-sharing is to use <code>here</code>**, a package intended to facilitate file referencing by getting rid of absolute filepaths (which makes your code fragile and difficult to integrate into other people's systems) and instead using relative filepaths (which makes your code easier to transfer to other people's systems). [See Jenny Bryan's overview of the package](https://github.com/jennybc/here_here) for more information and convincing arguments for adopting <code>here</code>.
 
-Load libraries
+**Install libraries**
+```{r eval=FALSE}
+install.packages("here")
+```
+
+**Load libraries**
 ```{r message=FALSE}
 library(here) # Look where your folder begins.
 ```
@@ -101,7 +100,7 @@ Beaver_to_csv1.1 <- function(dataframe, filename) {
 }
 ```
 
-#### Make a function that exports a dataframe to csv
+### Goal 1: Make a function that exports a dataframe to csv
 In this first example, we want to export beaver csv with only filename in path. Notice we've added the file type (extension) to the filename: .csv
 ```{r}
 # Create object that we'll use as our filename
@@ -114,29 +113,24 @@ Beaver_to_csv1.1(beaver_1,
 
 #### Make a function that exports any dataframe into an exports folder
 
-We want to create a folder that is made for all the exports of the beaver file. To begin, we first need to find where your project folder begins (its root). Then manually create a new folder in that directory called "exports".
+We want to make a function that can take any data frame and save it with any fileformat to an export folder. First, need to create a folder that is made for all the exports of the beaver file. To begin, we first need to find where your project folder begins (its root). Then manually create a new folder in that directory called "exports".
 ```{r eval=FALSE}
 ## Make a folder especially for beaver file exports
 here::here()
 
 ## Create new input variables for new function
-dir.create("./exports") ## make directory if it doesn't already exist
+# dir.create("./exports") ## make directory if it doesn't already exist
 path1.2 <- here::here("exports")  ## make that directory 
 ```
 
-Make new file name and file type. This time we'll separate the file name from the file type so that we can change up the file type by indicating it as an input variable.
-```{r}
-filename1.2 <- "/Beaver1"
-filetype1.2 <- ".csv"
-```
-
-**Make function that exports dataframe object to csv in csvs folder**
+Next, we make the function that exports dataframe object to csv in csvs folder
 To accommodate the file path and file type objects, we'll add a two more input variables to our new function's set of input variables.
 ```{r}
-Beaver_to_csv1.2 <- function(dataframe, path, filename, filetype) {
+Beaver_to_csv1.2 <- function(dataframe, path, filetype) {
   write.csv(dataframe,
-                 paste0(path,
-                        filename,
+                 paste0(path, ## specify file path
+                        "/", ## add slash to specify within folder
+                        deparse(substitute(dataframe)), ## use the dataframe as the name 
                         filetype))
 }
 ```
@@ -152,60 +146,60 @@ Here's what the function is doing:
 
 Export dataframe to csv in csvs folder:
 ```{r}
-Beaver_to_csv1.2(beaver_1, path1.2, filename1.2, filetype1.2)
+Beaver_to_csv1.2(beaver_1, here::here("exports"), filetype=".csv")
 ```
 
 Just for fun, add .txt as a file type option:
 ```{r}
-Beaver_to_csv1.2(beaver_1, path1.2, filename1.2, ".txt")
+Beaver_to_csv1.2(beaver_1, here::here("exports"), filetype=".txt")
 ```
 
 We could skip the step of saving the function's input variables to individual objects and just input it all on the fly, as shown here:
 ```{r}
-Beaver_to_csv1.2(dataframe = beaver_1,
-                 path = here::here("./exports/ "),
-                 filename = "Beaver1",
+Beaver_to_csv1.2(beaver_1,
+                 path = here::here("exports"),
                  filetype = ".txt")
 ```
 
-You don't need the "x =" portion either but feel free to keep it if it helps you clarify your code.
+R will treat the variables you supply the function in the order that the arguments appear in the function. If you have strong familiarity with the function, or if the function is fairly simple, you can simply supply the variables as done above (i.e., you don't need the "x =" portion). HOwever, if it provides clarity or if your function is complex, you can specify each argument. This also allows you to supply arguments in different orders. 
 ```{r}
-Beaver_to_csv1.2(beaver_1,
-                 here::here("./exports/ "),
-                 "Beaver1",
-                 ".csv")
+Beaver_to_csv1.2(filetype = ".csv", 
+                 dataframe = beaver_1,
+                 path= here::here("exports"))
 ```
 
 
 ***
 
-## Goal 2: Make a function that exports a list of dataframes to separate csvs
-### Make list of beaver dataframes
+### Goal 2: Make a function that exports a list of dataframes to separate csvs
+
+#### Make list of beaver dataframes
 ```{r}
 Beavers <- list(beaver_1, beaver_2)
 ```
 
-### Create function
+
 ```{r}
+### Create function
 Export_beaver_list <- function(df_list, path, filetype) {
   for (i in 1:length(df_list)){
-    Beaver_to_csv1.2(df_list[i], path, paste0("Beaver", i), filetype)
+    Beaver_to_csv1.2(df_list[i], path=here::here("exports"), filetype)
   }
 }
 ```
 
-### Run function
 ```{r}
+### Run function
 Export_beaver_list(Beavers, 
-                   here::here("./exports/ "),
+                   here::here("exports"),
                    ".csv")
 ```
 
 ***
 
-## Goal 3: Make, export plots for multiple dataframes
-### Create a function that uses a dataframe as input, then exports a plot
-#### Create a regular plot
+### Goal 3: Make, export plots for multiple dataframes
+#### Create a function that uses a dataframe as input, then exports a plot
+Fist we want to create a basic regular plot
 ```{r}
 plot(beaver_1$temp ~ beaver_1$time,
      xlim = c(0, 2400),
@@ -233,8 +227,9 @@ plot(temp ~ time,
      cex = .5) # point size
 ```
 
-#### Create function
+
 ```{r}
+## Create function
 Beaver_to_plot <- function(dataframe, path, filename, filetype) {
   
   png(file = gsub(" ", "",
@@ -257,8 +252,9 @@ Beaver_to_plot <- function(dataframe, path, filename, filetype) {
 }
 ```
 
-#### Run function
+
 ```{r}
+## Run function
 Beaver_to_plot(beaver_1,
                here::here("./exports/ "),
                "Beaver1.1",
@@ -266,8 +262,10 @@ Beaver_to_plot(beaver_1,
 ```
 
 ### Scale up: Create a function that uses a list of dataframes as input, then exports multiple plots
-#### Create function
+
+
 ```{r}
+## Create function
 Beaver_to_plot_many <- function(df_list, path, filetype) {
   for (i in 1:length(df_list)){
     Beaver_to_plot(df_list[[i]],
@@ -287,8 +285,8 @@ Beaver_to_plot_many(Beavers,
 
 ***
 
-# Extra credit
-## Ellipsis
+
+### Ellipsis in functions
 You don't always need to specify all of the input variables for a function. Sometimes you can make use of a tool called an **ellipsis**. An ellipsis is, you guessed it, three dots in a row: "...".
 
 The most straightforward usage of an ellipsis is for when you want to make your function flexible enough to handle an unspecified number of input variables. For instance, think about the <code>paste()</code> function.
@@ -301,16 +299,18 @@ paste("I", "could", "go", "on", "and", "on", "and", "on", "and", "on", "and", "o
 ```
 
 ### Example function with an ellipsis
-#### Create function
+
 ```{r}
+## Create function
 ellipsis_example <- function(x_var, y_var, ...){
   plot(y_var ~ x_var,
        ...)
 }
 ```
 
-#### Run function
+
 ```{r}
+## Run function
 ellipsis_example(x_var = beaver_1$time,
                  y_var = beaver_1$temp,
                  pch = beaver_1$activ,
@@ -321,5 +321,5 @@ ellipsis_example(x_var = beaver_1$time,
                  ylab = "Temperature (C)")
 ```
 
-## Extra exercises
+### Extra exercises
 For those interested, [here are some additional exercises](https://discdown.org/rprogramming/functions.html) crafted by Reto Stauffer, Joanna Chimiak-Opoka, Luis Miguel Rodríguez-R, Thorsten Simon, and Achim Zeileis from their resource, *"Introduction to Programming with R"*.
