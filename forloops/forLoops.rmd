@@ -143,4 +143,62 @@ for(i in 1:3){
 
 ```
 
-Next, we are going to look at troubleshooting some problems in `for` loops. 
+Next, we are going to look at troubleshooting some problems in `for` loops. The most common error that will arise is that one iteration will break. This can arise for a number of reasons, but typically involves an error message in a function that prevents completion of the loop, such as the example below. 
+
+
+```{r eval=F}
+
+par(mfrow=c(1,3))
+for(i in 2006:2008){
+  m1 <- lm(bill_length_mm ~ body_mass_g, data=penguins, year==i)
+  hist(residuals(m1))
+}
+
+```
+
+Troubleshooting is the next logical step. However, there can often be times you want the entire loop to complete because either a) the errors can be skipped, or b) all errors need to be identified to properly troubleshoot. We will explore `next` for *a* and `TryCatch` for *b*. There is also the `break` function for those looking to exit the loop specifically at the error to try and resolve it. 
+
+![](nextFlow.png)
+![](breakFlow.jpg)
+Flowcharts curtosy of [www.datamentor.io](www.datamentor.io)
+
+```{r}
+## Loop without conditional next
+valOut <- c() ## empty vector
+for (i in 0:5){
+  tempVal <- log(i) 
+  valOut <- c(valOut,tempVal)
+}
+valOut ## output
+
+
+## Adding in next statement
+valOut <- c()
+for (i in 0:5){
+  tempVal <- log(i) 
+  if(is.infinite(tempVal)) { ## test expression of the loop
+  next ## skip remainder of loop if test is true
+  }
+  valOut <- c(valOut,tempVal)
+}
+valOut
+```
+
+While `next` is good for pushing through on conditions, it is less helpful when it comes to errors. That is where `tryCatch` comes in. `tryCatch` will allow the loop to continue through and has the helpful option of outputting an error message. Let's apply it to the above example with the linear model. 
+
+```{r}
+
+par(mfrow=c(1,3))
+for(i in 2006:2008){
+  tryCatch({ ## wrap the entire loop in a Try catch
+  m1 <- lm(bill_length_mm ~ body_mass_g, data=penguins, year==i)
+  hist(residuals(m1))
+  }, error = function(e) print(i)) ## specify what occurs with an error messagge
+}
+
+```
+
+Here we specify which iteration of the loop causes an error to occupy. Importantly, the iterations that are without error are still produced. These are all effective at trying to resolve bugs and troubleshoot errors in complex loops or massive iterations. There is also no limit to the applicatino of `tryCatch`. Multiple `tryCatch` conditions can be implemement at different stages of particularly long loops. This allows for the identification of errors at different points. 
+
+While we have showed the application of `tryCatch` for loops, its has an equally important role in functions. Using the same syntax and error identification, one can use `tryCatch` to develop functions that provide useful error messages. 
+
