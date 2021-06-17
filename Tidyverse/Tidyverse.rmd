@@ -218,12 +218,12 @@ head(teeth_8)
 
 ## **Helpful Functions for Linear Models**
 
-Let's load a new built-in dataset: iris. This dataset offers lengths and widths of sepals and petals of three species of flowers.
+Let's load a new built-in dataset: warpbreaks. This dataset contains data regarding the number of breaks in yarn accumulated while weaving based on the yarn's wool type and amount of tension.
 ```{r}
-iris1 <- iris
+yarn <- warpbreaks
 ```
 
-We're going to set up some linear models- one for each species of flower- and then use three functions from the <code>broom</code> package to summarize important information about the models which will be generated in a format that makes it simple to compare and plot models.
+We're going to set up some linear models- one for each type of wool- and then use three functions from the <code>broom</code> package to summarize important information about the models which will be generated in a format that makes it simple to compare and plot models.
 
 As stated in the [**<code>broom</code>** overview page](https://broom.tidymodels.org/), here is the role of each function:
 
@@ -242,14 +242,11 @@ As stated in the [**<code>broom</code>** overview page](https://broom.tidymodels
 ### The long way
 #### Set up individual models
 ```{r}
-mod1 <- lm(Sepal.Length ~ Sepal.Width,
-           iris1 %>% filter(Species == "setosa"))
+mod1 <- lm(breaks ~ tension,
+           yarn %>% filter(wool == "A"))
 
-mod2 <- lm(Sepal.Length ~ Sepal.Width,
-           iris1 %>% filter(Species == "versicolor"))
-
-mod3 <- lm(Sepal.Length ~ Sepal.Width,
-           iris1 %>% filter(Species == "virginica"))
+mod2 <- lm(breaks ~ tension,
+           yarn %>% filter(wool == "B"))
 ```
 
 <br/>
@@ -258,7 +255,6 @@ mod3 <- lm(Sepal.Length ~ Sepal.Width,
 ```{r}
 broom::tidy(mod1)
 # broom::tidy(mod2)
-# broom::tidy(mod3)
 ```
 
 <br/>
@@ -267,7 +263,6 @@ broom::tidy(mod1)
 ```{r}
 broom::augment(mod1)
 # broom::augment(mod2)
-# broom::augment(mod3)
 ```
 
 <br/>
@@ -276,22 +271,21 @@ broom::augment(mod1)
 ```{r}
 broom::glance(mod1)
 # broom::glance(mod2)
-# broom::glance(mod3)
 ```
 
 <br/>
 
 ### The *fastR* way to do this:
-Notice that we are using the <code>group_by</code> function perform the same command on each species but in the same chunk of code.
+Notice that we are using the <code>group_by</code> function perform the same command on each wool type but in the same chunk of code.
 
 <br/>
 
 ### **<code>tidy()</code>**
 ```{r}
 # tidy
-mod_all.tidy <- iris1 %>%
-  group_by(Species) %>%
-  do(fit = broom::tidy(lm(Sepal.Length ~ Sepal.Width,
+mod_all.tidy <- yarn %>%
+  group_by(wool) %>%
+  do(fit = broom::tidy(lm(breaks ~ tension,
               data = .))) %>%
   unnest(fit) %T>%
   print()
@@ -301,9 +295,9 @@ mod_all.tidy <- iris1 %>%
 
 ### **<code>augment()</code>**
 ```{r}
-mod_all.augment <- iris1 %>%
-  group_by(Species) %>%
-  do(fit = broom::augment(lm(Sepal.Length ~ Sepal.Width,
+mod_all.augment <- yarn %>%
+  group_by(wool) %>%
+  do(fit = broom::augment(lm(breaks ~ tension,
               data = .))) %>%
   unnest(fit) %T>%
   print()
@@ -313,9 +307,9 @@ mod_all.augment <- iris1 %>%
 
 ### **<code>glance()</code>**
 ```{r}
-mod_all.glance <- iris1 %>%
-  group_by(Species) %>%
-  do(fit = broom::glance(lm(Sepal.Length ~ Sepal.Width,
+mod_all.glance <- yarn %>%
+  group_by(wool) %>%
+  do(fit = broom::glance(lm(breaks ~ tension,
               data = .))) %>%
   unnest(fit) %T>%
   print()
