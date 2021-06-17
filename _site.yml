@@ -7,9 +7,9 @@ navbar:
     - text: "Functions"
       href: Functions/Functions.html
     - text: "Vectorization"
-      href: Vectorization/Vectorization.html
+      href: Vectorization/vectorization.html
     - text: "forloops"
-      href: forloops/forloops.html
+      href: forloops/forLoops.html
     - text: "Parallelization"
       href: Parallelization/Parallelization.html 
 output_dir: "."

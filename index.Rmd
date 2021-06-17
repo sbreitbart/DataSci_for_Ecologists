@@ -32,9 +32,9 @@ Time   | Goal
 -------|------------
 12:00 pm  | Introduction and set-up
 12:15 pm | [Functions](Functions/Functions.html)
-12:45 pm | [Vectorization](Vectorization/Vectorization.html)
+12:45 pm | [Vectorization](Vectorization/vectorization.html)
 1:30 pm | Break
-1:45 pm  | [forloops](forloops/forloops.html)
+1:45 pm  | [forloops](forloops/forLoops.html)
 2:30 pm  | [Parallelization](Parallelization/Parallelization.html)
 
 
