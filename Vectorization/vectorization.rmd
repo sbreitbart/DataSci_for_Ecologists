@@ -1,7 +1,10 @@
 ---
-output: html_document
-editor_options: 
-  chunk_output_type: console
+output: 
+  html_document:
+    theme: sandstone
+    toc: yes
+    toc_depth: 3
+    toc_float: yes
 ---
 # Vectorization
 
@@ -90,7 +93,7 @@ apply(dataset, 2, sum) ## dataframe, by columns, function
 The second benefit is that `for` loops keep outputs and objects in the environment. This can be bad practice by filling up your memory or potentially causing a conflict down the road. For example, after the above `for` loop is executed `i = 100`. That means a future operation where `i` is called, there is the risk its value will be 100 (such as another loop). 
 
 
-### How does the apply family work
+### The `Apply` Family
 
 There are multiple versions of apply (e.g. apply, sapply, vapply) including parallel versions (e.g. parLapply). Today we will look at `apply` and `lapply`. We will also look at executing these operations in `tidyverse`. 
 
@@ -129,7 +132,7 @@ do.call(c, sumOut)
 
 ```
 
-### Vectorization and tidyverse
+# Tidyverse
 
 Where I think vectorization gets the most power is through combination with `tidyverse`. This allows for rapid computations of subsets of the data that would considerably more lines of code and slower using `for` loops.
 
@@ -332,7 +335,7 @@ head(teeth_8)
 
 ***
 
-### **Helpful Functions for Linear Models**
+### Helpful Functions for Linear Models
 
 Let's load a new built-in dataset: warpbreaks. This dataset contains data regarding the number of breaks in yarn accumulated while weaving based on the yarn's wool type and amount of tension.
 ```{r}
@@ -391,7 +394,7 @@ broom::glance(mod1)
 
 <br/>
 
-### The *fastR* way to do this:
+### The *fastR* way to conduct linear models:
 Notice that we are using the <code>group_by</code> function perform the same command on each wool type but in the same chunk of code.
 
 <br/>

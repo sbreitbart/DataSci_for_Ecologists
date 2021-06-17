@@ -1,9 +1,12 @@
 ---
-title: "Functions"
-output: html_document
-editor_options: 
-  chunk_output_type: console
+output: 
+  html_document:
+    theme: sandstone
+    toc: yes
+    toc_depth: 3
+    toc_float: yes
 ---
+# Functions
 
 ![](functions.jpg)
 
@@ -13,7 +16,7 @@ Writing functions is a fundamental component of programming and therefore scares
 
 One of the more powerful aspects of programming languages relative GUI statistical softwares is the ability to create functions. Functions are extremely powerful because they allow for the automation of repetitive tasks and reduce bloated code from the more traditional “copy-paste” format. This becomes extremely powerful when combined with the apply family or loops. However, even for simple tasks, functions can make your life easier.
 
-Why use functions?
+**Why use functions?**
 
 save complicated operations or mathematical calculations
 reduce repetitive tasks
@@ -67,13 +70,12 @@ There will always be times to break this rule, but here's Hadley again on why it
 > "Any time you've got duplication in your code, there's just a chance for... bugs to come in because... you change one, and you forget to change another one, you get inconsistencies. It's really frustrating."
 
 ***
-### Exercises
+### How to set up a function
 ***
-#### Goal 1: Make a function that exports a dataframe to csv
 
-**How to set up a function**
-
-When you set up a function, the first two things you want to think about are 1) what you will name your function and 2) the variables the function will need in order to produce an output.
+When you set up a function, the first two things you want to think about are:
+  1) what you will name your function, and 
+  2) the variables the function will need in order to produce an output.
 
 In the function below, the name is <code>add_numbers</code> and the input variables are called <code>number_1</code>, <code>number_2</code>, and <code>number_3</code>. Big surprise: it adds three numbers together!
 
@@ -99,44 +101,32 @@ Beaver_to_csv1.1 <- function(dataframe, filename) {
 }
 ```
 
-#### Example 1: Export beaver csv with only filename in path
-**Create object that we'll use as our filename**
-
-Notice we've added the file type (extension) to the filename: .csv
+#### Make a function that exports a dataframe to csv
+In this first example, we want to export beaver csv with only filename in path. Notice we've added the file type (extension) to the filename: .csv
 ```{r}
+# Create object that we'll use as our filename
 filename1.1 <- "Beaver1.csv" 
-```
 
-**Use function to export dataframe object to csv**
-```{r}
+# Use function to export dataframe object to csv
 Beaver_to_csv1.1(beaver_1,
                  filename1.1)
 ```
 
+#### Make a function that exports any dataframe into an exports folder
 
-
-
-#### Example 2: Export beaver csv with only filename in path
-
-**Make a folder especially for beaver file exports**
-
-Find where your project folder begins (its root):
+We want to create a folder that is made for all the exports of the beaver file. To begin, we first need to find where your project folder begins (its root). Then manually create a new folder in that directory called "exports".
 ```{r eval=FALSE}
+## Make a folder especially for beaver file exports
 here::here()
-```
 
-Then manually create a new folder in that directory called "exports".
-
-**Create new input variables for new function**
-Make new path:
-```{r}
-path1.2 <- here::here("./exports/ ") 
+## Create new input variables for new function
+dir.create("./exports") ## make directory if it doesn't already exist
+path1.2 <- here::here("exports")  ## make that directory 
 ```
-*I'm not sure how to export without a space in the filepath, so I'm adding a space to the right side of the last /. We'll get rid of it later.*
 
 Make new file name and file type. This time we'll separate the file name from the file type so that we can change up the file type by indicating it as an input variable.
 ```{r}
-filename1.2 <- "Beaver1"
+filename1.2 <- "/Beaver1"
 filetype1.2 <- ".csv"
 ```
 
@@ -145,10 +135,9 @@ To accommodate the file path and file type objects, we'll add a two more input v
 ```{r}
 Beaver_to_csv1.2 <- function(dataframe, path, filename, filetype) {
   write.csv(dataframe,
-            gsub(" ", "",
                  paste0(path,
                         filename,
-                        filetype)))
+                        filetype))
 }
 ```
 
