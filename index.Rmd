@@ -14,7 +14,9 @@ Research in ecology and evolution presents a challenge with diverse and complica
 
 **Who**: The course is aimed at R beginners or experienced analysts.
 
-**Where**: TBD
+**When**: July 12, 2021 @ 13:00 UTC / 09:00 EDT / 06:00 PDT
+
+**Where**: Virtual. Zoom link to be provided
 
 **Requirements**: Participants should use a laptop with a Mac, Linux, or Windows operating system (not a tablet, Chromebook, etc.) with administrative privileges. Ideally, two screens would be beneficial to see the video and your workstation at the same time. However, Participation is not necessary and you can simply follow along as I demonstrate. 
 
