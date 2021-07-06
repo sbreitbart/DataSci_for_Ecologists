@@ -19,17 +19,17 @@ Research in ecology and evolution presents a challenge with diverse and complica
 [Live Notepad]
 
 
-## Schedule
+## Schedule (time in UTC)
 
 
 Time   | Goal
 -------|------------
-12:00 pm  | Introduction and set-up
-12:15 pm | [Functions](Functions/Functions.html)
-12:45 pm | [Vectorization](Vectorization/Vectorization.html)
-1:30 pm | Break
-1:45 pm  | [forloops](forloops/forloops.html)
-2:30 pm  | [Parallelization](Parallelization/Parallelization.html)
+13:00   | Introduction and set-up
+13:15 | [Functions](Functions/Functions.html)
+13:45 | [Vectorization](Vectorization/vectorization.html)
+14:30 | Break
+14:45  | [for Loops](forloops/forLoops.html)
+15:30  | [Parallelization](Parallelization/parallelization.html)
 
 
 ## Software

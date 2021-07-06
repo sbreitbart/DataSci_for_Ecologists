@@ -35,7 +35,7 @@ Time   | Goal
 13:45 | [Vectorization](Vectorization/vectorization.html)
 14:30 | Break
 14:45  | [for Loops](forloops/forLoops.html)
-15:30  | [Parallelization](Parallelization/Parallelization.html)
+15:30  | [Parallelization](Parallelization/parallelization.html)
 
 
 ## Software

@@ -11,7 +11,7 @@ navbar:
     - text: "forloops"
       href: forloops/forLoops.html
     - text: "Parallelization"
-      href: Parallelization/Parallelization.html 
+      href: Parallelization/parallelization.html 
 output_dir: "."
 output:
   html_document:
