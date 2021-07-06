@@ -323,3 +323,25 @@ ellipsis_example(x_var = beaver_1$time,
 
 ### Extra exercises
 For those interested, [here are some additional exercises](https://discdown.org/rprogramming/functions.html) crafted by Reto Stauffer, Joanna Chimiak-Opoka, Luis Miguel Rodríguez-R, Thorsten Simon, and Achim Zeileis from their resource, *"Introduction to Programming with R"*.
+
+
+#### Next Module
+
+<style>
+.btn {
+  border: none;
+  background-color: inherit;
+  padding: 14px 28px;
+  font-size: 16px;
+  cursor: pointer;
+  display: inline-block;
+  color: orange;
+}
+.btn:hover {background: #eee;}
+</style>
+
+
+<a class="btn" href="https://afilazzola.github.io/FastR/"> Home </a>
+<a class="btn" href="https://afilazzola.github.io/FastR/Vectorization/vectorization.html"> Vectorization </a>
+
+
