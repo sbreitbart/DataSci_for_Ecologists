@@ -1,7 +1,11 @@
 ---
-output: html_document
-editor_options: 
-  chunk_output_type: console
+output: 
+  html_document:
+    theme: sandstone
+    toc: yes
+    toc_depth: 3
+    toc_float: yes
+---
 ---
 # For Loops
   
@@ -121,6 +125,8 @@ coefout
 
 Here the sky is the limit. Really, anything you can do once, can be set to run infinitely using for loops. The vectors supplied to `i` or `j` can be hundreds, thousands, or longer. You can have multiple nestings within one another. Our examples here use dataframes and vectors, but all this could be repeated with rasters, plots, graphics, or any object loaded into R. There are many, many options. This is where I believe the `for` loop has its greatest strength. Using this formula, anything that can be loaded into R can be replicated this way. 
 
+### Formula in designing `for loops`
+
 There is a formula that I try and follow. The formula is as follows:
 
 1. Create a object to receive exports from the loop.
@@ -155,6 +161,8 @@ for(i in 2006:2008){
 }
 
 ```
+
+### Troubleshooting loops
 
 Troubleshooting is the next logical step. However, there can often be times you want the entire loop to complete because either a) the errors can be skipped, or b) all errors need to be identified to properly troubleshoot. We will explore `next` for *a* and `TryCatch` for *b*. There is also the `break` function for those looking to exit the loop specifically at the error to try and resolve it. 
 
