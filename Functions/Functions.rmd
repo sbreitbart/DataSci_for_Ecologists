@@ -337,7 +337,7 @@ For those interested, [here are some additional exercises](https://discdown.org/
   display: inline-block;
   color: orange;
 }
-.btn:hover {background: #eee;}
+.btn:hover {background: #5DADE2;}
 </style>
 
 

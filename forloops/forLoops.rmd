@@ -210,3 +210,23 @@ Here we specify which iteration of the loop causes an error to occupy. Important
 
 While we have showed the application of `tryCatch` for loops, its has an equally important role in functions. Using the same syntax and error identification, one can use `tryCatch` to develop functions that provide useful error messages. 
 
+
+
+#### Next Module
+
+<style>
+.btn {
+  border: none;
+  background-color: inherit;
+  padding: 14px 28px;
+  font-size: 16px;
+  cursor: pointer;
+  display: inline-block;
+  color: orange;
+}
+.btn:hover {background: #5DADE2;}
+</style>
+
+
+<a class="btn" href="https://afilazzola.github.io/FastR/"> Home </a>
+<a class="btn" href="https://afilazzola.github.io/FastR/Parallelization/parallelization.html"> Parallelization </a>
