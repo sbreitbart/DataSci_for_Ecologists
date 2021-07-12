@@ -20,7 +20,7 @@ The concept of a `for` loop is something pervsaive across many programming langu
 
 When I was first getting started trying to iterate through many tasks, I found `for` loops relatively inutitive compared to some other methods such as vectorization. I believe the greater understandability has to do with the structure. A `for` loop, similar to a function, is a task completed normally but then with one variable that changes, which allows the iterations. Let's take a look at an example of what that might look like getting the correlation between variables among some groups. 
 
-We are going to use the [penguin dataset by Allison Horst](https://allisonhorst.github.io/palmerpenguins/) as an alternate to the [controversial iris dataset](https://www.garrickadenbuie.com/blog/lets-move-on-from-iris/). 
+We are going to use the [penguin dataset by Allison Horst](https://allisonhorst.github.io/palmerpenguins/).
 
 ```{r warning=F, message=F}
 library(palmerpenguins)

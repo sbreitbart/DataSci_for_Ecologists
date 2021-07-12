@@ -1,5 +1,5 @@
 ---
-title: "Fast-R: Making R work hard so that you don’t have to"
+title: "Fast-R: Improving the reproducibility and efficiency of your coding for ecology and evolution"
 ---
 
 
@@ -22,7 +22,7 @@ Research in ecology and evolution presents a challenge with diverse and complica
 
 **Contact**: Please contact alex.filazzola@outlook.com for more information.
 
-[Live Notepad]
+**Notes**: [Live Notepad](https://etherpad.wikimedia.org/p/SORTEE-FastR)
 
 
 ## Schedule (time in UTC)
@@ -49,7 +49,7 @@ Install R by downloading and running [this .exe](http://cran.r-project.org/bin/w
 
 **Packages we will be using:** We recommend you install these ahead of time and ensure they load correctly to reduce troubleshooting in the workshop. 
 ```{r eval= FALSE}
-install.packages(c("here","microbenchmark", "tidyr","dplyr","magrittr","broom","foreach","doParallel"))
+install.packages(c("here","microbenchmark", "tidyr","dplyr","magrittr","broom","foreach","doParallel","palmerpenguins"))
 
 ```
 
