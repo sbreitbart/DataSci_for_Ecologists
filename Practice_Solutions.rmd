@@ -1,0 +1,40 @@
+---
+output: 
+  html_document:
+    theme: sandstone
+    toc: yes
+    toc_depth: 2
+    toc_float: yes
+---
+
+# For Loop Solutions
+
+
+
+
+# Vectorization Solutions
+
+- First, use the `apply` function to find the median value across columns of the "dataset" data frame.
+```{r}
+apply(dataset, 1, median)
+```
+
+
+- Next, find the average number of breaks from yarn with wool type A and tensions L & M only. You should end up with one dataframe with 2 rows and 2 columns ("tension" and "mean_breaks") showing mean A/L breaks and A/M breaks. *Hint: Take it one function at a time (you'll use 3) and check your code as you go to see that you're on the right track.*
+```{r}
+yarn %>%
+  filter(wool == "A" & tension != "H") %>%
+  group_by(tension) %>%
+  summarise(mean_breaks = mean(breaks)) %T>%
+  print()
+```
+
+
+- Lastly, choose only the rows with supp = VC from the teeth data frame and then create 2 new columns: one with the product of len x dose (called "len_x_dose") and the other with the ranking for the len values (called "rank") in descending order (the largest value should rank at 1). *Hint: [here's how to write the ranking function.](https://dplyr.tidyverse.org/reference/ranking.html)*
+```{r}
+teeth %>%
+  filter(supp == "VC") %>%
+  mutate(len_x_dose = len*dose,
+         rank = row_number(desc(len)))
+```
+

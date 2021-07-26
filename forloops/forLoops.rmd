@@ -211,6 +211,27 @@ Here we specify which iteration of the loop causes an error to occupy. Important
 While we have showed the application of `tryCatch` for loops, its has an equally important role in functions. Using the same syntax and error identification, one can use `tryCatch` to develop functions that provide useful error messages. 
 
 
+#### Practice
+
+Let's practice writing for loops!
+
+For our first prompt, your task is to fix this faulty for loop:
+```{r}
+
+```
+
+Next, write a for loop that ___:
+```{r}
+
+```
+
+
+Lastly, ____:
+```{r}
+
+```
+
+
 
 #### Next Module
 

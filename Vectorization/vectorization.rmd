@@ -15,6 +15,7 @@ output:
 ```{r warning=F, message=F}
 ### Needed libraries
 library(microbenchmark)
+library(magrittr)
 
 ```
 
@@ -25,10 +26,12 @@ As far as I'm aware, there is only one con so let's just get it out of the way. 
 Let's look at an example - You need the sum for a dataset of 100 columns and 10 rows. Three ways you can execute this operation are 1. using a for loop, 2. using the apply family, 3. using the `colSums` function in base R. 
 
 ### The speed of vectorization
-```{r eval=F}
+```{r}
 ### create dataset
 dataset <- rnorm(1000, 10, 2) %>% matrix(. , nrow=10, ncol=100) %>% data.frame()
+```
 
+```{r eval=F}
 ### Loop
 microbenchmark({
   
@@ -428,6 +431,15 @@ mod_all.glance <- yarn %>%
 ```
 
 
+# Practice
+
+Let's practice writing vectorized code!
+
+- First, use the `apply` function to find the median value across columns of the "dataset" data frame.
+
+- Next, find the average number of breaks from yarn with wool type A and tensions L & M only. You should end up with one dataframe with 2 rows and 2 columns ("tension" and "mean_breaks") showing mean A/L breaks and A/M breaks. *Hint: Take it one function at a time (you'll use 3) and check your code as you go to see that you're on the right track.*
+
+- Lastly, choose only the rows with supp = VC from the teeth data frame and then create 2 new columns: one with the product of len x dose (called "len_x_dose") and the other with the ranking for the len values (called "rank") in descending order (the largest value should rank at 1). *Hint: [here's how to write the ranking function.](https://dplyr.tidyverse.org/reference/ranking.html)*
 
 
 #### Next Module
