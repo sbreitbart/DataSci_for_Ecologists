@@ -10,30 +10,19 @@ output:
 
 ![](functions.jpg)
 
-### Introduction
+## Introduction
 
-Writing functions is a fundamental component of programming and therefore scares many people. However! Functions can be easier than you’d think. For example, think of what your perfect bar plot looks like. How much time do you spend making your bar plots look like that? Wouldn’t it be great if the very first time you plotted a barplot it looked exactly the way you wanted it to? With functions you can do that, and all the knowledge you’d need is how to make the barplot look the way you want. This works shop gives a quick overview of how to use functions to make your life easier. Demonstrations will be done in R, but are applicable to most languages.
+#### Load libraries & data
+Quick aside on the genius of the <code>here</code> package:
 
-One of the more powerful aspects of programming languages relative GUI statistical softwares is the ability to create functions. Functions are extremely powerful because they allow for the automation of repetitive tasks and reduce bloated code from the more traditional “copy-paste” format. This becomes extremely powerful when combined with the apply family or loops. However, even for simple tasks, functions can make your life easier.
-
-**Why use functions?**
-
-save complicated operations or mathematical calculations
-reduce repetitive tasks
-standardize formats (e.g. plots, maps, etc)
-combine with apply family for automation of tasks
-
-
-### Load libraries & data
-##### Quick aside on the genius of the <code>here</code> package:
 Whether they're collaborating with colleagues, uploading to data repositories after submitting a paper, or uploading scripts to Github for anyone to use, people who write code constantly share their code. **A great time-saving strategy for streamlining code-sharing is to use <code>here</code>**, a package intended to facilitate file referencing by getting rid of absolute filepaths (which makes your code fragile and difficult to integrate into other people's systems) and instead using relative filepaths (which makes your code easier to transfer to other people's systems). [See Jenny Bryan's overview of the package](https://github.com/jennybc/here_here) for more information and convincing arguments for adopting <code>here</code>.
 
-**Install libraries**
+Install libraries
 ```{r eval=FALSE}
 install.packages("here")
 ```
 
-**Load libraries**
+Load libraries
 ```{r message=FALSE}
 library(here) # Look where your folder begins.
 ```
@@ -44,19 +33,18 @@ beaver_1 <- beaver1
 beaver_2 <- beaver2
 ```
 
-***
-### Functions: The Basics
-***
-#### What is a function?
 
-A function is a command that executes one to several tasks all at once. You've probably used functions before. In R, for example, we frequently use functions that have been made by other people: <code>read.csv()</code> and <code>print()</code> are functions, to name a few.
+### What is a function?
 
-**Function Syntax**
-The format of function is fairly simple:
+**A function is a command that executes one to several tasks all at once**. You've probably used functions before. In R, for example, we frequently use functions that have been made by other people: <code>read.csv()</code> and <code>print()</code> are functions, to name a few.
 
-`functionName <- function(arguments){ arguments + operation }`
+### Why use functions?
 
-#### When should we make our own functions?
+Writing functions is a fundamental component of programming and therefore scares many people. However! Functions can be easier than you’d think. For example, think of what your perfect bar plot looks like. How much time do you spend making your bar plots look like that? Wouldn’t it be great if the very first time you plotted a barplot it looked exactly the way you wanted it to? With functions you can do that, and all the knowledge you’d need is how to make the barplot look the way you want. This workshop gives a quick overview of how to use functions to make your life easier. Demonstrations will be done in R, but are applicable to most languages.
+
+One of the more powerful aspects of programming languages relative GUI statistical softwares is the ability to create functions. Functions are extremely powerful because they allow for the automation of repetitive tasks and reduce bloated code from the more traditional “copy-paste” format. This becomes extremely powerful when combined with the apply family or loops. However, even for simple tasks, functions can make your life easier.
+
+### When should we make our own functions?
 
 In a 2016 [interview with Naturally Speaking](https://naturallyspeaking.blog/2016/06/22/episode-41-conversations-with-an-r-jedi/), Hadley Wickham explains,
 
@@ -68,13 +56,16 @@ There will always be times to break this rule, but here's Hadley again on why it
 
 > "Any time you've got duplication in your code, there's just a chance for... bugs to come in because... you change one, and you forget to change another one, you get inconsistencies. It's really frustrating."
 
-***
+
 ### How to set up a function
-***
 
 When you set up a function, the first two things you want to think about are:
   1) what you will name your function, and 
   2) the variables the function will need in order to produce an output.
+
+Then, integrate those things into the format of function, which is fairly simple:
+
+`functionName <- function(arguments){ arguments + operation }`
 
 In the function below, the name is <code>add_numbers</code> and the input variables are called <code>number_1</code>, <code>number_2</code>, and <code>number_3</code>. Big surprise: it adds three numbers together!
 
@@ -100,7 +91,7 @@ Beaver_to_csv1.1 <- function(dataframe, filename) {
 }
 ```
 
-### Goal 1: Make a function that exports a dataframe to csv
+## Goal 1: Make a function that exports a dataframe to csv
 In this first example, we want to export beaver csv with only filename in path. Notice we've added the file type (extension) to the filename: .csv
 ```{r}
 # Create object that we'll use as our filename
@@ -111,7 +102,7 @@ Beaver_to_csv1.1(beaver_1,
                  filename1.1)
 ```
 
-#### Make a function that exports any dataframe into an exports folder
+### Make a function that exports any dataframe into an exports folder
 
 We want to make a function that can take any data frame and save it with any fileformat to an export folder. First, need to create a folder that is made for all the exports of the beaver file. To begin, we first need to find where your project folder begins (its root). Then manually create a new folder in that directory called "exports".
 ```{r eval=FALSE}
@@ -142,7 +133,7 @@ Here's what the function is doing:
 3. Finally, the outermost shell is the <code>write.csv()</code> function, which is taking our dataframe as the object to be exported, and will name and export this object where the conglomerate path + filename + filetype tells it to.
 
 
-#### Try out the function with a few examples
+### Try out the function with a few examples
 
 Export dataframe to csv in csvs folder:
 ```{r}
@@ -161,26 +152,44 @@ Beaver_to_csv1.2(beaver_1,
                  filetype = ".txt")
 ```
 
-R will treat the variables you supply the function in the order that the arguments appear in the function. If you have strong familiarity with the function, or if the function is fairly simple, you can simply supply the variables as done above (i.e., you don't need the "x =" portion). HOwever, if it provides clarity or if your function is complex, you can specify each argument. This also allows you to supply arguments in different orders. 
+### NB: Variable order matters
+
+R will treat the variables you supply to the function in the order that the arguments appear in the function. If you have strong familiarity with the function, or if the function is fairly simple, you can simply supply the variables as done above (i.e., you don't need the "x =" portion). However, if it provides clarity or if your function is complex, you can specify each argument. This also allows you to supply arguments in different orders. 
 ```{r}
 Beaver_to_csv1.2(filetype = ".csv", 
                  dataframe = beaver_1,
-                 path= here::here("exports"))
+                 path = here::here("exports"))
+```
+
+Be careful here. If you supply the arguments in the wrong order and don't indicate which variables match the arguments, the function might not work. Here's an example with the basic function `lm`.
+
+With this function, R is expecting the formula first and then the data second. You'll find that reversing those arguments does not work.
+```{r}
+lm(beaver_1, day ~ temp) # This doesn't work
+lm(day ~ temp, beaver_1) # This works
+```
+
+However, if we specify that beaver_1 is the data for this linear model, it will work:
+```{r}
+lm(data = beaver_1, day ~ temp) # This works even though it's not in the order the function was written to expect.
+```
+
+### NB: Quoting (or not quoting) your argument matters
+Sometimes functions act upon arguments that are encased in quotations marks, sometimes not. There is a difference. Be aware of this and consider this if your function is failing.
+```{r}
+lm(data = "beaver_1", day ~ temp) # This doesn't work
 ```
 
 
-***
+## Goal 2: Make a function that exports a list of dataframes to separate csvs
 
-### Goal 2: Make a function that exports a list of dataframes to separate csvs
-
-#### Make list of beaver dataframes
+### Make list of beaver dataframes
 ```{r}
 Beavers <- list(beaver_1, beaver_2)
 ```
 
-
-```{r}
 ### Create function
+```{r}
 Export_beaver_list <- function(df_list, path, filetype) {
   for (i in 1:length(df_list)){
     Beaver_to_csv1.2(df_list[i], path=here::here("exports"), filetype)
@@ -188,17 +197,16 @@ Export_beaver_list <- function(df_list, path, filetype) {
 }
 ```
 
-```{r}
 ### Run function
+```{r}
 Export_beaver_list(Beavers, 
                    here::here("exports"),
                    ".csv")
 ```
 
-***
 
-### Goal 3: Make, export plots for multiple dataframes
-#### Create a function that uses a dataframe as input, then exports a plot
+## Goal 3: Make, export plots for multiple dataframes
+### Create a function that uses a dataframe as input, then exports a plot
 Fist we want to create a basic regular plot
 ```{r}
 plot(beaver_1$temp ~ beaver_1$time,
@@ -211,7 +219,7 @@ plot(beaver_1$temp ~ beaver_1$time,
      cex = .5)
 ```
 
-#### Make the plot more easily reproducible
+### Make the plot more easily reproducible
 One way to do so is to name relative (vs. absolute) axis limits. This plot will begin its x axis, which is plotting time, 0.5 units before the datapoint with the lowest time value. It will extend the x axis 0.5 units after the datapoint with the highest time unit. The same is true for the y axis' limits for temperature.
 ```{r}
 plot(temp ~ time,
@@ -263,7 +271,6 @@ Beaver_to_plot(beaver_1,
 
 ### Scale up: Create a function that uses a list of dataframes as input, then exports multiple plots
 
-
 ```{r}
 ## Create function
 Beaver_to_plot_many <- function(df_list, path, filetype) {
@@ -276,17 +283,15 @@ Beaver_to_plot_many <- function(df_list, path, filetype) {
 }
 ```
 
-#### Run function
+### Run function
 ```{r}
 Beaver_to_plot_many(Beavers,
                     here::here("./exports/ "),
                     ".png")
 ```
 
-***
 
-
-### Ellipsis in functions
+## Ellipsis in functions
 You don't always need to specify all of the input variables for a function. Sometimes you can make use of a tool called an **ellipsis**. An ellipsis is, you guessed it, three dots in a row: "...".
 
 The most straightforward usage of an ellipsis is for when you want to make your function flexible enough to handle an unspecified number of input variables. For instance, think about the <code>paste()</code> function.
@@ -308,7 +313,6 @@ ellipsis_example <- function(x_var, y_var, ...){
 }
 ```
 
-
 ```{r}
 ## Run function
 ellipsis_example(x_var = beaver_1$time,
@@ -321,7 +325,7 @@ ellipsis_example(x_var = beaver_1$time,
                  ylab = "Temperature (C)")
 ```
 
-### Extra exercises
+## Extra exercises
 For those interested, [here are some additional exercises](https://discdown.org/rprogramming/functions.html) crafted by Reto Stauffer, Joanna Chimiak-Opoka, Luis Miguel Rodríguez-R, Thorsten Simon, and Achim Zeileis from their resource, *"Introduction to Programming with R"*.
 
 
