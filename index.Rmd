@@ -14,9 +14,9 @@ Research in ecology and evolution presents a challenge with diverse and complica
 
 **Who**: The course is aimed at R beginners or experienced analysts.
 
-**When**: July 12, 2021 @ 13:00 UTC / 09:00 EDT / 06:00 PDT
+**When**: August 20, 2021 @ 11:30 EDT / 8:30 PDT / 13:00 NDT
 
-**Where**: Virtual. [https://whitman.zoom.us/j/92014368813](https://whitman.zoom.us/j/92014368813)
+**Where**: Virtual. [https://utoronto.zoom.us/j/85097717914](https://utoronto.zoom.us/j/85097717914)
 
 **Requirements**: Participants should use a laptop with a Mac, Linux, or Windows operating system (not a tablet, Chromebook, etc.) with administrative privileges. Ideally, two screens would be beneficial to see the video and your workstation at the same time. However, Participation is not necessary and you can simply follow along as I demonstrate. 
 
@@ -25,18 +25,19 @@ Research in ecology and evolution presents a challenge with diverse and complica
 **Notes**: [Live Notepad](https://etherpad.wikimedia.org/p/SORTEE-FastR)
 
 
-## Schedule (time in UTC)
+## Schedule (time in EDT)
 
 
 Time   | Goal
 -------|------------
-13:00   | Introduction and set-up
-13:15 | [Functions](Functions/Functions.html)
-13:45 | [Vectorization](Vectorization/vectorization.html)
-14:30 | Break
-14:45  | [for Loops](forloops/forLoops.html)
-15:30  | [Parallelization](Parallelization/parallelization.html)
+11:30   | Introduction and set-up
+11:45 | [Functions](Functions/Functions.html)
+12:15 | [Vectorization](Vectorization/vectorization.html)
+12:30 | Break
+12:45  | [for Loops](forloops/forLoops.html)
+13:30  | [Parallelization](Parallelization/parallelization.html)
 
+**Past events**: We have previous run this workshop at [SORTEE 2021](https://www.sortee.org/events/) and [CSEE 2021](https://csee-scee2021.ca/). 
 
 ## Software
 
