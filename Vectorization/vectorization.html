@@ -1540,11 +1540,13 @@ library(broom)</code></pre>
 </div>
 <div id="where-does-here-begin" class="section level3">
 <h3>Where does <code>here</code> begin?</h3>
+<p>For this workshop, you’ve created a new R project in, for example, a folder where you keep all your R code. The folder that contains this R project is where <code>here</code> begins (aka your top-level directory).</p>
 <pre class="r"><code>here::here() # this is where your folder begins.</code></pre>
 <pre><code>## [1] &quot;D:/RStudio/FastR&quot;</code></pre>
 </div>
 <div id="how-do-i-change-the-root-folder" class="section level3">
 <h3>How do I change the root folder?</h3>
+<p>If you want to change your root folder, you should close your R session, move the current R project folder to the location where you want it to start, and then open a new R session, type <code>here::here()</code> again, and then the output should show you your new root location.</p>
 </div>
 <div id="what-is-vectorization" class="section level2">
 <h2>What is vectorization?</h2>
@@ -2101,16 +2103,77 @@ mod_all.tidy &lt;- yarn %&gt;%
 ## # ... with 3 more variables: deviance &lt;dbl&gt;, df.residual &lt;int&gt;, nobs &lt;int&gt;</code></pre>
 </div>
 </div>
-</div>
-</div>
-<div id="practice" class="section level1">
-<h1>Practice</h1>
+<div id="practice" class="section level3">
+<h3>Practice</h3>
 <p>Let’s practice writing vectorized code!</p>
-<ul>
-<li><p>First, use the <code>apply</code> function to find the median value across columns of the “dataset” data frame.</p></li>
-<li><p>Next, find the average number of breaks from yarn with wool type A and tensions L &amp; M only. You should end up with one dataframe with 2 rows and 2 columns (“tension” and “mean_breaks”) showing mean A/L breaks and A/M breaks. <em>Hint: Take it one function at a time (you’ll use 3) and check your code as you go to see that you’re on the right track.</em></p></li>
-<li><p>Lastly, choose only the rows with supp = VC from the teeth data frame and then create 2 new columns: one with the product of len x dose (called “len_x_dose”) and the other with the ranking for the len values (called “rank”) in descending order (the largest value should rank at 1). <em>Hint: <a href="https://dplyr.tidyverse.org/reference/ranking.html">here’s how to write the ranking function.</a></em></p></li>
-</ul>
+<p><strong>Ex.1</strong> First, use the <code>apply</code> function to find the median value across columns of the “dataset” data frame.</p>
+<details>
+<p><summary>Answer Ex.1</summary></p>
+<pre class="r"><code>apply(dataset, 1, median)</code></pre>
+<pre><code>##  [1] 10.486220  9.985326 10.132896  9.992944 10.160746 10.305028 10.097130
+##  [8] 10.072959 10.326098 10.205403</code></pre>
+</details>
+<p><br></p>
+<p><strong>Ex.2</strong> Next, find the average number of breaks from yarn with wool type A and tensions L &amp; M only. You should end up with one dataframe with 2 rows and 2 columns (“tension” and “mean_breaks”) showing mean A/L breaks and A/M breaks. <em>Hint: Take it one function at a time (you’ll use 3) and check your code as you go to see that you’re on the right track.</em></p>
+<details>
+<p><summary>Answer Ex.2</summary></p>
+<pre class="r"><code>yarn %&gt;%
+  filter(wool == &quot;A&quot; &amp; tension != &quot;H&quot;) %&gt;%
+  group_by(tension) %&gt;%
+  summarise(mean_breaks = mean(breaks)) %T&gt;%
+  print()</code></pre>
+<pre><code>## # A tibble: 2 x 2
+##   tension mean_breaks
+##   &lt;fct&gt;         &lt;dbl&gt;
+## 1 L              44.6
+## 2 M              24</code></pre>
+<pre><code>## # A tibble: 2 x 2
+##   tension mean_breaks
+##   &lt;fct&gt;         &lt;dbl&gt;
+## 1 L              44.6
+## 2 M              24</code></pre>
+</details>
+<p><br></p>
+<p><strong>Ex.3</strong> Lastly, choose only the rows with supp = VC from the teeth data frame and then create 2 new columns: one with the product of len x dose (called “len_x_dose”) and the other with the ranking for the len values (called “rank”) in descending order (the largest value should rank at 1). <em>Hint: <a href="https://dplyr.tidyverse.org/reference/ranking.html">here’s how to write the ranking function.</a></em></p>
+<details>
+<p><summary>Answer Ex.3</summary></p>
+<pre class="r"><code>teeth %&gt;%
+  filter(supp == &quot;VC&quot;) %&gt;%
+  mutate(len_x_dose = len*dose,
+         rank = row_number(desc(len)))</code></pre>
+<pre><code>##     len supp dose len_cm mean_len len_x_dose rank
+## 1   4.2   VC  0.5  0.042 18.81333       2.10   30
+## 2  11.5   VC  0.5  0.115 18.81333       5.75   21
+## 3   7.3   VC  0.5  0.073 18.81333       3.65   25
+## 4   5.8   VC  0.5  0.058 18.81333       2.90   28
+## 5   6.4   VC  0.5  0.064 18.81333       3.20   27
+## 6  10.0   VC  0.5  0.100 18.81333       5.00   24
+## 7  11.2   VC  0.5  0.112 18.81333       5.60   22
+## 8  11.2   VC  0.5  0.112 18.81333       5.60   23
+## 9   5.2   VC  0.5  0.052 18.81333       2.60   29
+## 10  7.0   VC  0.5  0.070 18.81333       3.50   26
+## 11 16.5   VC  1.0  0.165 18.81333      16.50   15
+## 12 16.5   VC  1.0  0.165 18.81333      16.50   16
+## 13 15.2   VC  1.0  0.152 18.81333      15.20   18
+## 14 17.3   VC  1.0  0.173 18.81333      17.30   13
+## 15 22.5   VC  1.0  0.225 18.81333      22.50    9
+## 16 17.3   VC  1.0  0.173 18.81333      17.30   14
+## 17 13.6   VC  1.0  0.136 18.81333      13.60   20
+## 18 14.5   VC  1.0  0.145 18.81333      14.50   19
+## 19 18.8   VC  1.0  0.188 18.81333      18.80   11
+## 20 15.5   VC  1.0  0.155 18.81333      15.50   17
+## 21 23.6   VC  2.0  0.236 18.81333      47.20    7
+## 22 18.5   VC  2.0  0.185 18.81333      37.00   12
+## 23 33.9   VC  2.0  0.339 18.81333      67.80    1
+## 24 25.5   VC  2.0  0.255 18.81333      51.00    6
+## 25 26.4   VC  2.0  0.264 18.81333      52.80    5
+## 26 32.5   VC  2.0  0.325 18.81333      65.00    2
+## 27 26.7   VC  2.0  0.267 18.81333      53.40    4
+## 28 21.5   VC  2.0  0.215 18.81333      43.00   10
+## 29 23.3   VC  2.0  0.233 18.81333      46.60    8
+## 30 29.5   VC  2.0  0.295 18.81333      59.00    3</code></pre>
+</details>
+<p><br></p>
 <div id="next-module" class="section level4">
 <h4>Next Module</h4>
 <style>
@@ -2125,7 +2188,9 @@ mod_all.tidy &lt;- yarn %&gt;%
 }
 .btn:hover {background: #5DADE2;}
 </style>
-<p><a class="btn" href="https://afilazzola.github.io/FastR/"> Home </a> <a class="btn" href="https://afilazzola.github.io/FastR/Functions/Functions.html"> For Loops </a></p>
+<p><a class="btn" href="https://afilazzola.github.io/FastR/"> Home </a> <a class="btn" href="https://afilazzola.github.io/FastR/Functions/Functions.html"> Functions </a></p>
+</div>
+</div>
 </div>
 </div>
 

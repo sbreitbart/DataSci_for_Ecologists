@@ -236,7 +236,7 @@ outDF
 <details><summary>Answer Ex.1</summary>
 
 
-```{r eval=F}
+```{r eval=T}
 ## Create output dataframe
 outDF <- data.frame()
 
@@ -265,7 +265,7 @@ for(i in c("cyl","gear","am")){
 ```
 
 <details><summary>Answer Ex.2</summary>
-```{r eval=F}
+```{r eval=T}
 for(i in c("cyl","gear","am")){
  predictor <- as.factor( mtcars[,i])
  m1 <- aov(mpg ~ predictor, data=mtcars)
@@ -278,7 +278,6 @@ for(i in c("cyl","gear","am")){
 
 **Ex3.** Lastly, check for normality among the residuals of the loop we created above using the Shapiro-Wilks test `shapiro.test`:
 ```{r}
-
 for(i in 2007:2009){
   m1 <- lm(bill_length_mm ~ body_mass_g, data=penguins, year==i)
   
@@ -286,7 +285,7 @@ for(i in 2007:2009){
 ```
 
 <details><summary>Answer Ex.3</summary>
-```{r eval=F}
+```{r eval=T}
 for(i in 2007:2009){
   m1 <- lm(bill_length_mm ~ body_mass_g, data=penguins, year==i)
   shap1 <- shapiro.test(residuals(m1))

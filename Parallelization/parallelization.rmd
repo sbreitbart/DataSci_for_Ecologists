@@ -116,7 +116,6 @@ registerDoParallel(cl) ## register the backend into a virtual node
 clusterExport(cl, varlist=list("penguins")) ## export the dataframe to each core
 
 
-
 outCor <- foreach(i = 1:1000,  .combine=rbind) %dopar% { ## combine dataframe of all linear models
 bootDF <- penguins[sample(nrow(penguins), 100, replace=T),]
 mi <- lm(bill_length_mm ~  bill_depth_mm, data=bootDF) ## conduct linear model
