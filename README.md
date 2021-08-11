@@ -1,6 +1,5 @@
----
-title: "Fast-R: Improving the reproducibility and efficiency of your coding for ecology and evolution"
----
+
+# Fast-R: Improving the reproducibility and efficiency of your coding for ecology and evolution
 
 
 ## Instructors
