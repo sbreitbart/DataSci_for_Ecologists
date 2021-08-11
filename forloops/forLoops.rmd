@@ -6,13 +6,14 @@ output:
     toc_depth: 3
     toc_float: yes
 ---
----
+
 # For Loops
   
 ![](loop.png)
   
 ### To vectorize or not to vectorize
   
+*N.B.* **Start with a new R project**
 
 ### Basics
 
@@ -232,6 +233,25 @@ outDF
 
 ```
 
+<details><summary>Answer Ex.1</summary>
+
+
+```{r eval=F}
+## Create output dataframe
+outDF <- data.frame()
+
+for(i in c(4,6,8)){
+  m1 <- lm(mpg ~ hp, data=mtcars, cyl==i) ## linear model through mtcars dataset for each cylinder type
+  results <- data.frame(anova(m1)) ## extract model co-efficients
+  results[,"cyl"] <- i
+  outDF <- rbind(outDF, results) ## NEEDED TO ADD BIND TO OUTPUT DF
+}
+outDF
+```
+</details>
+
+<br>
+
 **Ex2.** Using the `mtcars` dataset, write a for loop that conducts ANOVAs testing for differences in miles per gallon (mpg) for cylinder type, gear, and am. 
 *hint: the `aov` function does not inherently accept character vectors.  
 
@@ -244,18 +264,38 @@ for(i in c("cyl","gear","am")){
 }
 ```
 
+<details><summary>Answer Ex.2</summary>
+```{r eval=F}
+for(i in c("cyl","gear","am")){
+ predictor <- as.factor( mtcars[,i])
+ m1 <- aov(mpg ~ predictor, data=mtcars)
+ print(summary(m1))
+}
+```
+</details>
+
+<br>
 
 **Ex3.** Lastly, check for normality among the residuals of the loop we created above using the Shapiro-Wilks test `shapiro.test`:
 ```{r}
-
 
 for(i in 2007:2009){
   m1 <- lm(bill_length_mm ~ body_mass_g, data=penguins, year==i)
   
 }
-
-
 ```
+
+<details><summary>Answer Ex.3</summary>
+```{r eval=F}
+for(i in 2007:2009){
+  m1 <- lm(bill_length_mm ~ body_mass_g, data=penguins, year==i)
+  shap1 <- shapiro.test(residuals(m1))
+  print(shap1)
+}
+```
+</details>
+
+<br>
 
 
 
