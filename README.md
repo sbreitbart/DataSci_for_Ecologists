@@ -1,6 +1,10 @@
-# Fast-R: Making R work hard so that you don’t have to
+---
+title: "Fast-R: Improving the reproducibility and efficiency of your coding for ecology and evolution"
+---
+
 
 ## Instructors
+
 - [Alessandro Filazzola](http://www.filazzola.info) 
 - [Sophie Breitbart](https://sophiebreitbart.wordpress.com/)
 
@@ -10,27 +14,31 @@ Research in ecology and evolution presents a challenge with diverse and complica
 
 **Who**: The course is aimed at R beginners or experienced analysts.
 
-**Where**: TBD
+**When**: August 20, 2021 @ 11:30 EDT / 8:30 PDT / 13:00 NDT
 
-**Requirements**: Participants should use a laptop with a Mac, Linux, or Windows operating system (not a tablet, Chromebook, etc.) with administrative privileges. Ideally, two screens would be beneficial to see the video and your workstation at the same time. However, Participation is not necessary and you can simply follow along as I demonstrate. 
+**Where**: Virtual. [https://utoronto.zoom.us/j/85097717914](https://utoronto.zoom.us/j/85097717914)
+
+**Requirements**: Participants should use a laptop with a Mac, Linux, or Windows operating system (not a tablet, Chromebook, etc.) with administrative privileges. Ideally, two screens would be beneficial to see the video and your workstation at the same time. However, participation is not necessary and you can simply follow along as we demonstrate. 
 
 **Contact**: Please contact alex.filazzola@outlook.com for more information.
 
-[Live Notepad]
+**Notes**: [Live Notepad](https://etherpad.wikimedia.org/p/SORTEE-FastR)
 
 
-## Schedule (time in UTC)
+## Schedule 
+(time in PDT/EDT)
 
 
 Time   | Goal
 -------|------------
-13:00   | Introduction and set-up
-13:15 | [Functions](Functions/Functions.html)
-13:45 | [Vectorization](Vectorization/vectorization.html)
-14:30 | Break
-14:45  | [for Loops](forloops/forLoops.html)
-15:30  | [Parallelization](Parallelization/parallelization.html)
+8:30 / 11:30   | Introduction and set-up
+8:45 / 11:45  | [for Loops](forloops/forLoops.html)
+9:15 / 12:15 | [Vectorization](Vectorization/vectorization.html)
+10:00 / 13:00 | Break
+10:15 / 13:15 | [Functions](Functions/Functions.html)
+11:00 / 14:00  | [Parallelization](Parallelization/parallelization.html)
 
+**Past events**: We have previous run this workshop at [SORTEE 2021](https://www.sortee.org/events/) and [CSEE 2021](https://csee-scee2021.ca/). 
 
 ## Software
 
@@ -41,13 +49,7 @@ Windows        |   Mac OS  X   |      Linux
 ---------------|---------------|---------------
 Install R by downloading and running [this .exe](http://cran.r-project.org/bin/windows/base/release.htm) file from [CRAN](http://cran.r-project.org/index.html). Please also install the [RStudio IDE](http://www.rstudio.com/ide/download/desktop).| Install R by downloading and running [this .pkg](http://cran.r-project.org/bin/macosx/R-latest.pkg) file from [CRAN](http://cran.r-project.org/index.html). Please also install the [RStudio IDE](http://www.rstudio.com/ide/download/desktop).|You can download the binary files for your distribution from [CRAN](http://cran.r-project.org/index.html). Please also install the [RStudio IDE](http://www.rstudio.com/ide/download/desktop)
 
-
 **Packages we will be using:** We recommend you install these ahead of time and ensure they load correctly to reduce troubleshooting in the workshop. 
-```{r eval= FALSE}
-install.packages(c("here","microbenchmark", "tidyr","dplyr","magrittr","broom","foreach","doParallel"))
-
-```
-
 
 
 ## Other workshops
