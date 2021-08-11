@@ -18,24 +18,25 @@ Research in ecology and evolution presents a challenge with diverse and complica
 
 **Where**: Virtual. [https://utoronto.zoom.us/j/85097717914](https://utoronto.zoom.us/j/85097717914)
 
-**Requirements**: Participants should use a laptop with a Mac, Linux, or Windows operating system (not a tablet, Chromebook, etc.) with administrative privileges. Ideally, two screens would be beneficial to see the video and your workstation at the same time. However, Participation is not necessary and you can simply follow along as I demonstrate. 
+**Requirements**: Participants should use a laptop with a Mac, Linux, or Windows operating system (not a tablet, Chromebook, etc.) with administrative privileges. Ideally, two screens would be beneficial to see the video and your workstation at the same time. However, participation is not necessary and you can simply follow along as we demonstrate. 
 
 **Contact**: Please contact alex.filazzola@outlook.com for more information.
 
 **Notes**: [Live Notepad](https://etherpad.wikimedia.org/p/SORTEE-FastR)
 
 
-## Schedule (time in EDT)
+## Schedule 
+(time in PDT/EDT)
 
 
 Time   | Goal
 -------|------------
-11:30   | Introduction and set-up
-11:45 | [Functions](Functions/Functions.html)
-12:15 | [Vectorization](Vectorization/vectorization.html)
-12:30 | Break
-12:45  | [for Loops](forloops/forLoops.html)
-13:30  | [Parallelization](Parallelization/parallelization.html)
+8:30 / 11:30   | Introduction and set-up
+8:45 / 11:45  | [for Loops](forloops/forLoops.html)
+9:15 / 12:15 | [Vectorization](Vectorization/vectorization.html)
+10:00 / 13:00 | Break
+10:15 / 13:15 | [Functions](Functions/Functions.html)
+11:00 / 14:00  | [Parallelization](Parallelization/parallelization.html)
 
 **Past events**: We have previous run this workshop at [SORTEE 2021](https://www.sortee.org/events/) and [CSEE 2021](https://csee-scee2021.ca/). 
 

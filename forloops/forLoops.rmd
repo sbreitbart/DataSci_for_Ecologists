@@ -211,23 +211,49 @@ Here we specify which iteration of the loop causes an error to occupy. Important
 While we have showed the application of `tryCatch` for loops, its has an equally important role in functions. Using the same syntax and error identification, one can use `tryCatch` to develop functions that provide useful error messages. 
 
 
-#### Practice
+### Practice using `for` loops
 
-Let's practice writing for loops!
+Let's practice writing `for` loops!
 
-For our first prompt, your task is to fix this faulty for loop:
+**Ex1.** For our first prompt, your task is to fix this faulty for loop:
 ```{r}
+
+## Create output dataframe
+outDF <- data.frame()
+
+for(i in c(4,6,8)){
+  m1 <- lm(mpg ~ hp, data=mtcars, cyl==i) ## linear model through mtcars dataset for each cylinder type
+  results <- data.frame(anova(m1)) ## extract model co-efficients
+  results[,"cyl"] <- i
+  outDF <- rbind(results)
+}
+outDF
+
 
 ```
 
-Next, write a for loop that ___:
-```{r}
+**Ex2.** Using the `mtcars` dataset, write a for loop that conducts ANOVAs testing for differences in miles per gallon (mpg) for cylinder type, gear, and am. 
+*hint: the `aov` function does not inherently accept character vectors.  
 
+```{r}
+## Create output dataframe
+anovaOut <- data.frame()
+
+for(i in c("cyl","gear","am")){
+ i 
+}
 ```
 
 
-Lastly, ____:
+**Ex3.** Lastly, check for normality among the residuals of the loop we created above using the Shapiro-Wilks test `shapiro.test`:
 ```{r}
+
+
+for(i in 2007:2009){
+  m1 <- lm(bill_length_mm ~ body_mass_g, data=penguins, year==i)
+  
+}
+
 
 ```
 
@@ -250,4 +276,4 @@ Lastly, ____:
 
 
 <a class="btn" href="https://afilazzola.github.io/FastR/"> Home </a>
-<a class="btn" href="https://afilazzola.github.io/FastR/Parallelization/parallelization.html"> Parallelization </a>
+<a class="btn" href="https://afilazzola.github.io/FastR/Vectorization/vectorization.html"> Vectorization </a>
