@@ -2109,9 +2109,23 @@ mod_all.tidy &lt;- yarn %&gt;%
 <p><strong>Ex.1</strong> First, use the <code>apply</code> function to find the median value across columns of the “dataset” data frame.</p>
 <details>
 <p><summary>Answer Ex.1</summary></p>
-<pre class="r"><code>apply(dataset, 1, median)</code></pre>
-<pre><code>##  [1] 10.486220  9.985326 10.132896  9.992944 10.160746 10.305028 10.097130
-##  [8] 10.072959 10.326098 10.205403</code></pre>
+<pre class="r"><code>apply(mtcars, 1, median)</code></pre>
+<pre><code>##           Mazda RX4       Mazda RX4 Wag          Datsun 710      Hornet 4 Drive 
+##               4.000               4.000               4.000               3.215 
+##   Hornet Sportabout             Valiant          Duster 360           Merc 240D 
+##               3.440               3.460               4.000               4.000 
+##            Merc 230            Merc 280           Merc 280C          Merc 450SE 
+##               4.000               4.000               4.000               4.070 
+##          Merc 450SL         Merc 450SLC  Cadillac Fleetwood Lincoln Continental 
+##               3.730               3.780               5.250               5.424 
+##   Chrysler Imperial            Fiat 128         Honda Civic      Toyota Corolla 
+##               5.345               4.000               4.000               4.000 
+##       Toyota Corona    Dodge Challenger         AMC Javelin          Camaro Z28 
+##               3.700               3.520               3.435               4.000 
+##    Pontiac Firebird           Fiat X1-9       Porsche 914-2        Lotus Europa 
+##               3.845               4.000               4.430               4.000 
+##      Ford Pantera L        Ferrari Dino       Maserati Bora          Volvo 142E 
+##               5.000               6.000               8.000               4.000</code></pre>
 </details>
 <p><br></p>
 <p><strong>Ex.2</strong> Next, find the average number of breaks from yarn with wool type A and tensions L &amp; M only. You should end up with one dataframe with 2 rows and 2 columns (“tension” and “mean_breaks”) showing mean A/L breaks and A/M breaks. <em>Hint: Take it one function at a time (you’ll use 3) and check your code as you go to see that you’re on the right track.</em></p>

@@ -4,12 +4,12 @@ navbar:
   left:
     - text: "info"
       href: index.html
-    - text: "Functions"
-      href: Functions/Functions.html
-    - text: "Vectorization"
-      href: Vectorization/vectorization.html
     - text: "forloops"
       href: forloops/forLoops.html
+    - text: "Vectorization"
+      href: Vectorization/vectorization.html
+    - text: "Functions"
+      href: Functions/Functions.html
     - text: "Parallelization"
       href: Parallelization/parallelization.html 
 output_dir: "."

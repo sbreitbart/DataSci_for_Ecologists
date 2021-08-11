@@ -451,7 +451,7 @@ Let's practice writing vectorized code!
 
 <details><summary>Answer Ex.1</summary>
 ```{r eval=T}
-apply(dataset, 1, median)
+apply(mtcars, 1, median)
 ```
 </details>
 
