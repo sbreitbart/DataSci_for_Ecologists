@@ -10,7 +10,7 @@ output:
 
 ![](MustGoFaster.jpg)
 
-### Install and load packages 
+### Install and load packages
 ```{r load-packages,  message=FALSE, warning=FALSE}
 library(microbenchmark)
 library(here) # Look where your folder begins.
@@ -19,6 +19,21 @@ library(dplyr)
 library(tidyr)
 library(broom)
 ```
+
+Quick aside on the genius of the <code>here</code> package:
+
+Whether they're collaborating with colleagues, uploading to data repositories after submitting a paper, or uploading scripts to Github for anyone to use, people who write code constantly share their code. **A great time-saving strategy for streamlining code-sharing is to use <code>here</code>**, a package intended to facilitate file referencing by getting rid of absolute filepaths (which makes your code fragile and difficult to integrate into other people's systems) and instead using relative filepaths (which makes your code easier to transfer to other people's systems). [See Jenny Bryan's overview of the package](https://github.com/jennybc/here_here) for more information and convincing arguments for adopting <code>here</code>.
+
+### Where does `here` begin?
+```{r}
+here::here() # this is where your folder begins.
+```
+
+### How do I change the root folder?
+```{r}
+
+```
+
 
 
 ## What is vectorization? 
