@@ -25,19 +25,18 @@ Research in ecology and evolution presents a challenge with diverse and complica
 
 
 ## Schedule 
-(time in PDT/EDT)
+(time in EDT)
 
 
 Time   | Goal
 -------|------------
-8:30 / 11:30   | Introduction and set-up
-8:45 / 11:45  | [for Loops](forloops/forLoops.html)
-9:15 / 12:15 | [Vectorization](Vectorization/vectorization.html)
-10:00 / 13:00 | Break
-10:15 / 13:15 | [Functions](Functions/Functions.html)
-11:00 / 14:00  | [Parallelization](Parallelization/parallelization.html)
+9:00 | Introduction and set-up
+9:10 | [Functions](Functions/Functions.html)
+9:45 | Break & Practice
+10:00 | [Parallelization](Parallelization/parallelization.html)
+10:25 | Wrap up
 
-**Past events**: We have previous run this workshop at [SORTEE 2021](https://www.sortee.org/events/) and [CSEE 2021](https://csee-scee2021.ca/). 
+**Past events**: We have previously run a more extensive version of this workshop at [SORTEE 2021](https://www.sortee.org/events/) and [CSEE 2021](https://csee-scee2021.ca/). 
 
 ## Software
 
@@ -53,9 +52,9 @@ Install R by downloading and running [this .exe](http://cran.r-project.org/bin/w
 
 ## Other workshops
 
-If you enjoyed this workshop and were interested in learning more, I have also run workshops on [Logistic Regression](https://github.com/afilazzola/CUELogisticRegression), an [Introduction to Ecological Analyses](https://afilazzola.github.io/UoA.CommunityAnalyses.2018/), and an [Introduction to Functions](https://afilazzola.github.io/Intro2Functions/)
+If you enjoyed this workshop and were interested in learning more, Alex has also run workshops on [Logistic Regression](https://github.com/afilazzola/CUELogisticRegression), an [Introduction to Ecological Analyses](https://afilazzola.github.io/UoA.CommunityAnalyses.2018/), and an [Introduction to Functions](https://afilazzola.github.io/Intro2Functions/)
 
-You can find similar style workshops, usually that are longer and go into more detail, with [Software Carpentry](https://software-carpentry.org/). They have teachers available globally and cover all forms of programming beyond R. 
+You can find similar style workshops, usually that are longer and go into more detail, with [The Carpentries](https://carpentries.org/workshops-curricula/). They have teachers available globally and cover all forms of programming beyond R. 
 
 <br>
 
