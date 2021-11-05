@@ -20,7 +20,9 @@ This workshop will involve a combination of lecture and hands-on activities. A b
 **When**: November 23, 2021 @ 9:00 EDT
 
 **Where**: Virtual. [https://utoronto.zoom.us/j/85097717914](https://utoronto.zoom.us/j/87969106726)
+
 Meeting ID: 879 6910 6726
+
 Passcode: functions
 
 **Requirements**: Participants should use a laptop with a Mac, Linux, or Windows operating system (not a tablet, Chromebook, etc.) with administrative privileges. Ideally, two screens would be beneficial to see the video and your workstation at the same time. However, participation is not necessary and you can simply follow along as we demonstrate. 

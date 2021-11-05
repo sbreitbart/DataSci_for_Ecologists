@@ -338,6 +338,6 @@ For those interested, [here are some additional exercises](https://discdown.org/
 
 
 <a class="btn" href="https://afilazzola.github.io/FastR/"> Home </a>
-<a class="btn" href="https://afilazzola.github.io/FastR/Parallelization/parallelization.html"> Parallelization </a>
+<a class="btn" href="https://afilazzola.github.io/FastR/Tips_Tricks/Tips_Tricks.html"> Tips & Tricks </a>
 
 

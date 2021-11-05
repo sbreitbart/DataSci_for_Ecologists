@@ -7,12 +7,25 @@ output:
     toc_float: yes
 ---
 # Tips & Tricks
+
+The purpose of this segment is to share some of our favorite tools for working with data in R. We will focus on packages that are less popular than the Greatest of All Times (e.g. [tidyverse](https://www.tidyverse.org/) and its associated [ggplot2](https://ggplot2.tidyverse.org/), [dplyr](https://dplyr.tidyverse.org/), [tidyr](https://tidyr.tidyverse.org/) etc.) though we *highly encourage* you to check these out!
+
+## `here`: no more getting lost in file paths!
+
+
+## `magrittr`: these pipes will make your work *flow*
+
+
+## `patchwork`: make your figures nice and cozy
+
+
+## `performance`: evaluate your general linear models in a flash
   
 
 
-# Survey
+## Survey
 
-We would love to hear feedback from you about this workshop! It will take 5 minutes, max. Check out the "Feedback Page" link below. Thanks!
+Please take 5 minutes and give us some feedback about today's workshop- we'd be so grateful! Check out the "Feedback Page" link below. Thanks!
 
 
 <style>
