@@ -1,0 +1,33 @@
+---
+output:
+  html_document:
+    theme: sandstone
+    toc: yes
+    toc_depth: 3
+    toc_float: yes
+---
+# Tips & Tricks
+  
+
+
+# Survey
+
+We would love to hear feedback from you about this workshop! It will take 5 minutes, max. Check out the "Feedback Page" link below. Thanks!
+
+
+<style>
+.btn {
+  border: none;
+  background-color: inherit;
+  padding: 14px 28px;
+  font-size: 16px;
+  cursor: pointer;
+  display: inline-block;
+  color: orange;
+}
+.btn:hover {background: #5DADE2;}
+</style>
+
+
+<a class="btn" href="https://afilazzola.github.io/FastR/"> Home </a>
+<a class="btn" href="https://easyretro.io/publicboard/gEdRrWVYh9ZQztnmdn94aX87HO83/b09d9a47-fe9c-4185-936d-445a0ad92428"> Feedback Page </a>

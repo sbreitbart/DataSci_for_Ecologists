@@ -1,5 +1,5 @@
 
-# Fast-R: Improving the reproducibility and efficiency of your coding for ecology and evolution
+# BGSS Fall Retreat 2021 Coding Workshop
 
 
 ## Instructors
@@ -9,19 +9,25 @@
 
 ## General Information
 
-Research in ecology and evolution presents a challenge with diverse and complicated datasets. With the wide-spread adoption of R for data management and analysis, there is huge potential for improving the efficiency of processing data. However, there is a significant learning curve with R that inhibits our ability to learn faster methods. Repetitive tasks in spreadsheets or even in R itself can often be revised to be faster, use less code, and have a simpler output. Copy-paste strategies can lead to errors and can be computation intensive for R relative to other methods. This workshop will explore writing functions, vectorization via the apply family (e.g. apply, lapply, vapply), “for” loops, and parallel computing. We will also touch upon some of the tools in the tidyverse package for large-scale data manipulation. These tools, while on the surface may appear intimidating, can be learned quickly with an exceptional payoff in time-saving efficiency. Using a combination of lecture and hands-on activities, this workshop will familiarize yourself with the tools necessary for improving your relationship with R and saving you time. A basic understanding of R is recommended because it will make the content more relevant and understandable. There is no prior knowledge necessarily for parallel computing or programming. Participants should bring a laptop with R already install using Mac, Linux, or Windows operating system (not a tablet, Chromebook, etc.). 
+The first few years of grad school are a whirlwind, let alone the initial months! Coding is a skill that's increasingly important for most graduate students in ecology & evolutionary biology, yet without formal instruction (who has time for that?), many of us end up learning enough to get by with an ad hoc approach (hello, stackoverflow). **Winging it is good for some situations, but sometimes it's worth it to learn skills that will increase your long-term efficiency and reproducibility** (and, oftentimes, short-term too!) Example A: copying/pasting chunks of code might seem faster, but over time, this practice can make you vulnerable to errors, long analysis times, and difficulty sharing your code with others.
 
-**Who**: The course is aimed at R beginners or experienced analysts.
+**The purpose of today's workshop is to give you the skills to write your own functions so that you can streamline your data analysis workflow.** We will also describe some tools that we believe are well-worth getting to know, especially for those who are still in the early stages of coding.
 
-**When**: August 20, 2021 @ 11:30 EDT / 8:30 PDT / 13:00 NDT
+This workshop will involve a combination of lecture and hands-on activities. A basic understanding of R is recommended because it will make the content more relevant and understandable, but even novices can listen and learn about the general concepts behind functions. Participants should use a computer with R already install using Mac, Linux, or Windows operating system (not a tablet, Chromebook, etc.). 
 
-**Where**: Virtual. [https://utoronto.zoom.us/j/85097717914](https://utoronto.zoom.us/j/85097717914)
+**Who**: The course is aimed at new and intermediate learners of R.
+
+**When**: November 23, 2021 @ 9:00 EDT
+
+**Where**: Virtual. [https://utoronto.zoom.us/j/85097717914](https://utoronto.zoom.us/j/87969106726)
+Meeting ID: 879 6910 6726
+Passcode: functions
 
 **Requirements**: Participants should use a laptop with a Mac, Linux, or Windows operating system (not a tablet, Chromebook, etc.) with administrative privileges. Ideally, two screens would be beneficial to see the video and your workstation at the same time. However, participation is not necessary and you can simply follow along as we demonstrate. 
 
-**Contact**: Please contact alex.filazzola@outlook.com for more information.
+**Contact**: Please contact sophie.breitbart@mail.utoronto.ca for more information.
 
-**Notes**: [Live Notepad](https://etherpad.wikimedia.org/p/SORTEE-FastR)
+**Notes**: [Live Notepad](https://etherpad.wikimedia.org/p/BGSSRetreat2021_CodingWorkshop)
 
 
 ## Schedule 
@@ -33,7 +39,7 @@ Time   | Goal
 9:00 | Introduction and set-up
 9:10 | [Functions](Functions/Functions.html)
 9:45 | Break & Practice
-10:00 | [Parallelization](Parallelization/parallelization.html)
+10:00 | [Tips & Tricks](Tips_Tricks/Tips_Tricks.html)
 10:25 | Wrap up
 
 **Past events**: We have previously run a more extensive version of this workshop at [SORTEE 2021](https://www.sortee.org/events/) and [CSEE 2021](https://csee-scee2021.ca/). 
@@ -52,7 +58,15 @@ Install R by downloading and running [this .exe](http://cran.r-project.org/bin/w
 
 ## Other workshops
 
-If you enjoyed this workshop and were interested in learning more, Alex has also run workshops on [Logistic Regression](https://github.com/afilazzola/CUELogisticRegression), an [Introduction to Ecological Analyses](https://afilazzola.github.io/UoA.CommunityAnalyses.2018/), and an [Introduction to Functions](https://afilazzola.github.io/Intro2Functions/)
+If you enjoyed this workshop and were interested in learning more, we have also run workshops on
+
+  * [How to improve the reproducibility and efficiency of your coding for ecology and evolution (FastR)](https://github.com/afilazzola/FastR)
+
+Additionally, Alex has run these workshops:
+
+  * [Logistic Regression](https://github.com/afilazzola/CUELogisticRegression)
+  * [Introduction to Ecological Analyses](https://afilazzola.github.io/UoA.CommunityAnalyses.2018/)
+  * [Introduction to Functions](https://afilazzola.github.io/Intro2Functions/)
 
 You can find similar style workshops, usually that are longer and go into more detail, with [The Carpentries](https://carpentries.org/workshops-curricula/). They have teachers available globally and cover all forms of programming beyond R. 
 

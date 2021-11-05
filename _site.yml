@@ -1,17 +1,13 @@
-name: "FastR2021"
+name: "BGSS Fall Retreat 2021 Coding Workshop"
 navbar:
-  title: "FastR2021"
+  title: "BGSS Fall Retreat 2021 Coding Workshop"
   left:
     - text: "info"
       href: index.html
-    - text: "forloops"
-      href: forloops/forLoops.html
-    - text: "Vectorization"
-      href: Vectorization/vectorization.html
     - text: "Functions"
       href: Functions/Functions.html
-    - text: "Parallelization"
-      href: Parallelization/parallelization.html 
+    - text: "Useful Tips & Tricks"
+      href: Tips_Tricks/Tips_Tricks.html 
 output_dir: "."
 output:
   html_document:
