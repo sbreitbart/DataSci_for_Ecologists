@@ -14,9 +14,15 @@ The purpose of this segment is to share some of our favorite tools for working w
 
 As we introduced in the previous module, `here` is an excellent package that's worth getting to know because it will let you use relative as opposed to absolute pathnames. This will simplify importing and exporting files as well as sharing them with others.
 
-### Installation code
+### How to install
 ```{r eval = FALSE}
 install.packages("here")
+```
+
+### How to use
+```{r}
+library(here)
+here::here()   # once you call the package with the library(here) call, you can use this function to remind you where your project root begins.
 ```
 
 
@@ -35,6 +41,18 @@ install.packages("here")
 </style>
 
 <a class="btn" href="https://sbreitbart.github.io/BGSS_Retreat_2021_Workshop/Functions/Functions.html"> revisit "here" package description </a>
+
+```{r, echo=FALSE}
+# Define variable containing url
+url <- "https://raw.githubusercontent.com/allisonhorst/stats-illustrations/master/rstats-artwork/here.png"
+```
+
+<center><img src="`r url`"></center>
+Artwork by [Allison Horst](https://github.com/allisonhorst)
+
+
+
+
 
 ## `magrittr`: these pipes will make your work *flow*
 
