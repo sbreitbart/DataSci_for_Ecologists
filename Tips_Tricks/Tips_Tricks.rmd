@@ -8,15 +8,40 @@ output:
 ---
 # Tips & Tricks
 
-The purpose of this segment is to share some of our favorite tools for working with data in R. We will focus on packages that are less popular than the Greatest of All Times (e.g. [tidyverse](https://www.tidyverse.org/) and its associated [ggplot2](https://ggplot2.tidyverse.org/), [dplyr](https://dplyr.tidyverse.org/), [tidyr](https://tidyr.tidyverse.org/) etc.) though we *highly encourage* you to check these out!
+The purpose of this segment is to share some of our favorite tools for working with data in R. We will focus on packages that are less popular than the Greatest of All Times (e.g. [tidyverse](https://www.tidyverse.org/) and its associated [ggplot2](https://ggplot2.tidyverse.org/), [dplyr](https://dplyr.tidyverse.org/), [tidyr](https://tidyr.tidyverse.org/), etc.) though we *highly encourage* you to check these out!
 
-## `here`: no more getting lost in file paths!
+## `here`: no more getting lost in file paths
 
+As we introduced in the previous module, `here` is an excellent package that's worth getting to know because it will let you use relative as opposed to absolute pathnames. This will simplify importing and exporting files as well as sharing them with others.
+
+### Installation code
+```{r eval = FALSE}
+install.packages("here")
+```
+
+
+<style>
+.btn {
+  border: 2px solid black;
+  background-color: inherit;
+  padding: 14px 28px;
+  font-size: 14px;
+  cursor: pointer;
+  display: inline-block;
+  border-color: green;
+  color: green;
+}
+.btn:hover {background: #5DADE2;}
+</style>
+
+<a class="btn" href="https://sbreitbart.github.io/BGSS_Retreat_2021_Workshop/Functions/Functions.html"> revisit "here" package description </a>
 
 ## `magrittr`: these pipes will make your work *flow*
 
 
+
 ## `patchwork`: make your figures nice and cozy
+
 
 
 ## `performance`: evaluate your general linear models in a flash
@@ -42,5 +67,5 @@ Please take 5 minutes and give us some feedback about today's workshop- we'd be 
 </style>
 
 
-<a class="btn" href="https://afilazzola.github.io/FastR/"> Home </a>
+<a class="btn" href="https://sbreitbart/BGSS_Retreat_2021_Workshop/"> Home </a>
 <a class="btn" href="https://easyretro.io/publicboard/gEdRrWVYh9ZQztnmdn94aX87HO83/b09d9a47-fe9c-4185-936d-445a0ad92428"> Feedback Page </a>

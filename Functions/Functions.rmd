@@ -25,6 +25,18 @@ beaver_1 <- beaver1
 beaver_2 <- beaver2
 ```
 
+### Quick intro to the `here` package
+Whether they're collaborating with colleagues, uploading to data repositories after submitting a paper, or uploading scripts to Github for anyone to use, people who write code constantly share their code. **A great time-saving strategy for streamlining code-sharing is to use `here`**, a package intended to facilitate file referencing by getting rid of absolute filepaths (which makes your code fragile and difficult to integrate into other people's systems) and instead using relative filepaths (which makes your code easier to transfer to other people's systems). [See Jenny Bryan's overview of the package](https://github.com/jennybc/here_here) for more information and convincing arguments for adopting <code>here</code>.
+
+#### Where does `here` begin?
+For this workshop, you've created a new R project in, for example, a folder where you keep all your R code. The folder that contains this R project is where `here` begins (aka your top-level directory).
+```{r}
+here::here() # this is where your folder begins.
+```
+
+#### How do I change the root folder?
+If you want to change your root folder, you should close your R session, move the current R project folder to the location where you want it to start, and then open a new R session, type `here::here()` again, and then the output should show you your new root location.
+
 
 ### What is a function?
 
@@ -156,8 +168,11 @@ Beaver_to_csv1.2(filetype = ".csv",
 Be careful here. If you supply the arguments in the wrong order and don't indicate which variables match the arguments, the function might not work. Here's an example with the basic function `lm`.
 
 With this function, R is expecting the formula first and then the data second. You'll find that reversing those arguments does not work.
-```{r}
+```{r eval = FALSE}
 lm(beaver_1, day ~ temp) # This doesn't work
+```
+
+```{r}
 lm(day ~ temp, beaver_1) # This works
 ```
 
@@ -168,7 +183,7 @@ lm(data = beaver_1, day ~ temp) # This works even though it's not in the order t
 
 ### NB: Quoting (or not quoting) your argument matters
 Sometimes functions act upon arguments that are encased in quotations marks, sometimes not. There is a difference. Be aware of this and consider this if your function is failing.
-```{r}
+```{r eval=FALSE}
 lm(data = "beaver_1", day ~ temp) # This doesn't work
 ```
 
@@ -337,7 +352,7 @@ For those interested, [here are some additional exercises](https://discdown.org/
 </style>
 
 
-<a class="btn" href="https://afilazzola.github.io/FastR/"> Home </a>
-<a class="btn" href="https://afilazzola.github.io/FastR/Tips_Tricks/Tips_Tricks.html"> Tips & Tricks </a>
+<a class="btn" href="https://sbreitbart/BGSS_Retreat_2021_Workshop/"> Home </a>
+<a class="btn" href="https://sbreitbart.github.io/BGSS_Retreat_2021_Workshop/Tips_Tricks/Tips_Tricks.html"> Tips & Tricks </a>
 
 
