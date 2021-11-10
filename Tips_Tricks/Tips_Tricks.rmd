@@ -6,6 +6,8 @@ output:
     toc: yes
     toc_depth: 3
     toc_float: yes
+editor_options: 
+  chunk_output_type: console
 ---
 
 The purpose of this segment is to share some of our favorite tools for working with data in R. We will focus on packages that are less popular than the Greatest of All Times (e.g. [tidyverse](https://www.tidyverse.org/) and its associated [ggplot2](https://ggplot2.tidyverse.org/), [dplyr](https://dplyr.tidyverse.org/), [tidyr](https://tidyr.tidyverse.org/), etc.) though we *highly encourage* you to check these out!
@@ -147,7 +149,85 @@ url2 <- "https://raw.githubusercontent.com/luisdva/annotater/master/inst/media/a
 
 
 
+## `dplyr`: quick manipulations of your data
 
+> *Use this package when...* you are trying to quickly manipulate, summarize, or combine data. 
+
+Often we are required to summarize data by certain categories, groups, or treatments. In other instances, we are looking to create a new column that contains a metric specific for our analysis. The `dplyr` package uses a pipe-format that allows for an easy creation of a workflow. Additionally, `dplyr` allows for some basic data management including selecting certain columns, renaming them, or sorting data. All of these functions are based off an `SQL` backend, which provides some familiarity for those with a data or computer science background.  
+
+
+### How to install
+```{r eval = FALSE}
+install.packages("dplyr")
+```
+
+### How to use
+```{r warning=F, message=F}
+library(dplyr)
+
+## Load sample dataset
+data(starwars)
+
+###  Calculate summary statistics for a group within the dataset. 
+summmarizedData <- starwars %>% 
+                      group_by(homeworld) %>%  ## select variables to summarize by
+                      summarize(avgHeight = mean(height), nObs= length(height)) ## select which columns to be summarized and by which function
+summmarizedData
+
+
+###  Calculate summary statistics for multiple groups within the dataset. 
+summmarizedData <- starwars %>% 
+                      group_by(homeworld, species) %>%  ## select variables to summarize by
+                      summarize(avgHeight = mean(height), nObs= length(height)) ## select which columns to be summarized and by which function
+summmarizedData
+
+## Create a new column of estimated BMI for each person
+starwarsBMI <- starwars %>% 
+                  mutate(bmi = mass / (height/100)^2)
+starwarsBMI %>% select(name, BMI = bmi) ## show calculated data and rename it to capitalize BMI
+
+## Find the individuals with the lowest BMI per planet
+lowBMI <- starwarsBMI %>% 
+            group_by(homeworld) %>% 
+            slice(which.min(bmi))
+lowBMI
+```
+
+A cheatsheet for frequently used functions from `dplyr` can be found [here](https://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf)
+
+## `tidyr`: quick manipulations of your data (cont)
+
+> *Use this package when...* you are trying to quickly manipulate, summarize, or combine data. 
+
+The `tidyr` package comes from the same author as `dplyr` and share the same common syntax of pipes and SQL-style structure. There are many functions found within this package but there are two that I think are extremely useful: 1) converting data between long and wide formats and 2) separating a column into multiple. 
+
+### How to install
+```{r eval = FALSE}
+install.packages("tidyr")
+```
+
+### How to use
+```{r warning=F, message=F}
+library(tidyr)
+
+## Load sample dataset
+data(starwars)
+
+### Select a matrix that has the individual and species. Then convert it from long to wide format
+longMat <- starwars %>% 
+            select(name, species, mass) %>% 
+            spread(species, mass)
+
+## convert back to wide format
+wideMat <- longMat %>% 
+            gather(species, mass, 2:39)
+
+
+## Split colour into multiple columns
+starwars %>% 
+  separate(skin_color, sep=", ", into=c("MainColour","SecondaryColour","AncillaryColour")) %>% 
+  select(name, MainColour, SecondaryColour, AncillaryColour)
+```
 
 
 ## Survey
