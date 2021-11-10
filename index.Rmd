@@ -18,7 +18,7 @@ This workshop will involve a combination of lecture and hands-on activities. A b
 
 **Who**: The course is aimed at new and intermediate learners of R.
 
-**When**: November 23, 2021 @ 9:00 EDT
+**When**: November 23, 2021 @ 9:00-10:30 am EDT
 
 **Where**: Virtual. [https://utoronto.zoom.us/j/85097717914](https://utoronto.zoom.us/j/87969106726)
 
@@ -58,7 +58,8 @@ Install R by downloading and running [this .exe](http://cran.r-project.org/bin/w
 
 **Packages we will be using:** We recommend you install these ahead of time and ensure they load correctly to reduce troubleshooting in the workshop. 
 ```{r eval= FALSE}
-install.packages(c("here))
+install.packages(c("here", "magrittr", "performance", "patchwork", "remotes"), dependencies = TRUE)
+remotes::install_github("luisDVA/annotater")
 
 ```
 

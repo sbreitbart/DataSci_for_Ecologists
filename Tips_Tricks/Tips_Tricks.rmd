@@ -1,4 +1,5 @@
 ---
+title: "Tips & Tricks"
 output:
   html_document:
     theme: sandstone
@@ -6,11 +7,13 @@ output:
     toc_depth: 3
     toc_float: yes
 ---
-# Tips & Tricks
 
 The purpose of this segment is to share some of our favorite tools for working with data in R. We will focus on packages that are less popular than the Greatest of All Times (e.g. [tidyverse](https://www.tidyverse.org/) and its associated [ggplot2](https://ggplot2.tidyverse.org/), [dplyr](https://dplyr.tidyverse.org/), [tidyr](https://tidyr.tidyverse.org/), etc.) though we *highly encourage* you to check these out!
 
 ## `here`: no more getting lost in file paths
+
+> *Use this package ~~when...~~* all the time. Make it a part of your regular coding routine. It's *that* good.
+
 
 As we introduced in the previous module, `here` is an excellent package that's worth getting to know because it will let you use relative as opposed to absolute pathnames. This will simplify importing and exporting files as well as sharing them with others.
 
@@ -29,7 +32,8 @@ here::here()   # once you call the package with the library(here) call, you can 
 <style>
 .btn {
   border: 2px solid black;
-  background-color: inherit;
+  background: gray;
+  background-color: gray;
   padding: 14px 28px;
   font-size: 14px;
   cursor: pointer;
@@ -48,7 +52,7 @@ url <- "https://raw.githubusercontent.com/allisonhorst/stats-illustrations/maste
 ```
 
 <center><img src="`r url`"></center>
-Artwork by [Allison Horst](https://github.com/allisonhorst)
+Artwork by [Allison Horst](https://github.com/allisonhorst). `set_wd`, be gone!
 
 
 
@@ -56,14 +60,94 @@ Artwork by [Allison Horst](https://github.com/allisonhorst)
 
 ## `magrittr`: these pipes will make your work *flow*
 
+> *Use this package when...* 
+
+
+### How to install
+```{r eval = FALSE}
+install.packages("magrittr")
+```
+
+### How to use
+```{r}
+library(magrittr)
+```
+
+
 
 
 ## `patchwork`: make your figures nice and cozy
 
+> *Use this package when...* 
+
+
+### How to install
+```{r eval = FALSE}
+install.packages("patchwork")
+```
+
+### How to use
+```{r}
+library(patchwork)
+```
+
+
+
 
 
 ## `performance`: evaluate your general linear models in a flash
-  
+
+> *Use this package when...* 
+
+
+### How to install
+```{r eval = FALSE}
+install.packages("performance")
+```
+
+### How to use
+```{r}
+library(performance)
+```
+
+
+
+
+
+
+## `annotater`: *finally* remember why you loaded all those packages!
+
+> *Use this package when...* you forget why you loaded packages at the top of your R script/notebook/markdown file OR you want to clarify why you did so for collaborators. (+1 points for reproducible science!)
+
+It happens: you start your R file with a list of packages to be loaded with your `library()` call. You constantly add to it, listing more packages who functions you use to complete your analysis. Over time, you figure out that your advisors would prefer if you didn't use the [Wes Anderson color palette](https://github.com/karthik/wesanderson), or that you're better off creating figures with `patchwork` vs `cowplot` (sorry, `cowplot`). So, if you're anything like me, after learning stats *and* R simultaneously while doing your first thesis project, you end up with a very impressive list of R packages, half of which you can't remember why you loaded in the first place.
+
+Have no fear! This is where the genius of the [`annotater`](https://github.com/luisDVA/annotater) package comes in to save us (and those who try to read our code, bless them)!
+
+
+
+### How to install
+```{r eval = FALSE}
+install.packages("remotes")
+remotes::install_github("luisDVA/annotater")
+```
+
+### How to use
+After you've installed `remotes` and `annotater`, save your R files, close RStudio, and reopen it.
+
+Click anywhere in the Source pane (aka the one with your R files).
+
+Navigate your cursor to the "Addins" button in the bar below the File-Edit-Code-View etc. bar. Click it and select, "Annotate package calls in active file". Voila!
+
+```{r, echo=FALSE}
+# Define variable containing url
+url2 <- "https://raw.githubusercontent.com/luisdva/annotater/master/inst/media/annotcalls.gif"
+```
+
+<center><img src="`r url2`"></center>
+
+
+
+
 
 
 ## Survey
