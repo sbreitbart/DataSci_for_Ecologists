@@ -8,7 +8,7 @@ output:
     toc_float: yes
 ---
 
-The purpose of this segment is to share some of our favorite tools for working with data in R. We will focus on packages that are less popular than the Greatest of All Times (e.g. [tidyverse](https://www.tidyverse.org/) and its associated [ggplot2](https://ggplot2.tidyverse.org/), [dplyr](https://dplyr.tidyverse.org/), [tidyr](https://tidyr.tidyverse.org/), etc.) though we *highly encourage* you to check these out!
+The purpose of this segment is to share some of our favorite tools for working with data in R.
 
 ## `here`: no more getting lost in file paths
 
@@ -144,7 +144,7 @@ url2 <- "https://raw.githubusercontent.com/luisdva/annotater/master/inst/media/a
 ```
 
 <center><img src="`r url2`"></center>
-
+Gif by [Luis Verde Arregoitia](https://github.com/luisDVA/annotater)
 
 
 
@@ -152,7 +152,7 @@ url2 <- "https://raw.githubusercontent.com/luisdva/annotater/master/inst/media/a
 
 ## Survey
 
-Please take 5 minutes and give us some feedback about today's workshop- we'd be so grateful! Check out the "Feedback Page" link below. Thanks!
+Please take 5 minutes to check out the "Feedback Page" link below and give us some feedback about today's workshop. This will help us teach better workshops, not to mention show future employers that we might actually be sort of good at this. Thanks!
 
 
 <style>

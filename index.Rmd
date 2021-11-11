@@ -28,7 +28,7 @@ Passcode: functions
 
 **Requirements**: Participants should use a laptop with a Mac, Linux, or Windows operating system (not a tablet, Chromebook, etc.) with administrative privileges. Ideally, two screens would be beneficial to see the video and your workstation at the same time. However, participation is not necessary and you can simply follow along as we demonstrate. 
 
-**Contact**: Please contact alex.filazzola@outlook.com for more information.
+**Contact**: Please contact sophie.breitbart@mail.utoronto.ca for more information.
 
 **Notes**: [Live Notepad](https://etherpad.wikimedia.org/p/SORTEE-FastR)
 
@@ -45,7 +45,7 @@ Time   | Goal
 10:00 | [Tips & Tricks](Tips_Tricks/Tips_Tricks.html)
 10:25 | Wrap up
 
-**Past events**: We have previous run this workshop at [SORTEE 2021](https://www.sortee.org/events/) and [CSEE 2021](https://csee-scee2021.ca/). 
+**Past events**: We have previous run a similar workshop at [SORTEE 2021](https://www.sortee.org/events/) and [CSEE 2021](https://csee-scee2021.ca/). 
 
 ## Software
 
