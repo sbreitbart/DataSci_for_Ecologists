@@ -355,7 +355,7 @@ For those interested, [here are some additional exercises](https://discdown.org/
 </style>
 
 
-<a class="btn" href="https://sbreitbart/BGSS_Retreat_2021_Workshop/"> Home </a>
+<a class="btn" href="https://sbreitbart.github.io/BGSS_Retreat_2021_Workshop/index.html"> Home </a>
 <a class="btn" href="https://sbreitbart.github.io/BGSS_Retreat_2021_Workshop/Tips_Tricks/Tips_Tricks.html"> Tips & Tricks </a>
 
 

@@ -423,5 +423,5 @@ Please take 5 minutes to check out the "Feedback Page" link below and give us so
 </style>
 
 
-<a class="btn" href="https://sbreitbart/BGSS_Retreat_2021_Workshop/"> Home </a>
+<a class="btn" href="https://sbreitbart.github.io/BGSS_Retreat_2021_Workshop/index.html"> Home </a>
 <a class="btn" href="https://easyretro.io/publicboard/gEdRrWVYh9ZQztnmdn94aX87HO83/b09d9a47-fe9c-4185-936d-445a0ad92428"> Feedback Page </a>
