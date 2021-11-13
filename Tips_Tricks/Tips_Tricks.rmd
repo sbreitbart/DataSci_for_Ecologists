@@ -233,59 +233,7 @@ plot3 + plot_annotation(
 
 
 
-## `performance`: evaluate your general linear models in a flash
-
-> *Use this package when...* 
-
-
-### How to install
-```{r eval = FALSE}
-install.packages("performance")
-```
-
-### How to use
-```{r}
-library(performance)
-```
-
-
-
-
-
-
-## `annotater`: *finally* remember why you loaded all those packages!
-
-> *Use this package when...* you forget why you loaded packages at the top of your R script/notebook/markdown file OR you want to clarify why you did so for collaborators. (+1 points for reproducible science!)
-
-It happens: you start your R file with a list of packages to be loaded with your `library()` call. You constantly add to it, listing more packages who functions you use to complete your analysis. Over time, you figure out that your advisors would prefer if you didn't use the [Wes Anderson color palette](https://github.com/karthik/wesanderson), or that you're better off creating figures with `patchwork` vs `cowplot` (sorry, `cowplot`). So, if you're anything like me, after learning stats *and* R simultaneously while doing your first thesis project, you end up with a very impressive list of R packages, half of which you can't remember why you loaded in the first place.
-
-Have no fear! This is where the genius of the [`annotater`](https://github.com/luisDVA/annotater) package comes in to save us (and those who try to read our code, bless them)!
-
-
-
-### How to install
-```{r eval = FALSE}
-install.packages("remotes")
-remotes::install_github("luisDVA/annotater")
-```
-
-### How to use
-After you've installed `remotes` and `annotater`, save your R files, close RStudio, and reopen it.
-
-Click anywhere in the Source pane (aka the one with your R files).
-
-Navigate your cursor to the "Addins" button in the bar below the File-Edit-Code-View etc. bar. Click it and select, "Annotate package calls in active file". Voila!
-
-```{r, echo=FALSE}
-# Define variable containing url
-url2 <- "https://raw.githubusercontent.com/luisdva/annotater/master/inst/media/annotcalls.gif"
-```
-
-<center><img src="`r url2`"></center>
-Gif by [Luis Verde Arregoitia](https://github.com/luisDVA/annotater)
-
-
-## `dplyr`: quick manipulations of your data
+## `dplyr`: Quickly manipulate your data
 
 > *Use this package when...* you are trying to quickly manipulate, summarize, or combine data. 
 
@@ -331,7 +279,7 @@ lowBMI
 
 A cheatsheet for frequently used functions from `dplyr` can be found [here](https://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf).
 
-## `tidyr`: quick manipulations of your data (cont)
+## `tidyr`: Quickly manipulate your data (continued)
 
 > *Use this package when...* you are trying to quickly manipulate, summarize, or combine data. 
 
@@ -364,6 +312,96 @@ starwars %>%
   separate(skin_color, sep=", ", into=c("MainColour","SecondaryColour","AncillaryColour")) %>% 
   select(name, MainColour, SecondaryColour, AncillaryColour)
 ```
+
+
+## `annotater`: *finally* remember why you loaded all those packages!
+
+> *Use this package when...* you forget why you loaded packages at the top of your R script/notebook/markdown file OR you want to clarify why you did so for collaborators. (+1 points for reproducible science!)
+
+It happens: you start your R file with a list of packages to be loaded with your `library()` call. You constantly add to it, listing more packages who functions you use to complete your analysis. Over time, you figure out that your advisors would prefer if you didn't use the [Wes Anderson color palette](https://github.com/karthik/wesanderson), or that you're better off creating figures with `patchwork` vs `cowplot` (sorry, `cowplot`). So, if you're anything like me, after learning stats *and* R simultaneously while doing your first thesis project, you end up with a very impressive list of R packages, half of which you can't remember why you loaded in the first place.
+
+Have no fear! This is where the genius of the [`annotater`](https://github.com/luisDVA/annotater) package comes in to save us (and those who try to read our code, bless them)!
+
+
+
+### How to install
+```{r eval = FALSE}
+install.packages("remotes")
+remotes::install_github("luisDVA/annotater")
+```
+
+### How to use
+After you've installed `remotes` and `annotater`, save your R files, close RStudio, and reopen it.
+
+Click anywhere in the Source pane (aka the one with your R files).
+
+Navigate your cursor to the "Addins" button in the bar below the File-Edit-Code-View etc. bar. Click it and select, "Annotate package calls in active file". Voila!
+
+```{r, echo=FALSE}
+# Define variable containing url
+url2 <- "https://raw.githubusercontent.com/luisdva/annotater/master/inst/media/annotcalls.gif"
+```
+
+<center><img src="`r url2`"></center>
+Gif by [Luis Verde Arregoitia](https://github.com/luisDVA/annotater)
+
+
+
+
+
+## `performance`: evaluate your general linear models in a flash
+
+> *Use this package when...* you want to evaluate the fit of your linear models.
+
+
+### How to install
+```{r eval = FALSE}
+install.packages("performance")
+```
+
+### How to use
+```{r}
+library(performance)
+```
+
+We'll set up a linear model, then run some diagnostics:
+```{r}
+model1 <- lm(height ~ mass, starwars)
+
+
+performance::check_model(model1)
+```
+
+Ouch, looks like there's a major outlier! Jabba the Hutt strikes again!
+
+Let's remove Jabba's data point and fit a different model.
+```{r}
+starwars_noJabba <- starwars %>%
+  select()
+
+model1_withoutJabba <- lm(height ~ mass, starwars %>%
+                            filter(name != "Jabba Desilijic Tiure" ))
+
+performance::check_model(model1_withoutJabba)
+```
+
+Looks MUCH better. Still not fantastic, but better.
+
+Now we can compare the performance of each model.
+```{r}
+comparison <- performance::compare_performance(model1, model1_withoutJabba) %>%
+  as.data.frame() %T>%
+  print()
+```
+
+```{r, echo=FALSE}
+# Define variable containing url
+url2 <- "https://easystats.github.io/performance/reference/figures/figure_workflow.png"
+```
+
+<center><img src="`r url2`"></center>
+Package (and this image) developed by Daniel Lüdecke, Dominique Makowski, Mattan S. Ben-Shachar, Indrajeet Patil, Philip Waggoner, Brenton M. Wiernik.
+
 
 
 ## Survey
