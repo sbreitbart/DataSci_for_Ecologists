@@ -62,7 +62,12 @@ Artwork by [Allison Horst](https://github.com/allisonhorst). `set_wd`, be gone!
 
 ## `magrittr`: these pipes will make your work *flow*
 
-> *Use this package when...* 
+> *Use this package when...* you make your code more readable. The **`magrittr`** package has a collection of operators called *pipes* that, as stated on their [webpage](https://magrittr.tidyverse.org/), work by:
+
+> - "structuring sequences of data operations left-to-right (as opposed to from the inside and out),
+> - avoiding nested function calls,
+> - minimizing the need for local variables and function definitions, and
+> - making it easy to add steps anywhere in the sequence of operations." 
 
 
 ### How to install
@@ -73,14 +78,97 @@ install.packages("magrittr")
 ### How to use
 ```{r}
 library(magrittr)
+library(dplyr) # we'll use some functions from this package to highlight the magrittr pipes
 ```
+
+Also load a sample dataset:
+```{r}
+starwars <- dplyr::starwars
+```
+
+
+`magrittr` has several types of pipes which can all be useful in different contexts. The main pipe is the most common, but the others can be super handy too.
+
+#### Basic pipe
+The basic pipe looks like this: `%>%`.
+
+We'll frequently set up our code like this:
+
+`new_object <- old_object %>% function()`
+
+Add a pipe after each function to connect them into one cohesive operation. What this means is that you'll take your initial object (the one you want to apply functions to), apply a function to it and which changes it, *then* take that changed object (you "pipe" it into the next function; it flows into it as the new object to be modified) and apply *another* function it it, and so on. 
+
+##### Old way, without pipes
+We end up having to define three objects.
+```{r}
+# select only the first 4 columns of dataset
+character_traits <- starwars[, 1:4] 
+
+# select only characters that are at least 100 cm tall
+tall_characters <- character_traits[character_traits$height >= 100,]
+
+# order characters by height
+tall_characters_sorted <- tall_characters[order(tall_characters$height), ]
+
+
+```
+
+##### New way, with pipes
+We only have to define one object. If we kept on adding functions with pipes, we wouldn't have to add any more objects, either.
+```{r}
+
+character_traits <- starwars %>%
+  # select only the first 4 columns of dataset
+  dplyr::select(1:4) %>%
+  # select only characters that are at least 100 cm tall
+  dplyr::filter(height >= 100) %>%
+  # order characters by height
+  dplyr::arrange(height)
+
+```
+
+#### Assignment pipe
+
+This pipe (`%<>%`) is helpful for situations where you'd rather **overwrite** your original object. *Be careful!*
+
+Instead of writing `old_object <- old_object %>% function()`, like this:
+```{r}
+character_traits <- character_traits %>%
+  # select only the first 4 columns of dataset
+  dplyr::filter(hair_color == "black")
+```
+
+Do this instead: `old_object %<>% function()` *(notice that the pipe has two arrows inside it now)*
+```{r}
+character_traits %<>% 
+  # select only the first 4 columns of dataset
+  dplyr::filter(hair_color == "black")
+```
+
+
+#### Tee pipe
+
+Use this pipe (`%T>%`) when you want to print a "side effect" of an expression. For example, use this when you want to see what your plot looks like without writing a separate command on another line, like this:
+
+```{r warning = FALSE, eval = FALSE}
+plot1 <- ggplot2::qplot(character_traits$height, character_traits$mass)
+
+plot1
+```
+
+Write it this way, instead:
+```{r warning = FALSE, eval = FALSE}
+plot1 <- ggplot2::qplot(character_traits$height, character_traits$mass) %T>%
+  plot()
+```
+
 
 
 
 
 ## `patchwork`: make your figures nice and cozy
 
-> *Use this package when...* 
+> *Use this package when...* you have multiple figures you'd like to present in a grid, or at least side-by-side. This package is great for positioning figures into neat, orderly positions.
 
 
 ### How to install
@@ -91,8 +179,56 @@ install.packages("patchwork")
 ### How to use
 ```{r}
 library(patchwork)
+library(ggplot2) # using this to make plots.
 ```
 
+Let's make a few figures first.
+```{r}
+plot1 <- ggplot(starwars %>%
+         filter(eye_color %in% c("blue", "black", "brown", "yellow")),
+       aes(x = eye_color,
+           y = height,
+           fill = eye_color)) + 
+    geom_boxplot(alpha=0.7) +
+  theme_classic() +
+  theme(legend.position="none")
+
+plot2 <- ggplot(starwars %>%
+         filter(is.na(gender) == FALSE & mass < 1000),
+                aes(x = mass, y = height)) +
+  geom_point(aes(shape = gender,
+                 color = gender),
+             size = 2) +
+  theme_classic()
+
+
+plot3 <- starwars %>%
+  filter(sex != "NA" & sex != "none") %>%
+  ggplot(aes(x = birth_year,
+             y = mass,
+             color = sex,
+             shape = sex)) +
+    geom_point(alpha=0.5,
+               size = 3) +
+    facet_grid(sex ~ .)
+```
+
+Now, use `patchwork` to arrange them:
+```{r warning=FALSE}
+# two plots, side by side:
+(plot1 | plot2)
+
+# three plots: two in first row, one in second row 
+(plot1 | plot2) /
+plot3
+
+# three plots: two in first row, one in second row PLUS title, subtitle, caption!
+(plot1 | plot2) /
+plot3 + plot_annotation(
+  title = 'Hardcore Star Wars fan? Look at these plots!',
+  subtitle = "Who could've predicted that eye color and height aren't related?",
+  caption = "Masculine characters are of many heights and masses; not so for feminine characters" )
+```
 
 
 
@@ -166,7 +302,7 @@ install.packages("dplyr")
 library(dplyr)
 
 ## Load sample dataset
-data(starwars)
+starwars <- dplyr::starwars
 
 ###  Calculate summary statistics for a group within the dataset. 
 summmarizedData <- starwars %>% 
@@ -193,7 +329,7 @@ lowBMI <- starwarsBMI %>%
 lowBMI
 ```
 
-A cheatsheet for frequently used functions from `dplyr` can be found [here](https://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf)
+A cheatsheet for frequently used functions from `dplyr` can be found [here](https://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf).
 
 ## `tidyr`: quick manipulations of your data (cont)
 
