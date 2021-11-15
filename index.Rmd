@@ -38,7 +38,7 @@ Passcode: functions
 
 
 Time   | Goal
--------|------------
+-----|----------
 9:00 | Introduction and set-up
 9:10 | [Functions](Functions/Functions.html)
 9:45 | Break & Practice
