@@ -45,7 +45,7 @@ Time   | Goal
 10:00 | [Tips & Tricks](Tips_Tricks/Tips_Tricks.html)
 10:25 | Wrap up
 
-**Past events**: We have previous run a similar workshop at [SORTEE 2021](https://www.sortee.org/events/) and [CSEE 2021](https://csee-scee2021.ca/). 
+**Past events**: We have previously run a similar workshop at [SORTEE 2021](https://www.sortee.org/events/) and [CSEE 2021](https://csee-scee2021.ca/). 
 
 ## Software
 

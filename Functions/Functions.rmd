@@ -12,7 +12,7 @@ output:
 
 # Introduction
 
-### Load libraries & data
+## Load libraries & data
 
 Load libraries
 ```{r message=FALSE}
@@ -25,18 +25,19 @@ beaver_1 <- beaver1
 beaver_2 <- beaver2
 ```
 
-## Quick intro to the `here` package
+# Quick intro to the `here` package
 Whether they're collaborating with colleagues, uploading to data repositories after submitting a paper, or uploading scripts to Github for anyone to use, people who write code constantly share their code. **A great time-saving strategy for streamlining code-sharing is to use `here`**, a package intended to facilitate file referencing by getting rid of absolute filepaths (which makes your code fragile and difficult to integrate into other people's systems) and instead using relative filepaths (which makes your code easier to transfer to other people's systems). [See Jenny Bryan's overview of the package](https://github.com/jennybc/here_here) for more information and convincing arguments for adopting <code>here</code>.
 
-### Where does `here` begin?
+## Where does `here` begin?
 For this workshop, you've created a new R project in, for example, a folder where you keep all your R code. The folder that contains this R project is where `here` begins (aka your top-level directory).
 ```{r}
 here::here() # this is where your folder begins.
 ```
 
-### How do I change the root folder?
+## How do I change the root folder?
 If you want to change your root folder, you should close your R session, move the current R project folder to the location where you want it to start, and then open a new R session, type `here::here()` again, and then the output should show you your new root location.
 
+# Introduction to Functions
 
 ## What is a function?
 
