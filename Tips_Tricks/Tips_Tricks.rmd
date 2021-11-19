@@ -10,7 +10,7 @@ editor_options:
   chunk_output_type: console
 ---
 
-The purpose of this segment is to share some of our favorite tools for working with data in R.
+The purpose of this segment is to share some of our favorite tools for working with data in R. Feel free to integrate these tools into your own workflows and ask your peers for tools they can't live without either!
 
 ## `here`: no more getting lost in file paths
 
@@ -76,7 +76,7 @@ install.packages("magrittr")
 ```
 
 ### How to use
-```{r}
+```{r message = FALSE}
 library(magrittr)
 library(dplyr) # we'll use some functions from this package to highlight the magrittr pipes
 ```
@@ -117,7 +117,7 @@ tall_characters_sorted <- tall_characters[order(tall_characters$height), ]
 We only have to define one object. If we kept on adding functions with pipes, we wouldn't have to add any more objects, either.
 ```{r}
 
-character_traits <- starwars %>%
+tall_characters_sorted <- starwars %>%
   # select only the first 4 columns of dataset
   dplyr::select(1:4) %>%
   # select only characters that are at least 100 cm tall

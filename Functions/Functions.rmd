@@ -10,14 +10,7 @@ output:
 
 ![](functions.jpg)
 
-# Introduction
-
-## Load libraries & data
-
-Load libraries
-```{r message=FALSE}
-library(here) # Look where your folder begins.
-```
+# Load data
 
 Make two dataframes from built-in dataset, "Body Temperature Series of Two Beavers"
 ```{r}
@@ -31,6 +24,7 @@ Whether they're collaborating with colleagues, uploading to data repositories af
 ## Where does `here` begin?
 For this workshop, you've created a new R project in, for example, a folder where you keep all your R code. The folder that contains this R project is where `here` begins (aka your top-level directory).
 ```{r}
+library(here) # first let's load the library.
 here::here() # this is where your folder begins.
 ```
 
@@ -337,7 +331,7 @@ ellipsis_example(x_var = beaver_1$time,
 ```
 
 # Extra exercises
-For those interested, [here are some additional exercises](https://discdown.org/rprogramming/functions.html) crafted by Reto Stauffer, Joanna Chimiak-Opoka, Luis Miguel Rodríguez-R, Thorsten Simon, and Achim Zeileis from their resource, *"Introduction to Programming with R"*.
+For those interested, [here](https://www.r-bloggers.com/2016/02/functions-exercises/) and [here](https://www.w3resource.com/r-programming-exercises/basic/index.php) are some additional exercises to practice writing functions. Even if you don't know which commands you would use, you can practice setting up the format of a function and say something like, "then I'd add these two things together" or "and then I would print this value".
 
 
 ### Next Module

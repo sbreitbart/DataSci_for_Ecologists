@@ -63,6 +63,8 @@ remotes::install_github("luisDVA/annotater")
 
 ```
 
+**We also encourage you to make a new R project for this workshop if you plan on coding along with us!**
+Read this short [introduction to R projects](https://swcarpentry.github.io/r-novice-gapminder/02-project-intro), courtesy of The Carpentries, and create an R project for this workshop by following a few simple steps [under the "Challenge 1: Creating a self-contained project" section](https://swcarpentry.github.io/r-novice-gapminder/02-project-intro/#challenge-1-creating-a-self-contained-project).
 
 ## Other workshops
 
