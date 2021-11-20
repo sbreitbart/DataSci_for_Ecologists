@@ -30,7 +30,7 @@ Passcode: 656624
 
 **Contact**: Please contact sophie.breitbart@mail.utoronto.ca for more information.
 
-**Notes**: [Live Notepad](https://etherpad.wikimedia.org/p/SORTEE-FastR)
+**Notes**: [Live Notepad](https://etherpad.wikimedia.org/p/BGSSRetreat2021_CodingWorkshop)
 
 
 ## Schedule 
