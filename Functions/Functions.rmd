@@ -111,44 +111,51 @@ here::here()
 
 ## Create new input variables for new function
 # dir.create("./exports") ## make directory if it doesn't already exist
-path1.2 <- here::here("exports")  ## make that directory 
+path1.2 <- here::here("./exports/ ")  ## make that directory 
 ```
 
 Next, we make the function that exports dataframe object to csv in csvs folder.
 To accommodate the file path and file type objects, we'll add a two more input variables to our new function's set of input variables.
 ```{r}
-Beaver_to_csv1.2 <- function(dataframe, path, filetype) {
+Beaver_to_csv1.2 <- function(dataframe, path, filename, filetype) {
   write.csv(dataframe,
-                 paste0(path, ## specify file path
-                        "/", ## add slash to specify within folder
-                        deparse(substitute(dataframe)), ## use the dataframe as the name 
-                        filetype))
+            gsub(" ", "",
+                 paste0(path,
+                        filename,
+                        filetype)))
 }
 ```
 
 Here's what the function is doing:
 
-1. First, look to the most indented portion of the code, which starts with <code>paste0</code>. The <code>paste0()</code> function is taking three input variables and pasting them together: path, filename, and filetype.
-2. Next, look to the function encompassing that code: the <code>gsub()</code> function. This function is finding any spaces and *substituting* them with nothing (essentially removing any spaces it finds, particularly the space we had to put in the path).
-3. Finally, the outermost shell is the <code>write.csv()</code> function, which is taking our dataframe as the object to be exported, and will name and export this object where the conglomerate path + filename + filetype tells it to.
+1. First, look to the most indented portion of the code, which starts with `paste0`. The `paste0()` function is taking three input variables and pasting them together: path, filename, and filetype.
+2. Next, look to the function encompassing that code: the `gsub()` function. This function is finding any spaces and *substituting* them with nothing (essentially removing any spaces it finds, particularly the space we had to put in the path).
+3. Finally, the outermost shell is the `write.csv()` function, which is taking our dataframe as the object to be exported, and will name and export this object where the conglomerate path + filename + filetype tells it to.
 
 
 ## Try out the function with a few examples
 
 Export dataframe to csv in csvs folder:
 ```{r}
-Beaver_to_csv1.2(beaver_1, here::here("exports"), filetype=".csv")
+Beaver_to_csv1.2(beaver_1,
+                 here::here("./exports/ "),
+                 filename = "Beaver1",
+                 filetype = ".csv")
 ```
 
 Just for fun, add .txt as a file type option:
 ```{r}
-Beaver_to_csv1.2(beaver_1, here::here("exports"), filetype=".txt")
+Beaver_to_csv1.2(beaver_1,
+                 here::here("./exports/ "),
+                 filename = "Beaver1",
+                 filetype = ".txt")
 ```
 
 We could skip the step of saving the function's input variables to individual objects and just input it all on the fly, as shown here:
 ```{r}
 Beaver_to_csv1.2(beaver_1,
-                 path = here::here("exports"),
+                 path = here::here("./exports/ "),
+                 filename = "Beaver1",
                  filetype = ".txt")
 ```
 
@@ -159,7 +166,8 @@ R will treat the variables you supply to the function in the order that the argu
 ```{r}
 Beaver_to_csv1.2(filetype = ".csv", 
                  dataframe = beaver_1,
-                 path = here::here("exports"))
+                 filename = "Beaver1",
+                 path = here::here("./exports/ "))
 ```
 
 Be careful here. If you supply the arguments in the wrong order and don't indicate which variables match the arguments, the function might not work. Here's an example with the basic function `lm`.
@@ -196,7 +204,10 @@ Beavers <- list(beaver_1, beaver_2)
 ```{r}
 Export_beaver_list <- function(df_list, path, filetype) {
   for (i in 1:length(df_list)){
-    Beaver_to_csv1.2(df_list[i], path=here::here("exports"), filetype)
+    Beaver_to_csv1.2(df_list[i],
+                     path,
+                     paste0("Beaver", i),
+                     filetype)
   }
 }
 ```
@@ -204,7 +215,7 @@ Export_beaver_list <- function(df_list, path, filetype) {
 ## Run function
 ```{r}
 Export_beaver_list(Beavers, 
-                   here::here("exports"),
+                   here::here("./exports/ "),
                    ".csv")
 ```
 
@@ -299,9 +310,9 @@ Beaver_to_plot_many(Beavers,
 # Ellipsis in functions
 You don't always need to specify all of the input variables for a function. Sometimes you can make use of a tool called an **ellipsis**. An ellipsis is, you guessed it, three dots in a row: "...".
 
-The most straightforward usage of an ellipsis is for when you want to make your function flexible enough to handle an unspecified number of input variables. For instance, think about the <code>paste()</code> function.
+The most straightforward usage of an ellipsis is for when you want to make your function flexible enough to handle an unspecified number of input variables. For instance, think about the `paste()` function.
 
-The <code>paste()</code> function can print any number of input variables:
+The `paste()` function can print any number of input variables:
 ```{r}
 paste("This", "phrase", "has", "five", "variables")
 paste("How", "about", "three?")

@@ -327,14 +327,14 @@ here::here()
 
 ## Create new input variables for new function
 # dir.create(&quot;./exports&quot;) ## make directory if it doesn&#39;t already exist
-path1.2 &lt;- here::here(&quot;exports&quot;)  ## make that directory </code></pre>
+path1.2 &lt;- here::here(&quot;./exports/ &quot;)  ## make that directory </code></pre>
 <p>Next, we make the function that exports dataframe object to csv in csvs folder. To accommodate the file path and file type objects, we’ll add a two more input variables to our new function’s set of input variables.</p>
-<pre class="r"><code>Beaver_to_csv1.2 &lt;- function(dataframe, path, filetype) {
+<pre class="r"><code>Beaver_to_csv1.2 &lt;- function(dataframe, path, filename, filetype) {
   write.csv(dataframe,
-                 paste0(path, ## specify file path
-                        &quot;/&quot;, ## add slash to specify within folder
-                        deparse(substitute(dataframe)), ## use the dataframe as the name 
-                        filetype))
+            gsub(&quot; &quot;, &quot;&quot;,
+                 paste0(path,
+                        filename,
+                        filetype)))
 }</code></pre>
 <p>Here’s what the function is doing:</p>
 <ol style="list-style-type: decimal">
@@ -346,12 +346,19 @@ path1.2 &lt;- here::here(&quot;exports&quot;)  ## make that directory </code></p
 <div id="try-out-the-function-with-a-few-examples" class="section level2">
 <h2>Try out the function with a few examples</h2>
 <p>Export dataframe to csv in csvs folder:</p>
-<pre class="r"><code>Beaver_to_csv1.2(beaver_1, here::here(&quot;exports&quot;), filetype=&quot;.csv&quot;)</code></pre>
+<pre class="r"><code>Beaver_to_csv1.2(beaver_1,
+                 here::here(&quot;./exports/ &quot;),
+                 filename = &quot;Beaver1&quot;,
+                 filetype = &quot;.csv&quot;)</code></pre>
 <p>Just for fun, add .txt as a file type option:</p>
-<pre class="r"><code>Beaver_to_csv1.2(beaver_1, here::here(&quot;exports&quot;), filetype=&quot;.txt&quot;)</code></pre>
+<pre class="r"><code>Beaver_to_csv1.2(beaver_1,
+                 here::here(&quot;./exports/ &quot;),
+                 filename = &quot;Beaver1&quot;,
+                 filetype = &quot;.txt&quot;)</code></pre>
 <p>We could skip the step of saving the function’s input variables to individual objects and just input it all on the fly, as shown here:</p>
 <pre class="r"><code>Beaver_to_csv1.2(beaver_1,
-                 path = here::here(&quot;exports&quot;),
+                 path = here::here(&quot;./exports/ &quot;),
+                 filename = &quot;Beaver1&quot;,
                  filetype = &quot;.txt&quot;)</code></pre>
 </div>
 <div id="nb-variable-order-matters" class="section level2">
@@ -359,7 +366,8 @@ path1.2 &lt;- here::here(&quot;exports&quot;)  ## make that directory </code></p
 <p>R will treat the variables you supply to the function in the order that the arguments appear in the function. If you have strong familiarity with the function, or if the function is fairly simple, you can simply supply the variables as done above (i.e., you don’t need the “x =” portion). However, if it provides clarity or if your function is complex, you can specify each argument. This also allows you to supply arguments in different orders.</p>
 <pre class="r"><code>Beaver_to_csv1.2(filetype = &quot;.csv&quot;, 
                  dataframe = beaver_1,
-                 path = here::here(&quot;exports&quot;))</code></pre>
+                 filename = &quot;Beaver1&quot;,
+                 path = here::here(&quot;./exports/ &quot;))</code></pre>
 <p>Be careful here. If you supply the arguments in the wrong order and don’t indicate which variables match the arguments, the function might not work. Here’s an example with the basic function <code>lm</code>.</p>
 <p>With this function, R is expecting the formula first and then the data second. You’ll find that reversing those arguments does not work.</p>
 <pre class="r"><code>lm(beaver_1, day ~ temp) # This doesn&#39;t work</code></pre>
@@ -397,14 +405,17 @@ path1.2 &lt;- here::here(&quot;exports&quot;)  ## make that directory </code></p
 <h2>Create function</h2>
 <pre class="r"><code>Export_beaver_list &lt;- function(df_list, path, filetype) {
   for (i in 1:length(df_list)){
-    Beaver_to_csv1.2(df_list[i], path=here::here(&quot;exports&quot;), filetype)
+    Beaver_to_csv1.2(df_list[i],
+                     path,
+                     paste0(&quot;Beaver&quot;, i),
+                     filetype)
   }
 }</code></pre>
 </div>
 <div id="run-function" class="section level2">
 <h2>Run function</h2>
 <pre class="r"><code>Export_beaver_list(Beavers, 
-                   here::here(&quot;exports&quot;),
+                   here::here(&quot;./exports/ &quot;),
                    &quot;.csv&quot;)</code></pre>
 </div>
 </div>
