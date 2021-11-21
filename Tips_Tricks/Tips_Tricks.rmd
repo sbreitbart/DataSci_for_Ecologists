@@ -376,9 +376,6 @@ Ouch, looks like there's a major outlier! Jabba the Hutt strikes again!
 
 Let's remove Jabba's data point and fit a different model.
 ```{r}
-starwars_noJabba <- starwars %>%
-  select()
-
 model1_withoutJabba <- lm(height ~ mass, starwars %>%
                             filter(name != "Jabba Desilijic Tiure" ))
 
