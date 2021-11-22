@@ -326,7 +326,7 @@ Have no fear! This is where the genius of the [`annotater`](https://github.com/l
 
 ### How to install
 ```{r eval = FALSE}
-install.packages("remotes")
+install.packages(c("remotes", "see"))
 remotes::install_github("luisDVA/annotater")
 ```
 

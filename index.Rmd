@@ -58,7 +58,7 @@ Install R by downloading and running [this .exe](http://cran.r-project.org/bin/w
 
 **Packages we will be using:** We recommend you install these ahead of time and ensure they load correctly to reduce troubleshooting in the workshop. 
 ```{r eval= FALSE}
-install.packages(c("here", "magrittr", "performance", "patchwork", "ggplot2", "dplyr", "tidyr", "remotes"), dependencies = TRUE)
+install.packages(c("here", "magrittr", "performance", "patchwork", "ggplot2", "dplyr", "tidyr", "remotes", "see"), dependencies = TRUE)
 remotes::install_github("luisDVA/annotater")
 
 ```
