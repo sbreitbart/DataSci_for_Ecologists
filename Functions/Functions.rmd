@@ -151,12 +151,12 @@ Beaver_to_csv1.2(beaver_1,
                  filetype = ".txt")
 ```
 
-We could skip the step of saving the function's input variables to individual objects and just input it all on the fly, as shown here:
+We could skip the step of specifying exactly what we're using for each argument just input it all on the fly *if we know the order of the arguments R is expecting*, as shown here:
 ```{r}
 Beaver_to_csv1.2(beaver_1,
-                 path = here::here("./exports/ "),
-                 filename = "Beaver1",
-                 filetype = ".txt")
+                 here::here("./exports/ "),
+                 "Beaver1",
+                 ".txt")
 ```
 
 

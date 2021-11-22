@@ -355,11 +355,11 @@ path1.2 &lt;- here::here(&quot;./exports/ &quot;)  ## make that directory </code
                  here::here(&quot;./exports/ &quot;),
                  filename = &quot;Beaver1&quot;,
                  filetype = &quot;.txt&quot;)</code></pre>
-<p>We could skip the step of saving the function’s input variables to individual objects and just input it all on the fly, as shown here:</p>
+<p>We could skip the step of specifying exactly what we’re using for each argument just input it all on the fly <em>if we know the order of the arguments R is expecting</em>, as shown here:</p>
 <pre class="r"><code>Beaver_to_csv1.2(beaver_1,
-                 path = here::here(&quot;./exports/ &quot;),
-                 filename = &quot;Beaver1&quot;,
-                 filetype = &quot;.txt&quot;)</code></pre>
+                 here::here(&quot;./exports/ &quot;),
+                 &quot;Beaver1&quot;,
+                 &quot;.txt&quot;)</code></pre>
 </div>
 <div id="nb-variable-order-matters" class="section level2">
 <h2>NB: Variable order matters</h2>
