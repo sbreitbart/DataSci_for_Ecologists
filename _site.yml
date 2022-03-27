@@ -1,13 +1,11 @@
-name: "BGSS Fall Retreat 2021 Coding Workshop"
+name: "ESA/CSEE 2022 Workshop: An Ecologist’s Introduction to Transitioning into Data Science"
 navbar:
-  title: "BGSS Fall Retreat 2021 Coding Workshop"
+  title: "ESA/CSEE 2022 Workshop: An Ecologist’s Introduction to Transitioning into Data Science"
   left:
     - text: "info"
       href: index.html
-    - text: "Functions"
-      href: Functions/Functions.html
-    - text: "Useful Tips & Tricks"
-      href: Tips_Tricks/Tips_Tricks.html 
+    - text: "SQL Introduction"
+      href: SQL_intro/SQL_intro.html
 output_dir: "."
 output:
   html_document:
