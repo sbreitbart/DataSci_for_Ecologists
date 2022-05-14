@@ -8,11 +8,41 @@ output:
     toc_float: yes
 ---
 
-* add info here *
+*Estimated lesson teaching time: 20 minutes*
 
+# Overview
+
+## What is SQL?
+
+Many of us are accustomed to producing our own data or downloading it from repositories, saving it to a folder on our local machines, and then analyzing it in a program like RStudio. However, sometimes it's not possible or practical to store data on a local drive, such as if it is very large or of a sensitive nature. In cases like this, it's better to store the data on a remote server and obtain the information we need by *querying* (retrieving specific information from) the dataset, rather than downloading the entire thing and working with it locally. A commonly-used language for querying databases is called SQL, pronounced "S-Q-L" or "sequel". It stands for "Structured Query Language".
+
+## Why are we including an introduction to SQL?
+
+A few reasons:
+
+-   SQL proficiency is frequently cited as a sought-after skill in many fields, including data science. It's safe to say that knowing SQL is often very helpful when entering data science.
+
+-   Though we can't provide a comprehensive introduction to SQL, we thought it'd be helpful to offer a little motivation to learn more and a small push to help get you started.
+
+-   Many academic ecologists are used to collecting their own data and storing it locally. This lesson will help acquaint you with practices frequently used in industry, where it is much more common to work with data stored in remote databases.
+
+**Important aside:** Data science is an exceptionally diverse field that is impossible to describe with just a few sentences and full of highly valued workers who do not know or use SQL.
+
+## What's my secret weapon?
+
+Yes, you! When it comes to learning SQL, your secret weapon is this:
+
+> If you are an R user familiar with `dplyr`, you already know the basics of SQL!
+
+[![Credit: Ben Baumer and R. Jordan Crouser, from their SDS 192: Introduction to Data Science slides.](SQL_for_R_Users_byBaumerCrauser.png)](https://beanumber.github.io/sds192/)
+
+SQL has been around for decades (since the 70s). `dplyr` is an R package launched in 2014 whose grammar is based on SQL syntax.
+
+# Basics of SQL for R Users
 
 ### Next Module
 
+```{=html}
 <style>
 .btn {
   border: none;
@@ -25,7 +55,5 @@ output:
 }
 .btn:hover {background: #5DADE2;}
 </style>
-
-
+```
 <a class="btn" href="https://sbreitbart.github.io/BGSS_Retreat_2021_Workshop/index.html"> Home </a>
-
