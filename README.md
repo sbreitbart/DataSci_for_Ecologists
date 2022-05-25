@@ -53,7 +53,7 @@ This workshop will involve a combination of lecture and hands-on activities. A b
 
 **Packages we will be using:** We recommend you install these ahead of time and ensure they load correctly to reduce troubleshooting in the workshop.
 
-`install.packages(c("dplyr", "dbplyr", "RSQLite"))`
+`install.packages(c("dplyr", "dbplyr", "RSQLite", "magrittr"))`
 
 ## Diversity Statement
 

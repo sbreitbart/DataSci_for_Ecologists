@@ -289,21 +289,23 @@ div.tocify {
 <p>We have 3 goals for today’s lesson:</p>
 <ol style="list-style-type: decimal">
 <li>Set up coding environment to query SQL databases with R</li>
-<li></li>
-<li></li>
+<li>Learn basic similarities and differences between SQL and <code>dplyr</code> syntax</li>
+<li>Practice translating <code>dplyr</code> to SQL and vice versa</li>
 </ol>
+<p>By accomplishing these goals, we hope to give you enough confidence to continue learning SQL and better prepare yourself for a career involving data science.</p>
 <p><em>Note: This lesson was structured similarly to the <a href="https://datacarpentry.org/R-ecology-lesson/05-r-and-databases.html">Data Carpentry “SQL and R Databases” lesson</a> but is shorter and designed for our specific attendee group.</em></p>
 <div id="set-up-workspace" class="section level2">
 <h2>Set up workspace</h2>
 <div id="install-packages" class="section level3">
 <h3>Install packages</h3>
-<pre class="r"><code>install.packages(c(&quot;dplyr&quot;, &quot;dbplyr&quot;, &quot;RSQLite&quot;))</code></pre>
+<pre class="r"><code>install.packages(c(&quot;dplyr&quot;, &quot;dbplyr&quot;, &quot;RSQLite&quot;, &quot;magrittr&quot;))</code></pre>
 </div>
 <div id="load-libraries" class="section level3">
 <h3>Load libraries</h3>
 <pre class="r"><code>library(&quot;dplyr&quot;)
 library(&quot;dbplyr&quot;)
-library(&quot;RSQLite&quot;)</code></pre>
+library(&quot;RSQLite&quot;)
+library(&quot;magrittr&quot;)</code></pre>
 </div>
 <div id="connect-to-database" class="section level3">
 <h3>Connect to database</h3>
@@ -358,10 +360,10 @@ print(surveys)</code></pre>
 </div>
 <div id="query-the-data" class="section level2">
 <h2>Query the data</h2>
-<div id="ask-a-question" class="section level3">
-<h3>Ask a question</h3>
 <p>Let’s start wrangling the data and ask: how many males were observed in 1978 in plot 2?</p>
-<p><u><em>Challenge: convert this question into a dplyr command.</em></u> <em>(To see the answer, press the “CODE” button on the right side of the page).</em></p>
+<blockquote>
+<p>Challenge: convert this question into a dplyr command. (To see the answer, press the “CODE” button on the right side of the page).</p>
+</blockquote>
 <pre class="r fold-hide"><code>surveys %&gt;%
   filter(sex == &quot;M&quot;,
          year == &quot;1978&quot;,
@@ -374,9 +376,8 @@ print(surveys)</code></pre>
 ##   &lt;int&gt;
 ## 1    52</code></pre>
 <p>As you can see, querying the surveys table with a question like this isn’t really any different than working with an R data frame!</p>
-</div>
-<div id="save-subset-of-database-to-r-environment" class="section level3">
-<h3>Save subset of database to R environment</h3>
+<div id="save-subset-to-r-environment" class="section level3">
+<h3>Save subset to R environment</h3>
 <p>If you want to save a subset of a table as a new object, then take note of a few differences when working with SQL databases.</p>
 <p>Specifically, we need to add one more line of code to tell our <strong>lazy bones of an R interface to finish the command.</strong></p>
 <p>Example: ask R to save a subset of the surveys table that 1) includes data from 1998-2000 and 2) counts up the number of species seen per year.</p>
@@ -404,22 +405,86 @@ class(annual_species_notcollected)</code></pre>
 <li><p><code>annual_species</code>is a data frame.</p></li>
 </ul>
 </div>
-<div id="translate-dplyr-syntax-to-sql" class="section level3">
-<h3>Translate dplyr syntax to SQL</h3>
+</div>
+<div id="translate-dplyr-syntax-to-sql" class="section level2">
+<h2>Translate dplyr syntax to SQL</h2>
+<p>A simple way to translate your <code>dplyr</code> syntax to SQL syntax is to pipe in the <code>show_query()</code> function.</p>
+<div style="display: grid; grid-template-columns: 1fr 1fr; grid-column-gap: 10px; ">
+<div>
+<p><strong>Translated R –&gt; SQL syntax</strong></p>
 <pre class="r"><code>annual_species_notcollected %&gt;%
   show_query()</code></pre>
-<pre><code>## `summarise()` has grouped output by &#39;year&#39;. You can override using the `.groups`
-## argument.</code></pre>
 <pre><code>## &lt;SQL&gt;
 ## SELECT `year`, `species_id`, COUNT(*) AS `n`
 ## FROM `surveys`
 ## WHERE ((`year` = &#39;1998&#39;) AND (&#39;1999&#39;) AND (&#39;2000&#39;))
 ## GROUP BY `year`, `species_id`</code></pre>
-<p><strong>Add faded examples (exercises) and check-ins (</strong>multiple choice quick questions)</p>
-<p>Faded examples = fill in the blanks, e.g.: ggplot(data = ___, mapping = aes(x = ___, y = ___))</p>
 </div>
-<div id="next-module" class="section level3">
-<h3>Next Module</h3>
+<div>
+<p><strong>Original R syntax</strong></p>
+<pre class="r"><code>annual_species_notcollected &lt;- surveys %&gt;%
+  filter(year == &quot;1998&quot;, &quot;1999&quot;, &quot;2000&quot;) %&gt;%
+  group_by(year, species_id) %&gt;%
+  summarise(n = n())</code></pre>
+</div>
+</div>
+<blockquote>
+<p>Notice: How does the original R code compare to the translated SQL syntax?</p>
+</blockquote>
+<p>This tool is very handy for learning SQL, but practitioners recommend learning at least basic SQL syntax when getting into data science. Another reason why? So that you can read, in addition to write, SQL.</p>
+</div>
+<div id="challenge" class="section level2">
+<h2>Challenge</h2>
+<div id="sql-to-r" class="section level3">
+<h3>SQL to R</h3>
+<p>Translate this SQL query into R code. <a href="https://learnsql.com/blog/sql-basics-cheat-sheet/">Click here for a straightforward SQL cheat sheet</a> and <a href="https://github.com/rstudio/cheatsheets/blob/main/data-transformation.pdf">a dplyr cheat sheet</a> to help get you started. Remember to unhide the correct translation by clicking the “CODE” button below the SQL syntax section.</p>
+<p><strong>SQL syntax</strong></p>
+<p>SELECT *</p>
+<p>FROM (SELECT <code>record_id</code>, <code>hindfoot_length</code></p>
+<p>FROM <code>surveys</code>)</p>
+<p>WHERE (<code>hindfoot_length</code> &gt; 20.0)</p>
+<p><strong>R syntax translated:</strong></p>
+<pre class="r fold-hide"><code>surveys %&gt;%
+  select(record_id, hindfoot_length) %&gt;%
+  filter(hindfoot_length &gt; 20)</code></pre>
+</div>
+<div id="r-to-sql" class="section level3">
+<h3>R to SQL</h3>
+<p>Translate this <code>dplyr</code> code into an SQL query by filling in the blanks. Remember to unhide the correct translation by clicking the “CODE” button below the SQL syntax section.</p>
+<p><strong>R syntax</strong></p>
+<pre class="r"><code>surveys %&gt;%
+  filter(year &gt; 1977 &amp; year &lt; 2000) %&gt;%
+  filter(hindfoot_length == 30) %&gt;%
+  arrange(desc(species_id))</code></pre>
+<p><strong>SQL syntax</strong></p>
+<p>SELECT *</p>
+<p>FROM (SELECT *</p>
+<p>FROM ____</p>
+<p>WHERE (<code>year</code> &gt; 1977.0 ____ <code>year</code> &lt; 2000.0))</p>
+<p>____ (<code>hindfoot_length</code> = 30.0)</p>
+<p>ORDER BY <code>species_id</code> ____</p>
+<p><strong>SQL syntax translated:</strong></p>
+<pre class="r fold-hide"><code># double asterisks around words (e.g. **example**) indicate correct fill-in-the-blank answers.
+
+
+# &lt;SQL&gt;
+# SELECT *
+# FROM (SELECT *
+# FROM **`surveys`**
+# WHERE (`year` &gt; 1977.0 **AND** `year` &lt; 2000.0))
+# **WHERE** (`hindfoot_length` = 30.0)
+# ORDER BY `species_id` **DESC**</code></pre>
+</div>
+</div>
+</div>
+<div id="next-steps" class="section level1">
+<h1>Next steps</h1>
+<p>Here are some resources to help you continue on your SQL-learning path.</p>
+<ol style="list-style-type: decimal">
+<li>Dive deeper into the <a href="https://dbplyr.tidyverse.org/index.html"><code>dbplyr</code> package</a>’s documentation to learn more about interfacing with SQL databases using R.</li>
+<li>Work through <a href="https://datacarpentry.org/R-ecology-lesson/05-r-and-databases.html">the Carpentries’ “SQL Databases and R” lesson</a>. This great lesson instructs learners how to join tables- an exceptionally important skill for any SQL user- among other essential tasks.</li>
+<li>Stretch your skills further with Ethan White and Zachary Brym’s excellent <a href="https://rsh249.github.io/semester-biology/assignments/r-sql/">“Integrating R and SQL” assignment</a>.</li>
+</ol>
 <style>
 .btn {
   border: none;
@@ -433,8 +498,6 @@ class(annual_species_notcollected)</code></pre>
 .btn:hover {background: #5DADE2;}
 </style>
 <p><a class="btn" href="https://sbreitbart.github.io/BGSS_Retreat_2021_Workshop/index.html"> Home </a></p>
-</div>
-</div>
 </div>
 
 

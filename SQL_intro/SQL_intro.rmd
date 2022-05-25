@@ -46,8 +46,10 @@ SQL has been around for decades (since the 70s). `dplyr` is an R package launche
 We have 3 goals for today's lesson:
 
 1.  Set up coding environment to query SQL databases with R
-2.  
-3.  
+2.  Learn basic similarities and differences between SQL and `dplyr` syntax
+3.  Practice translating `dplyr` to SQL and vice versa
+
+By accomplishing these goals, we hope to give you enough confidence to continue learning SQL and better prepare yourself for a career involving data science.
 
 *Note: This lesson was structured similarly to the [Data Carpentry "SQL and R Databases" lesson](https://datacarpentry.org/R-ecology-lesson/05-r-and-databases.html) but is shorter and designed for our specific attendee group.*
 
@@ -56,7 +58,7 @@ We have 3 goals for today's lesson:
 ### Install packages
 
 ```{r eval=FALSE}
-install.packages(c("dplyr", "dbplyr", "RSQLite"))
+install.packages(c("dplyr", "dbplyr", "RSQLite", "magrittr"))
 ```
 
 ### Load libraries
@@ -65,6 +67,7 @@ install.packages(c("dplyr", "dbplyr", "RSQLite"))
 library("dplyr")
 library("dbplyr")
 library("RSQLite")
+library("magrittr")
 ```
 
 ### Connect to database
@@ -114,11 +117,9 @@ The table itself looks similar to what we're used to manipulating in R as data f
 
 ## Query the data
 
-### Ask a question
-
 Let's start wrangling the data and ask: how many males were observed in 1978 in plot 2?
 
-[*Challenge: convert this question into a dplyr command.*]{.ul} *(To see the answer, press the "CODE" button on the right side of the page).*
+> Challenge: convert this question into a dplyr command. (To see the answer, press the "CODE" button on the right side of the page).
 
 ```{r class.source = 'fold-hide'}
 surveys %>%
@@ -130,7 +131,7 @@ surveys %>%
 
 As you can see, querying the surveys table with a question like this isn't really any different than working with an R data frame!
 
-### Save subset of database to R environment
+### Save subset to R environment
 
 If you want to save a subset of a table as a new object, then take note of a few differences when working with SQL databases.
 
@@ -164,19 +165,114 @@ class(annual_species)
 
 -   `annual_species`is a data frame.
 
-### Translate dplyr syntax to SQL
+## Translate dplyr syntax to SQL
 
-```{r}
+A simple way to translate your `dplyr` syntax to SQL syntax is to pipe in the `show_query()` function.
+
+::: {style="display: grid; grid-template-columns: 1fr 1fr; grid-column-gap: 10px; "}
+<div>
+
+**Translated R --\> SQL syntax**
+
+```{r message=FALSE}
 annual_species_notcollected %>%
   show_query()
+```
+
+</div>
+
+<div>
+
+**Original R syntax**
+
+```{r eval=FALSE, message=FALSE}
+annual_species_notcollected <- surveys %>%
+  filter(year == "1998", "1999", "2000") %>%
+  group_by(year, species_id) %>%
+  summarise(n = n())
+```
+
+</div>
+:::
+
+> Notice: How does the original R code compare to the translated SQL syntax?
+
+This tool is very handy for learning SQL, but practitioners recommend learning at least basic SQL syntax when getting into data science. Another reason why? So that you can read, in addition to write, SQL.
+
+## Challenge
+
+### SQL to R
+
+Translate this SQL query into R code. [Click here for a straightforward SQL cheat sheet](https://learnsql.com/blog/sql-basics-cheat-sheet/) and [a dplyr cheat sheet](https://github.com/rstudio/cheatsheets/blob/main/data-transformation.pdf) to help get you started. Remember to unhide the correct translation by clicking the "CODE" button below the SQL syntax section.
+
+**SQL syntax**
+
+SELECT \*
+
+FROM (SELECT `record_id`, `hindfoot_length`
+
+FROM `surveys`)
+
+WHERE (`hindfoot_length` \> 20.0)
+
+**R syntax translated:**
+
+```{r eval = FALSE, class.source = 'fold-hide'}
+surveys %>%
+  select(record_id, hindfoot_length) %>%
+  filter(hindfoot_length > 20)
+```
+
+### R to SQL
+
+Translate this `dplyr` code into an SQL query by filling in the blanks. Remember to unhide the correct translation by clicking the "CODE" button below the SQL syntax section.
+
+**R syntax**
+
+```{r eval = FALSE}
+surveys %>%
+  filter(year > 1977 & year < 2000) %>%
+  filter(hindfoot_length == 30) %>%
+  arrange(desc(species_id))
 
 ```
 
-**Add faded examples (exercises) and check-ins (**multiple choice quick questions)
+**SQL syntax**
 
-Faded examples = fill in the blanks, e.g.: ggplot(data = \_\_\_, mapping = aes(x = \_\_\_, y = \_\_\_))
+SELECT \*
 
-### Next Module
+FROM (SELECT \*
+
+FROM \_\_\_\_
+
+WHERE (`year` \> 1977.0 \_\_\_\_ `year` \< 2000.0))
+
+\_\_\_\_ (`hindfoot_length` = 30.0)
+
+ORDER BY `species_id` \_\_\_\_
+
+**SQL syntax translated:**
+
+```{r class.source = 'fold-hide'}
+# double asterisks around words (e.g. **example**) indicate correct fill-in-the-blank answers.
+
+
+# <SQL>
+# SELECT *
+# FROM (SELECT *
+# FROM **`surveys`**
+# WHERE (`year` > 1977.0 **AND** `year` < 2000.0))
+# **WHERE** (`hindfoot_length` = 30.0)
+# ORDER BY `species_id` **DESC**
+```
+
+# Next steps
+
+Here are some resources to help you continue on your SQL-learning path.
+
+1.  Dive deeper into the [`dbplyr` package](https://dbplyr.tidyverse.org/index.html)'s documentation to learn more about interfacing with SQL databases using R.
+2.  Work through [the Carpentries' "SQL Databases and R" lesson](https://datacarpentry.org/R-ecology-lesson/05-r-and-databases.html). This great lesson instructs learners how to join tables- an exceptionally important skill for any SQL user- among other essential tasks.
+3.  Stretch your skills further with Ethan White and Zachary Brym's excellent ["Integrating R and SQL" assignment](https://rsh249.github.io/semester-biology/assignments/r-sql/).
 
 ```{=html}
 <style>
