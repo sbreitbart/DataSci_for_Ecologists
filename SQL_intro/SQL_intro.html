@@ -443,6 +443,7 @@ class(annual_species_notcollected)</code></pre>
 <p>FROM (SELECT <code>record_id</code>, <code>hindfoot_length</code></p>
 <p>FROM <code>surveys</code>)</p>
 <p>WHERE (<code>hindfoot_length</code> &gt; 20.0)</p>
+<p><br></p>
 <p><strong>R syntax translated:</strong></p>
 <pre class="r fold-hide"><code>surveys %&gt;%
   select(record_id, hindfoot_length) %&gt;%
@@ -456,6 +457,8 @@ class(annual_species_notcollected)</code></pre>
   filter(year &gt; 1977 &amp; year &lt; 2000) %&gt;%
   filter(hindfoot_length == 30) %&gt;%
   arrange(desc(species_id))</code></pre>
+<div style="display: grid; grid-template-columns: 1fr 1fr; grid-column-gap: 10px; ">
+<div>
 <p><strong>SQL syntax</strong></p>
 <p>SELECT *</p>
 <p>FROM (SELECT *</p>
@@ -463,6 +466,18 @@ class(annual_species_notcollected)</code></pre>
 <p>WHERE (<code>year</code> &gt; 1977.0 ____ <code>year</code> &lt; 2000.0))</p>
 <p>____ (<code>hindfoot_length</code> = 30.0)</p>
 <p>ORDER BY <code>species_id</code> ____</p>
+</div>
+<div>
+<blockquote>
+<p>HINT: <em>For a word bank of possible SQL terms, click the “CODE” button directly below ↓</em></p>
+</blockquote>
+<pre class="r fold-hide"><code>AND
+DESC
+`surveys`
+WHERE</code></pre>
+</div>
+</div>
+<p><br></p>
 <p><strong>SQL syntax translated:</strong></p>
 <pre class="r fold-hide"><code># double asterisks around words (e.g. **example**) indicate correct fill-in-the-blank answers.
 
@@ -481,9 +496,9 @@ class(annual_species_notcollected)</code></pre>
 <h1>Next steps</h1>
 <p>Here are some resources to help you continue on your SQL-learning path.</p>
 <ol style="list-style-type: decimal">
-<li>Dive deeper into the <a href="https://dbplyr.tidyverse.org/index.html"><code>dbplyr</code> package</a>’s documentation to learn more about interfacing with SQL databases using R.</li>
-<li>Work through <a href="https://datacarpentry.org/R-ecology-lesson/05-r-and-databases.html">the Carpentries’ “SQL Databases and R” lesson</a>. This great lesson instructs learners how to join tables- an exceptionally important skill for any SQL user- among other essential tasks.</li>
 <li>Stretch your skills further with Ethan White and Zachary Brym’s excellent <a href="https://rsh249.github.io/semester-biology/assignments/r-sql/">“Integrating R and SQL” assignment</a>.</li>
+<li>Work through <a href="https://datacarpentry.org/R-ecology-lesson/05-r-and-databases.html">the Carpentries’ “SQL Databases and R” lesson</a>. This great lesson instructs learners how to join tables- an exceptionally important skill for any SQL user- among other essential tasks.</li>
+<li>Dive deeper into the <a href="https://dbplyr.tidyverse.org/index.html"><code>dbplyr</code> package</a>’s documentation to learn more about interfacing with SQL databases using R.</li>
 </ol>
 <style>
 .btn {
@@ -497,7 +512,7 @@ class(annual_species_notcollected)</code></pre>
 }
 .btn:hover {background: #5DADE2;}
 </style>
-<p><a class="btn" href="https://sbreitbart.github.io/BGSS_Retreat_2021_Workshop/index.html"> Home </a></p>
+<p><a class="btn" href="https://sbreitbart.github.io/SQL_tutorial/"> Home </a></p>
 </div>
 
 

@@ -215,6 +215,8 @@ FROM `surveys`)
 
 WHERE (`hindfoot_length` \> 20.0)
 
+<br>
+
 **R syntax translated:**
 
 ```{r eval = FALSE, class.source = 'fold-hide'}
@@ -237,6 +239,9 @@ surveys %>%
 
 ```
 
+::: {style="display: grid; grid-template-columns: 1fr 1fr; grid-column-gap: 10px; "}
+<div>
+
 **SQL syntax**
 
 SELECT \*
@@ -250,6 +255,24 @@ WHERE (`year` \> 1977.0 \_\_\_\_ `year` \< 2000.0))
 \_\_\_\_ (`hindfoot_length` = 30.0)
 
 ORDER BY `species_id` \_\_\_\_
+
+</div>
+
+<div>
+
+> HINT: *For a word bank of possible SQL terms, click the "CODE" button directly below &darr;*
+
+```{r eval=FALSE, class.source = 'fold-hide'}
+AND
+DESC
+`surveys`
+WHERE
+```
+
+</div>
+:::
+
+<br>
 
 **SQL syntax translated:**
 
@@ -270,9 +293,9 @@ ORDER BY `species_id` \_\_\_\_
 
 Here are some resources to help you continue on your SQL-learning path.
 
-1.  Dive deeper into the [`dbplyr` package](https://dbplyr.tidyverse.org/index.html)'s documentation to learn more about interfacing with SQL databases using R.
+1.  Stretch your skills further with Ethan White and Zachary Brym's excellent ["Integrating R and SQL" assignment](https://rsh249.github.io/semester-biology/assignments/r-sql/).
 2.  Work through [the Carpentries' "SQL Databases and R" lesson](https://datacarpentry.org/R-ecology-lesson/05-r-and-databases.html). This great lesson instructs learners how to join tables- an exceptionally important skill for any SQL user- among other essential tasks.
-3.  Stretch your skills further with Ethan White and Zachary Brym's excellent ["Integrating R and SQL" assignment](https://rsh249.github.io/semester-biology/assignments/r-sql/).
+3.  Dive deeper into the [`dbplyr` package](https://dbplyr.tidyverse.org/index.html)'s documentation to learn more about interfacing with SQL databases using R.
 
 ```{=html}
 <style>
@@ -288,4 +311,4 @@ Here are some resources to help you continue on your SQL-learning path.
 .btn:hover {background: #5DADE2;}
 </style>
 ```
-<a class="btn" href="https://sbreitbart.github.io/SQL_tutorial/index.html"> Home </a>
+<a class="btn" href="https://sbreitbart.github.io/SQL_tutorial/"> Home </a>
