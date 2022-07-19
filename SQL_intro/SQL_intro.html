@@ -479,16 +479,15 @@ WHERE</code></pre>
 </div>
 <p><br></p>
 <p><strong>SQL syntax translated:</strong></p>
-<pre class="r fold-hide"><code># double asterisks around words (e.g. **example**) indicate correct fill-in-the-blank answers.
+<pre class="r fold-hide"><code>Underscrores around words (e.g. __example__) indicate correct fill-in-the-blank answers.
 
 
-# &lt;SQL&gt;
-# SELECT *
-# FROM (SELECT *
-# FROM **`surveys`**
-# WHERE (`year` &gt; 1977.0 **AND** `year` &lt; 2000.0))
-# **WHERE** (`hindfoot_length` = 30.0)
-# ORDER BY `species_id` **DESC**</code></pre>
+SELECT *
+FROM (SELECT *
+FROM __`surveys`__
+WHERE (`year` &gt; 1977.0 __AND__ `year` &lt; 2000.0))
+__WHERE__ (`hindfoot_length` = 30.0)
+ORDER BY `species_id` __DESC__</code></pre>
 </div>
 </div>
 </div>

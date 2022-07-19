@@ -276,17 +276,16 @@ WHERE
 
 **SQL syntax translated:**
 
-```{r class.source = 'fold-hide'}
-# double asterisks around words (e.g. **example**) indicate correct fill-in-the-blank answers.
+```{r eval=FALSE, class.source = 'fold-hide'}
+Underscrores around words (e.g. __example__) indicate correct fill-in-the-blank answers.
 
 
-# <SQL>
-# SELECT *
-# FROM (SELECT *
-# FROM **`surveys`**
-# WHERE (`year` > 1977.0 **AND** `year` < 2000.0))
-# **WHERE** (`hindfoot_length` = 30.0)
-# ORDER BY `species_id` **DESC**
+SELECT *
+FROM (SELECT *
+FROM __`surveys`__
+WHERE (`year` > 1977.0 __AND__ `year` < 2000.0))
+__WHERE__ (`hindfoot_length` = 30.0)
+ORDER BY `species_id` __DESC__
 ```
 
 # Next steps
