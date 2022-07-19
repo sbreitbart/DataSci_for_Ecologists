@@ -11,10 +11,10 @@
 
 
 
-<title>BGSS Fall Retreat 2021 Coding Workshop</title>
+<title>An Ecologist’s Introduction to Transitioning into Data Science</title>
 
-<script src="site_libs/header-attrs-2.10/header-attrs.js"></script>
-<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/sandstone.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
@@ -313,7 +313,7 @@ div.tocify {
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="index.html">BGSS Fall Retreat 2021 Coding Workshop</a>
+      <a class="navbar-brand" href="index.html">ESA/CSEE 2022 Workshop: An Ecologist’s Introduction to Transitioning into Data Science</a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
@@ -321,10 +321,7 @@ div.tocify {
   <a href="index.html">info</a>
 </li>
 <li>
-  <a href="Functions/Functions.html">Functions</a>
-</li>
-<li>
-  <a href="Tips_Tricks/Tips_Tricks.html">Useful Tips &amp; Tricks</a>
+  <a href="SQL_intro/SQL_intro.html">SQL Introduction</a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -338,7 +335,7 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">BGSS Fall Retreat 2021 Coding Workshop</h1>
+<h1 class="title toc-ignore">An Ecologist’s Introduction to Transitioning into Data Science</h1>
 
 </div>
 
@@ -347,65 +344,33 @@ div.tocify {
 <h2>Instructors</h2>
 <ul>
 <li><a href="http://www.filazzola.info">Alessandro Filazzola</a></li>
-<li><a href="https://sophiebreitbart.wordpress.com/">Sophie Breitbart</a></li>
+<li><a href="https://sbreitbart.github.io/">Sophie Breitbart</a></li>
 </ul>
+<p><a class="btn btn-info" href="https://easyretro.io/publicboard/gEdRrWVYh9ZQztnmdn94aX87HO83/43aac0ef-9bd6-4721-a8ae-5b31b1063993"> Offer Feedback </a> ← It’s quick &amp; simple, we promise!</p>
 </div>
 <div id="general-information" class="section level2">
 <h2>General Information</h2>
-<p>The first few years of grad school are a whirlwind, let alone the initial months! Coding is a skill that’s increasingly important for most graduate students in ecology &amp; evolutionary biology, yet without formal instruction (who has time for that?), many of us end up learning enough to get by with an ad hoc approach (hello, stackoverflow). <strong>Winging it is good for some situations, but sometimes it’s worth it to learn skills that will increase your long-term efficiency and reproducibility</strong> (and, oftentimes, short-term too!) Example A: copying/pasting chunks of code might seem faster, but over time, this practice can make you vulnerable to errors, long analysis times, and difficulty sharing your code with others.</p>
-<p><strong>The purpose of today’s workshop is to give you the skills to write your own functions so that you can streamline your data analysis workflow.</strong> We will also describe some tools that we believe are well-worth getting to know, especially for those who are still in the early stages of coding.</p>
+<p><strong>Ecological researchers have skills that are highly transferable.</strong> For instance, ecologists are frequently tasked with</p>
+<p>-Understanding how to deal with the noisy and complex data</p>
+<p>-Ecologists are also skillful in data management, complex analytics, and diverse methods to extract actionable insights and answer scientific research questions.</p>
+<p><strong>All of these skills are also essential for data science.</strong></p>
+<p>For individuals looking for a career outside of academia, data science can satisfy an interest in answering complex, interesting research objectives such as understanding consumer insights, detecting fraud, ensuring cyber security, or designing video games. There are also opportunities for potential gains in work-life balance and compensation. However, <em>translating an ecologist’s experiences into relevant skills for a data science position requires some understanding of both disciplines.</em></p>
+<p><strong>In this workshop, we use our experiences as data science-curious ecologists (who are presently in or have recently left academia) to discuss important considerations for those contemplating a career shift from academic ecology to industrial data science.</strong> We will discuss ways in which programming languages and key tools are shared between disciplines as well as skills that are relatively industry-specific. This workshop will also include <strong>interactive activities</strong> such as a short introduction to SQL and a <strong>Q&amp;A</strong> with former ecologists who are now in data science.</p>
 <p>This workshop will involve a combination of lecture and hands-on activities. A basic understanding of R is recommended because it will make the content more relevant and understandable, but even novices can listen and learn about the general concepts behind functions. Participants should use a computer with R already install using Mac, Linux, or Windows operating system (not a tablet, Chromebook, etc.).</p>
-<p><strong>Who</strong>: The course is aimed at new and intermediate learners of R.</p>
-<p><strong>When</strong>: November 23, 2021 @ 9:00-10:30 am EDT</p>
-<p><strong>Where</strong>: Virtual. <a href="https://utoronto.zoom.us/j/86435491946">https://utoronto.zoom.us/j/86435491946</a></p>
-<p>Meeting ID: 864 3549 1946 Passcode: 656624</p>
-<p><strong>Requirements</strong>: Participants should use a laptop with a Mac, Linux, or Windows operating system (not a tablet, Chromebook, etc.) with administrative privileges. Ideally, two screens would be beneficial to see the video and your workstation at the same time. However, participation is not necessary and you can simply follow along as we demonstrate.</p>
-<p><strong>Contact</strong>: Please contact <a href="mailto:sophie.breitbart@mail.utoronto.ca" class="email">sophie.breitbart@mail.utoronto.ca</a> for more information.</p>
-<p><strong>Notes</strong>: <a href="https://etherpad.wikimedia.org/p/BGSSRetreat2021_CodingWorkshop">Live Notepad</a></p>
-</div>
-<div id="schedule" class="section level2">
-<h2>Schedule</h2>
-<p>(time in EDT)</p>
-<table>
-<thead>
-<tr class="header">
-<th>Time</th>
-<th>Goal</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>9:00</td>
-<td>Introduction and set-up</td>
-</tr>
-<tr class="even">
-<td>9:10</td>
-<td><a href="Functions/Functions.html">Functions</a></td>
-</tr>
-<tr class="odd">
-<td>9:45</td>
-<td>Break &amp; Practice</td>
-</tr>
-<tr class="even">
-<td>10:00</td>
-<td><a href="Tips_Tricks/Tips_Tricks.html">Tips &amp; Tricks</a></td>
-</tr>
-<tr class="odd">
-<td>10:25</td>
-<td>Wrap up</td>
-</tr>
-</tbody>
-</table>
-<p><strong>Past events</strong>: We have previously run a similar workshop at <a href="https://www.sortee.org/events/">SORTEE 2021</a> and <a href="https://csee-scee2021.ca/">CSEE 2021</a>.</p>
+<p><strong>Who</strong>: The course is aimed at academic ecologists and evolutionary biologists who are curious about non-tenure track careers that incorporate aspects of data science in their everyday roles.</p>
+<p><strong>When</strong>: Tuesday, August 16 @ 11:45am-1:15pm EDT</p>
+<p><strong>Where</strong>: TBD</p>
+<p><strong>Requirements</strong>: Participants should use a laptop with a Mac, Linux, or Windows operating system (not a tablet, Chromebook, etc.) with administrative privileges. However, participation is not necessary and you can simply follow along as we demonstrate.</p>
+<p><strong>Contact</strong>: Please contact <a href="mailto:sophie.breitbart@mail.utoronto.ca">sophie.breitbart@mail.utoronto.ca</a> for more information.</p>
 </div>
 <div id="software" class="section level2">
 <h2>Software</h2>
 <p><a href="http://www.r-project.org/">R</a> is a programming language that is especially powerful for data exploration, visualization, and statistical analysis. To interact with R, we use <a href="http://www.rstudio.com/">RStudio</a>.</p>
 <table>
 <colgroup>
-<col width="33%" />
-<col width="33%" />
-<col width="33%" />
+<col width="36%" />
+<col width="35%" />
+<col width="28%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -423,15 +388,20 @@ div.tocify {
 </tbody>
 </table>
 <p><strong>Packages we will be using:</strong> We recommend you install these ahead of time and ensure they load correctly to reduce troubleshooting in the workshop.</p>
-<pre class="r"><code>install.packages(c(&quot;here&quot;, &quot;magrittr&quot;, &quot;performance&quot;, &quot;patchwork&quot;, &quot;ggplot2&quot;, &quot;dplyr&quot;, &quot;tidyr&quot;, &quot;remotes&quot;, &quot;see&quot;), dependencies = TRUE)
-remotes::install_github(&quot;luisDVA/annotater&quot;)</code></pre>
-<p><strong>We also encourage you to make a new R project for this workshop if you plan on coding along with us!</strong> Read this short <a href="https://swcarpentry.github.io/r-novice-gapminder/02-project-intro">introduction to R projects</a>, courtesy of The Carpentries, and create an R project for this workshop by following a few simple steps <a href="https://swcarpentry.github.io/r-novice-gapminder/02-project-intro/#challenge-1-creating-a-self-contained-project">under the “Challenge 1: Creating a self-contained project” section</a>.</p>
+<p><code>install.packages(c("dplyr", "dbplyr", "RSQLite", "magrittr"))</code></p>
+</div>
+<div id="diversity-statement" class="section level2">
+<h2>Diversity Statement</h2>
+<p>Improving the accessibility and retention of enjoyable, well-paying jobs for underrepresented and historically excluded communities has continuously been a core theme in support of EDI. Unfortunately, many ecologists from nearly all educational levels struggle to obtain permanent, full-time positions at a salary that is suitable to their qualifications. As a result, the typical job instability and low wages that ecologists must endure are substantial barriers to the goal of improving inclusivity of diverse individuals in ecology because of the potential financial hardship for those without privileged socio-economic standing. Data science has emerged as a potential alternative career for ecologists intent on continuing their roles as skilled researchers but who might prioritize factors like job stability, salary accordant with experience, and work/life balance, which are notoriously difficult to obtain in academic ecology. Data science is also an intrinsically interdisciplinary field which necessitates the confluence of diverse perspectives and sources of knowledge— a tenet which underlies ESA’s Diversity Statement.</p>
+<p>We are striving to create a positive, inclusive environment that encourages our participants to see new potential career opportunities in data science. We aim to empower our participants and help them navigate the job market by introducing them to resources that are instrumental for transitioning into this field. In this way, we are taking steps towards introducing our participants to opportunities they may not be aware of but can offer significant economic and personal advantages. We will administer this workshop with the understanding that there is structural inequity in both academic ecology and data science; indeed, despite the numerous benefits of the latter, the field possesses a distinct lack of diversity in technical and leadership roles. Specifically, individuals identifying as people of color and women are significantly underrepresented in technical roles and even more so in leadership roles.</p>
+<p>Our list of organizers and contributors represents individuals from a range of career stages including graduate students, post-docs, and corporate careers. We also have individuals from underrepresented communities in ecology, evolution, and data science. All the workshop presenters are committed to improving EDI and increasing job accessibility for anyone interested in becoming a data scientist.</p>
 </div>
 <div id="other-workshops" class="section level2">
 <h2>Other workshops</h2>
 <p>If you enjoyed this workshop and were interested in learning more, we have also run workshops on</p>
 <ul>
 <li><a href="https://github.com/afilazzola/FastR">How to improve the reproducibility and efficiency of your coding for ecology and evolution (FastR)</a></li>
+<li><a href="https://sbreitbart.github.io/BGSS_Retreat_2021_Workshop/">Writing R functions</a></li>
 </ul>
 <p>Additionally, Alex has run these workshops:</p>
 <ul>
@@ -444,21 +414,6 @@ remotes::install_github(&quot;luisDVA/annotater&quot;)</code></pre>
 </div>
 <div id="thank-you" class="section level2">
 <h2>Thank You!</h2>
-<p><br></p>
-<table>
-<thead>
-<tr class="header">
-<th align="center">Center for Urban Environments</th>
-<th align="center">University of Toronto</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="center"><img src="images/CUElogo.png" /></td>
-<td align="center"><img src="images/UoT.png" /></td>
-</tr>
-</tbody>
-</table>
 </div>
 
 <p>Copyright &copy; Alessandro Filazzola and Sophie Breitbart 2021 </p>

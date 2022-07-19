@@ -23,25 +23,16 @@ For individuals looking for a career outside of academia, data science can satis
 
 This workshop will involve a combination of lecture and hands-on activities. A basic understanding of R is recommended because it will make the content more relevant and understandable, but even novices can listen and learn about the general concepts behind functions. Participants should use a computer with R already install using Mac, Linux, or Windows operating system (not a tablet, Chromebook, etc.).
 
-**Who**: The course is aimed at...
+**Who**: The course is aimed at academic ecologists and evolutionary biologists who are curious about non-tenure track careers that incorporate aspects of data science in their everyday roles.
 
-**When**: DATE \@ TIME
+**When**: Tuesday, August 16 \@ 11:45am-1:15pm EDT
 
-**Where**: \@ ROOM
+**Where**: TBD
 
 **Requirements**: Participants should use a laptop with a Mac, Linux, or Windows operating system (not a tablet, Chromebook, etc.) with administrative privileges. However, participation is not necessary and you can simply follow along as we demonstrate.
 
 **Contact**: Please contact [sophie.breitbart\@mail.utoronto.ca](mailto:sophie.breitbart@mail.utoronto.ca) for more information.
 
-## Schedule
-
-(time in EDT)
-
-| Time  | Goal                                               |
-|-------|----------------------------------------------------|
-| 9:00  | Introduction and set-up                            |
-| 9:10  | [Introduction to SQL](SQL_tutorial/SQL_intro.html) |
-| 10:25 | Wrap up                                            |
 
 ## Software
 
@@ -63,11 +54,12 @@ We are striving to create a positive, inclusive environment that encourages our 
 
 Our list of organizers and contributors represents individuals from a range of career stages including graduate students, post-docs, and corporate careers. We also have individuals from underrepresented communities in ecology, evolution, and data science. All the workshop presenters are committed to improving EDI and increasing job accessibility for anyone interested in becoming a data scientist.
 
-## Other workshops: EDIT THIS SECTION/UPDATE
+## Other workshops
 
 If you enjoyed this workshop and were interested in learning more, we have also run workshops on
 
 -   [How to improve the reproducibility and efficiency of your coding for ecology and evolution (FastR)](https://github.com/afilazzola/FastR)
+-   [Writing R functions](https://sbreitbart.github.io/BGSS_Retreat_2021_Workshop/)
 
 Additionally, Alex has run these workshops:
 

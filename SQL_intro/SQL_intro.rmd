@@ -288,4 +288,4 @@ Here are some resources to help you continue on your SQL-learning path.
 .btn:hover {background: #5DADE2;}
 </style>
 ```
-<a class="btn" href="https://sbreitbart.github.io/BGSS_Retreat_2021_Workshop/index.html"> Home </a>
+<a class="btn" href="https://sbreitbart.github.io/SQL_tutorial/index.html"> Home </a>
