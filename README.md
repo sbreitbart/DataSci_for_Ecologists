@@ -27,7 +27,7 @@ This workshop will involve a combination of lecture and hands-on activities. A b
 
 **When**: Tuesday, August 16 \@ 11:45am-1:15pm EDT
 
-**Where**: TBD
+**Where**: Room 513D
 
 **Requirements**: Participants should use a laptop with a Mac, Linux, or Windows operating system (not a tablet, Chromebook, etc.) with administrative privileges. However, participation is not necessary and you can simply follow along as we demonstrate.
 
