@@ -57,6 +57,13 @@ We are striving to create a positive, inclusive environment that encourages our 
 
 Our list of organizers and contributors represents individuals from a range of career stages including graduate students, post-docs, and corporate careers. We also have individuals from underrepresented communities in ecology, evolution, and data science. All the workshop presenters are committed to improving EDI and increasing job accessibility for anyone interested in becoming a data scientist.
 
+## Interviews with biologists --> data scientists
+
+- [Highlight video](https://youtu.be/T1ET1NDiE3Y) shown at workshop
+- Full-length interview with [Monica Granados](https://youtu.be/J-EKUK2gvnI)
+- Full-length interview with [Jude Kong](https://youtu.be/ahD-MnFq9iA)
+- Full-length interview with [Thomas Van Zuiden](https://youtu.be/pWz4zCGwZnM)
+
 ## Other workshops
 
 If you enjoyed this workshop and were interested in learning more, we have also run workshops on
