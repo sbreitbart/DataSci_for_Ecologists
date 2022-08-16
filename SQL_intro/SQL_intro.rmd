@@ -72,7 +72,7 @@ library("magrittr")
 
 ### Connect to database
 
-First, create a new folder in your home directory called "data_raw". Then, download the SQLite database. Finally, connect with the database and name it "mammals". *Remember that we are not downloading the data; instead, we are downloading a link to the SQLite database (*`portal_mammals.sqlite`*) and instructing R how to access it remotely.*
+First, create a new folder in your home directory called "data_raw". Then, download the SQLite database. Finally, connect with the database and name it "mammals".
 
 ```{r}
 # create raw data folder
