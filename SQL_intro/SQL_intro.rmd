@@ -310,4 +310,4 @@ Here are some resources to help you continue on your SQL-learning path.
 .btn:hover {background: #5DADE2;}
 </style>
 ```
-<a class="btn" href="https://sbreitbart.github.io/SQL_tutorial/"> Home </a>
+<a class="btn" href="https://sbreitbart.github.io/DataSci_for_Ecologists/"> Home </a>
