@@ -64,6 +64,17 @@ Our list of organizers and contributors represents individuals from a range of c
 - Full-length interview with [Jude Kong](https://youtu.be/ahD-MnFq9iA)
 - Full-length interview with [Thomas Van Zuiden](https://youtu.be/pWz4zCGwZnM)
 
+## Ecology/data science job boards
+
+After our workshop, several participants asked us where to look for jobs suited for ecologists with data science skills. To our knowledge, there is no go-to resource for these types of positions. Instead, here are some sites that would be worth browsing regularly:
+
+- [Academic Data Science Alliance](https://academicdatascience.org/jobs)
+- [Zip Recruiter](https://www.ziprecruiter.com/Jobs/Ecology-Data-Science)
+- [Women in Machine Learning & Data Science](http://wimlds.org/jobs/)
+- [R-users](https://www.r-users.com/)
+- [Indeed](https://www.indeed.com/jobs?q=Data+Science+ecology&l=&vjk=3b4800de970c28e7)
+- [Texas A&M Natural Resources Job Board](https://wfscjobs.tamu.edu/?s=%22data+scien%22&post_type=job_posting)
+
 ## Other workshops
 
 If you enjoyed this workshop and were interested in learning more, we have also run workshops on
