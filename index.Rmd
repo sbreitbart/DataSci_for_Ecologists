@@ -8,7 +8,11 @@ title: "An Ecologist’s Introduction to Transitioning into Data Science"
 - [Alessandro Filazzola](http://www.filazzola.info) 
 - [Sophie Breitbart](https://sbreitbart.github.io/)
 
-<a class="btn btn-info" href="https://easyretro.io/publicboard/gEdRrWVYh9ZQztnmdn94aX87HO83/43aac0ef-9bd6-4721-a8ae-5b31b1063993"> Offer Feedback </a> &larr; It's quick & simple, we promise!
+<!-- ESA/CSEE link -->
+<!-- <a class="btn btn-info" href="https://easyretro.io/publicboard/gEdRrWVYh9ZQztnmdn94aX87HO83/43aac0ef-9bd6-4721-a8ae-5b31b1063993"> Offer Feedback </a> &larr; It's quick & simple, we promise! -->
+
+<!-- SORTEE link -->
+<a class="btn btn-info" href="https://easyretro.io/publicboard/gEdRrWVYh9ZQztnmdn94aX87HO83/0c348100-c4bb-47fe-aa1b-921280201759"> Offer Feedback </a> &larr; It's quick & simple, we promise!
 
 ## General Information
 
@@ -28,9 +32,13 @@ This workshop will involve a combination of lecture and hands-on activities. A b
 
 **Who**: The course is aimed at academic ecologists and evolutionary biologists who are curious about non-tenure track careers that incorporate aspects of data science in their everyday roles.
 
-**When**: Tuesday, August 16 \@ 11:45am-1:15pm EDT
+<!-- **When**: Tuesday, August 16 \@ 11:45am-1:15pm EDT -->
 
-**Where**: Room 513D
+<!-- **Where**: Room 513D -->
+
+**When**: Wednesday, November 2 \@ 1-3pm EDT
+
+**Where**: Virtually. [Sign up here](https://www.eventbrite.com/e/an-ecologists-introduction-to-transitioning-into-data-science-tickets-444256161137)
 
 **Requirements**: Participants should use a laptop with a Mac, Linux, or Windows operating system (not a tablet, Chromebook, etc.) with administrative privileges. However, participation is not necessary and you can simply follow along as we demonstrate.
 

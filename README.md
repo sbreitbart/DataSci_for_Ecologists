@@ -1,6 +1,8 @@
 # An Ecologist's Introduction to Transitioning into Data Science
 
-### ESA/CSEE 2022 Workshop
+### Workshop presented at
+- ESA/CSEE 2022
+- SORTEE's 2022 webinar series
 
 ## Instructors
 
@@ -25,9 +27,9 @@ This workshop will involve a combination of lecture and hands-on activities. A b
 
 **Who**: The course is aimed at academic ecologists and evolutionary biologists who are curious about non-tenure track careers that incorporate aspects of data science in their everyday roles.
 
-**When**: Tuesday, August 16 \@ 11:45am-1:15pm EDT
+**When**: Wednesday, November 2 \@ 1-3pm EDT
 
-**Where**: Room 513D
+**Where**: Virtually. [Sign up here](https://www.eventbrite.com/e/an-ecologists-introduction-to-transitioning-into-data-science-tickets-444256161137)
 
 **Requirements**: Participants should use a laptop with a Mac, Linux, or Windows operating system (not a tablet, Chromebook, etc.) with administrative privileges. However, participation is not necessary and you can simply follow along as we demonstrate.
 
