@@ -27,7 +27,7 @@ This workshop will involve a combination of lecture and hands-on activities. A b
 
 **Who**: The course is aimed at academic ecologists and evolutionary biologists who are curious about non-tenure track careers that incorporate aspects of data science in their everyday roles.
 
-**When**: Wednesday, November 2 \@ 1-3pm EDT
+**When**: Wednesday, November 2 \@ 10am-12pm EDT
 
 **Where**: Virtually. [Sign up here](https://www.eventbrite.com/e/an-ecologists-introduction-to-transitioning-into-data-science-tickets-444256161137)
 

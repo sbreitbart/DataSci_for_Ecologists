@@ -36,7 +36,7 @@ This workshop will involve a combination of lecture and hands-on activities. A b
 
 <!-- **Where**: Room 513D -->
 
-**When**: Wednesday, November 2 \@ 1-3pm EDT
+**When**: Wednesday, November 2 \@ 10am-12pm EDT
 
 **Where**: Virtually. [Sign up here](https://www.eventbrite.com/e/an-ecologists-introduction-to-transitioning-into-data-science-tickets-444256161137)
 
