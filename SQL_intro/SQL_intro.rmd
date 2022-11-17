@@ -141,7 +141,9 @@ Example: ask R to save a subset of the surveys table that 1) includes data from 
 
 ```{r}
 annual_species <- surveys %>%
-  filter(year == "1998", "1999", "2000") %>%
+  filter(year == "1998" |
+           year == "1999" |
+           year == "2000") %>%
   group_by(year, species_id) %>%
   summarise(n = n()) %>%
   collect() # <-  don't forget this command!
@@ -153,7 +155,9 @@ Notice the change in data structure if we do not include the `collect()` command
 
 ```{r}
 annual_species_notcollected <- surveys %>%
-  filter(year == "1998", "1999", "2000") %>%
+  filter(year == "1998" |
+           year == "1999" |
+           year == "2000") %>%
   group_by(year, species_id) %>%
   summarise(n = n())
 

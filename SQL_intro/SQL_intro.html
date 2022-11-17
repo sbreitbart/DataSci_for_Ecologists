@@ -385,7 +385,9 @@ print(surveys)</code></pre>
 <p>Specifically, we need to add one more line of code to tell our <strong>lazy bones of an R interface to finish the command.</strong></p>
 <p>Example: ask R to save a subset of the surveys table that 1) includes data from 1998-2000 and 2) counts up the number of species seen per year.</p>
 <pre class="r"><code>annual_species &lt;- surveys %&gt;%
-  filter(year == &quot;1998&quot;, &quot;1999&quot;, &quot;2000&quot;) %&gt;%
+  filter(year == &quot;1998&quot; |
+           year == &quot;1999&quot; |
+           year == &quot;2000&quot;) %&gt;%
   group_by(year, species_id) %&gt;%
   summarise(n = n()) %&gt;%
   collect() # &lt;-  don&#39;t forget this command!</code></pre>
@@ -394,7 +396,9 @@ print(surveys)</code></pre>
 <p>Specifically, the <code>collect()</code> command is essential for telling R that we’re done creating a query and are ready to implement it.</p>
 <p>Notice the change in data structure if we do not include the <code>collect()</code> command:</p>
 <pre class="r"><code>annual_species_notcollected &lt;- surveys %&gt;%
-  filter(year == &quot;1998&quot;, &quot;1999&quot;, &quot;2000&quot;) %&gt;%
+  filter(year == &quot;1998&quot; |
+           year == &quot;1999&quot; |
+           year == &quot;2000&quot;) %&gt;%
   group_by(year, species_id) %&gt;%
   summarise(n = n())
 
@@ -420,7 +424,7 @@ class(annual_species_notcollected)</code></pre>
 <pre><code>## &lt;SQL&gt;
 ## SELECT `year`, `species_id`, COUNT(*) AS `n`
 ## FROM `surveys`
-## WHERE (`year` = &#39;1998&#39;) AND (&#39;1999&#39;) AND (&#39;2000&#39;)
+## WHERE (`year` = &#39;1998&#39; OR `year` = &#39;1999&#39; OR `year` = &#39;2000&#39;)
 ## GROUP BY `year`, `species_id`</code></pre>
 </div>
 <div>
